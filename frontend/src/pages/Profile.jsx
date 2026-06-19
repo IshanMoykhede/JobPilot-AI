@@ -29,6 +29,10 @@ function Profile() {
   // Section Edit State (for Existing Profile Mode)
   const [editingSection, setEditingSection] = useState(null); // 'personal' | 'skills' | 'experience' | 'preferences'
 
+  // AI Insights State
+  const [insights, setInsights] = useState(null);
+  const [loadingInsights, setLoadingInsights] = useState(false);
+
   // Profile Context Data Schema
   const [profileData, setProfileData] = useState({
     resume_data: {
@@ -91,6 +95,61 @@ function Profile() {
 
     loadProfile();
   }, [token]);
+
+  const fetchInsights = async () => {
+    if (!token) return;
+    setLoadingInsights(true);
+    try {
+      const res = await fetch('http://localhost:8000/profile/insights', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setInsights(data);
+      } else {
+        console.error("Failed to fetch insights");
+      }
+    } catch (err) {
+      console.error("Error fetching insights:", err);
+    } finally {
+      setLoadingInsights(false);
+    }
+  };
+
+  const generateInsights = async () => {
+    if (!token) return;
+    setLoadingInsights(true);
+    try {
+      const res = await fetch('http://localhost:8000/profile/insights/generate', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setInsights(data);
+        triggerToast("AI career insights updated!");
+      } else {
+        const errData = await res.json();
+        console.error("Failed to generate insights:", errData);
+        triggerToast(errData.detail || "Failed to generate insights.");
+      }
+    } catch (err) {
+      console.error("Error generating insights:", err);
+      triggerToast("Error connecting to server to generate insights.");
+    } finally {
+      setLoadingInsights(false);
+    }
+  };
+
+  useEffect(() => {
+    if (profileExists) {
+      fetchInsights();
+    }
+  }, [profileExists, token]);
 
   // Calculate dynamic Profile Strength percentage
   const calculateStrength = () => {
@@ -425,16 +484,51 @@ function Profile() {
   };
 
   // Save changes in settings view mode
-  const handleSaveProfileChanges = () => {
+  const handleSaveProfileChanges = async () => {
+    const cleanExperience = (profileData.resume_data.experience || []).map(({ id, ...rest }) => rest);
+    const cleanEducation = (profileData.resume_data.education || []).map(({ id, ...rest }) => rest);
+    const cleanProjects = (profileData.resume_data.projects || []).map(({ id, ...rest }) => rest);
+    const cleanCertifications = (profileData.resume_data.certifications || []).map(({ id, ...rest }) => rest);
+
     const payload = {
-      resume_data: profileData.resume_data,
+      resume_data: {
+        ...profileData.resume_data,
+        experience: cleanExperience,
+        education: cleanEducation,
+        projects: cleanProjects,
+        certifications: cleanCertifications
+      },
       preferences: profileData.preferences,
       resume_metadata: profileData.resume_metadata
     };
 
-    localStorage.setItem("jobpilot_candidate_profile", JSON.stringify(payload));
-    setEditingSection(null);
-    triggerToast("Profile section updated successfully!");
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:8000/profile/complete-onboarding", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to update profile on backend");
+      }
+
+      localStorage.setItem("jobpilot_candidate_profile", JSON.stringify(payload));
+      setEditingSection(null);
+      triggerToast("Profile section updated successfully!");
+      fetchInsights();
+    } catch (err) {
+      console.error("Failed to save profile changes:", err);
+      localStorage.setItem("jobpilot_candidate_profile", JSON.stringify(payload));
+      setEditingSection(null);
+      triggerToast("Failed to save changes on backend. Stored locally.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -520,6 +614,10 @@ function Profile() {
               triggerToast={triggerToast}
               setProfileExists={setProfileExists}
               setActiveStep={setActiveStep}
+              insights={insights}
+              loadingInsights={loadingInsights}
+              refetchInsights={fetchInsights}
+              generateInsights={generateInsights}
             />
           </>
         )}

@@ -12,6 +12,9 @@ class InsightStatus(str, enum.Enum):
     FAILED = "FAILED"
     STALE = "STALE"
 
+class ArtifactType(str, enum.Enum):
+    CANDIDATE_KNOWLEDGE = "CANDIDATE_KNOWLEDGE"
+
 class CandidateInsights(Base):
     __tablename__ = "candidate_insights"
 
@@ -23,8 +26,9 @@ class CandidateInsights(Base):
         index=True
     )
     
-    insights_json = Column(JSONB, nullable=True)
-    graph_version = Column(String, nullable=True)
+    artifact_type = Column(Enum(ArtifactType), nullable=False, index=True)
+    artifact_json = Column(JSONB, nullable=True)
+    engine_version = Column(String, nullable=True)
     status = Column(Enum(InsightStatus), default=InsightStatus.PENDING, nullable=False, index=True)
     
     generated_at = Column(DateTime(timezone=True), nullable=True)

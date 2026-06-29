@@ -28,3 +28,11 @@ class CurrentUserResponse(BaseModel):
                 "email": "jane.doe@example.com"
             }
         }
+
+class ForgotPasswordRequest(BaseModel):
+    email: str = Field(..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+
+class ResetPasswordRequest(BaseModel):
+    email: str = Field(..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+    otp: str = Field(..., min_length=6, max_length=6)
+    new_password: str

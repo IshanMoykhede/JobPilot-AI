@@ -326,58 +326,58 @@ export default function OnboardingWizard({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       {/* Stepper Card */}
-      <div className="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-6 shadow-sm">
+      <div className="jp-card p-6">
         <div className="flex justify-between items-center max-w-xl mx-auto">
           {/* Step 1 */}
           <div className="flex flex-col items-center gap-2 relative z-10">
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                 activeStep === 1
-                  ? "bg-primary text-on-primary ring-4 ring-primary/20"
+                  ? "bg-jp-accent text-white ring-4 ring-jp-accent/20"
                   : activeStep > 1
-                  ? "bg-primary text-on-primary"
-                  : "bg-surface-container text-outline"
+                  ? "bg-jp-accent text-white"
+                  : "bg-jp-bg-surface text-jp-text-muted border border-jp-border"
               }`}
             >
               {activeStep > 1 ? <Icon name="check" /> : <span className="font-bold">1</span>}
             </div>
-            <span className={`text-[12px] font-bold ${activeStep === 1 ? "text-primary" : "text-outline"}`}>Resume Upload</span>
+            <span className={`text-[12px] font-bold ${activeStep === 1 ? "text-jp-accent" : "text-jp-text-muted"}`}>Resume Upload</span>
           </div>
 
-          <div className={`flex-1 h-[2px] mx-2 -mt-6 transition-colors ${activeStep >= 2 ? "bg-primary" : "bg-outline-variant/30"}`} />
+          <div className={`flex-1 h-[2px] mx-2 -mt-6 transition-colors ${activeStep >= 2 ? "bg-jp-accent" : "bg-jp-border-subtle"}`} />
 
           {/* Step 2 */}
           <div className="flex flex-col items-center gap-2 relative z-10">
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                 activeStep === 2
-                  ? "bg-primary text-on-primary ring-4 ring-primary/20"
+                  ? "bg-jp-accent text-white ring-4 ring-jp-accent/20"
                   : activeStep > 2
-                  ? "bg-primary text-on-primary"
-                  : "bg-surface-container text-outline"
+                  ? "bg-jp-accent text-white"
+                  : "bg-jp-bg-surface text-jp-text-muted border border-jp-border"
               }`}
             >
               {activeStep > 2 ? <Icon name="check" /> : <span className="font-bold">2</span>}
             </div>
-            <span className={`text-[12px] font-bold ${activeStep === 2 ? "text-primary" : "text-outline"}`}>AI Verification</span>
+            <span className={`text-[12px] font-bold ${activeStep === 2 ? "text-jp-accent" : "text-jp-text-muted"}`}>AI Verification</span>
           </div>
 
-          <div className={`flex-1 h-[2px] mx-2 -mt-6 transition-colors ${activeStep >= 3 ? "bg-primary" : "bg-outline-variant/30"}`} />
+          <div className={`flex-1 h-[2px] mx-2 -mt-6 transition-colors ${activeStep >= 3 ? "bg-jp-accent" : "bg-jp-border-subtle"}`} />
 
           {/* Step 3 */}
           <div className="flex flex-col items-center gap-2 relative z-10">
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                 activeStep === 3
-                  ? "bg-primary text-on-primary ring-4 ring-primary/20"
-                  : "bg-surface-container text-outline"
+                  ? "bg-jp-accent text-white ring-4 ring-jp-accent/20"
+                  : "bg-jp-bg-surface text-jp-text-muted border border-jp-border"
               }`}
             >
               <span className="font-bold">3</span>
             </div>
-            <span className={`text-[12px] font-bold ${activeStep === 3 ? "text-primary" : "text-outline"}`}>Preferences</span>
+            <span className={`text-[12px] font-bold ${activeStep === 3 ? "text-jp-accent" : "text-jp-text-muted"}`}>Preferences</span>
           </div>
         </div>
       </div>
@@ -386,24 +386,24 @@ export default function OnboardingWizard({
       {activeStep === 1 && (
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <h2 className="text-[32px] font-semibold text-on-surface tracking-tight">Create Candidate Context</h2>
-            <p className="text-on-surface-variant max-w-xl mx-auto">
+            <h2 className="text-[32px] font-semibold text-jp-text-primary tracking-tight">Create Candidate Context</h2>
+            <p className="text-jp-text-secondary max-w-xl mx-auto">
               Upload your resume to extract details instantly. Our AI parses work milestones, projects, and skills to tailor your dashboard context.
             </p>
           </div>
 
           {isUploading ? (
-            <div className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-12 text-center space-y-6 max-w-lg mx-auto shadow-lg">
+            <div className="jp-card p-12 text-center space-y-6 max-w-lg mx-auto shadow-lg">
               <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-                <Icon name="cloud_upload" className="text-[64px] text-primary animate-pulse" />
-                <div className="absolute inset-0 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                <Icon name="cloud_upload" className="text-[64px] text-jp-accent animate-pulse" />
+                <div className="absolute inset-0 rounded-full border-4 border-jp-accent/20 border-t-jp-accent animate-spin" />
               </div>
               <div className="space-y-2">
-                <h4 className="text-[18px] font-bold">Uploading & Parsing...</h4>
-                <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                  <div className="bg-primary h-full transition-all duration-300 rounded-full" style={{ width: `${uploadProgress}%` }} />
+                <h4 className="text-[18px] font-bold text-jp-text-primary">Uploading & Parsing...</h4>
+                <div className="w-full bg-jp-bg-inset h-2 rounded-full overflow-hidden">
+                  <div className="bg-jp-accent h-full transition-all duration-300 rounded-full" style={{ width: `${uploadProgress}%` }} />
                 </div>
-                <div className="flex justify-between items-center text-[12px] text-outline font-semibold">
+                <div className="flex justify-between items-center text-[12px] text-jp-text-muted font-semibold">
                   <span>{uploadingStepText}</span>
                   <span>{uploadProgress}%</span>
                 </div>
@@ -416,7 +416,7 @@ export default function OnboardingWizard({
                 e.preventDefault();
                 if (e.dataTransfer.files.length > 0) handleResumeUpload(e.dataTransfer.files[0]);
               }}
-              className="border-2 border-dashed border-outline-variant hover:border-primary bg-surface-container-lowest hover:bg-primary/5 cursor-pointer rounded-2xl p-16 text-center transition-all group max-w-xl mx-auto relative shadow-sm"
+              className="border-2 border-dashed border-jp-border hover:border-jp-accent bg-jp-bg-surface hover:bg-jp-bg-inset cursor-pointer rounded-2xl p-16 text-center transition-all group max-w-xl mx-auto relative"
             >
               <input
                 type="file"
@@ -428,13 +428,13 @@ export default function OnboardingWizard({
                 }}
               />
               <label htmlFor="resumeFile" className="cursor-pointer space-y-6 block">
-                <div className="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-inner">
-                  <Icon name="cloud_upload" className="text-[40px] text-primary" />
+                <div className="w-20 h-20 bg-jp-bg-inset border border-jp-border rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                  <Icon name="cloud_upload" className="text-[40px] text-jp-accent" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-[20px] font-bold text-on-surface">Drag & drop your resume here</h3>
-                  <p className="text-on-surface-variant text-[14px]">or <span className="text-primary font-bold hover:underline">browse files</span> from your computer</p>
-                  <p className="text-[12px] text-outline">Supports PDF and DOCX formats up to 10MB</p>
+                  <h3 className="text-[20px] font-bold text-jp-text-primary">Drag & drop your resume here</h3>
+                  <p className="text-jp-text-secondary text-[14px]">or <span className="text-jp-accent font-medium hover:underline">browse files</span> from your computer</p>
+                  <p className="text-[12px] text-jp-text-muted">Supports PDF and DOCX formats up to 10MB</p>
                 </div>
               </label>
             </div>
@@ -446,7 +446,7 @@ export default function OnboardingWizard({
                 setActiveStep(2);
                 triggerToast("Starting setup with manual profile details.");
               }}
-              className="text-primary hover:underline font-semibold text-[14px]"
+              className="text-jp-text-muted hover:text-jp-text-primary font-medium text-[14px] transition-colors hover:underline"
             >
               Skip resume upload & type details manually
             </button>
@@ -459,25 +459,25 @@ export default function OnboardingWizard({
         <div className="space-y-6">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-[28px] font-semibold text-on-surface tracking-tight">Verify Extracted Resume Data</h2>
-              <p className="text-on-surface-variant text-[14px]">Review AI parsed items. Edit information to guarantee complete profile details.</p>
+              <h2 className="text-[28px] font-semibold text-jp-text-primary tracking-tight">Verify Extracted Resume Data</h2>
+              <p className="text-jp-text-secondary text-[14px]">Review AI parsed items. Edit information to guarantee complete profile details.</p>
             </div>
             <button
               onClick={() => setActiveStep(3)}
-              className="bg-primary text-on-primary py-2.5 px-6 rounded-xl font-bold flex items-center gap-1.5 hover:opacity-90 active:scale-[0.98] transition-all"
+              className="jp-btn jp-btn-primary py-2.5 px-6 rounded-xl text-[14px]"
             >
               Next: Preferences <Icon name="arrow_forward" className="text-[18px]" />
             </button>
           </div>
 
           {/* Contact Details Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-6 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-3 border-b border-outline-variant/30">
-              <Icon name="contact_phone" className="text-primary" /> Contact Details & Summary
+          <section className="jp-card p-6 space-y-6">
+            <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2 pb-3 border-b border-jp-border-subtle">
+              <Icon name="contact_phone" className="text-jp-accent" /> Contact Details & Summary
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[12px] font-bold text-outline uppercase tracking-wider">Phone Number</label>
+                <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Phone Number</label>
                 <input
                   type="text"
                   value={profileData.resume_data.contact_info.phone || ""}
@@ -489,11 +489,11 @@ export default function OnboardingWizard({
                     }
                   })}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-2.5 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[12px] font-bold text-outline uppercase tracking-wider">LinkedIn Profile</label>
+                <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">LinkedIn Profile</label>
                 <input
                   type="text"
                   value={profileData.resume_data.contact_info.linkedin_url || ""}
@@ -505,11 +505,11 @@ export default function OnboardingWizard({
                     }
                   })}
                   placeholder="https://linkedin.com/in/username"
-                  className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-2.5 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[12px] font-bold text-outline uppercase tracking-wider">GitHub URL</label>
+                <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">GitHub URL</label>
                 <input
                   type="text"
                   value={profileData.resume_data.contact_info.github_url || ""}
@@ -521,11 +521,11 @@ export default function OnboardingWizard({
                     }
                   })}
                   placeholder="https://github.com/username"
-                  className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-2.5 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[12px] font-bold text-outline uppercase tracking-wider">Portfolio Website</label>
+                <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Portfolio Website</label>
                 <input
                   type="text"
                   value={profileData.resume_data.contact_info.portfolio_url || ""}
@@ -537,11 +537,11 @@ export default function OnboardingWizard({
                     }
                   })}
                   placeholder="https://myportfolio.com"
-                  className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-2.5 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
                 />
               </div>
               <div className="md:col-span-2 space-y-1">
-                <label className="text-[12px] font-bold text-outline uppercase tracking-wider">Professional Bio / Summary</label>
+                <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Professional Bio / Summary</label>
                 <textarea
                   rows={3}
                   value={profileData.resume_data.summary || ""}
@@ -550,22 +550,22 @@ export default function OnboardingWizard({
                     resume_data: { ...profileData.resume_data, summary: e.target.value }
                   })}
                   placeholder="A quick summary of your professional milestones..."
-                  className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-2.5 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
                 />
               </div>
             </div>
           </section>
 
           {/* Skills Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-3 border-b border-outline-variant/30">
-              <Icon name="psychology" className="text-primary" /> Skills
+          <section className="jp-card p-6 space-y-4">
+            <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2 pb-3 border-b border-jp-border-subtle">
+              <Icon name="psychology" className="text-jp-accent" /> Skills
             </h3>
             <div className="flex flex-wrap gap-2 mb-3">
               {profileData.resume_data.skills.map((skill, index) => (
-                <div key={index} className="flex items-center gap-1 bg-surface-container py-1.5 px-3 rounded-lg border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
-                  <span className="text-[13px] font-semibold">{skill}</span>
-                  <button onClick={() => removeSkill(skill)} className="text-on-surface-variant hover:text-error transition-colors flex items-center">
+                <div key={index} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg hover:bg-jp-bg-inset transition-colors">
+                  <span className="text-[13px] font-medium text-jp-text-primary">{skill}</span>
+                  <button onClick={() => removeSkill(skill)} className="text-jp-text-muted hover:text-jp-error transition-colors flex items-center">
                     <Icon name="close" className="text-[14px]" />
                   </button>
                 </div>
@@ -578,17 +578,17 @@ export default function OnboardingWizard({
                 onChange={(e) => setNewSkill(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addSkill())}
                 placeholder="Type skill and hit enter"
-                className="flex-1 bg-surface-container-low border border-outline-variant/70 rounded-xl py-2 px-3 text-[14px] outline-none"
+                className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl py-2 px-3 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
               />
-              <button onClick={addSkill} className="bg-primary/10 text-primary py-2 px-4 rounded-xl text-[14px] font-bold hover:bg-primary/20 transition-all">Add</button>
+              <button onClick={addSkill} className="jp-btn jp-btn-secondary py-2 px-4 rounded-xl text-[14px]">Add</button>
             </div>
           </section>
 
           {/* Experience Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
-              <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-                <Icon name="work" className="text-primary" /> Work History
+          <section className="jp-card p-6 space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-jp-border-subtle">
+              <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+                <Icon name="work" className="text-jp-accent" /> Work History
               </h3>
               {editingExpId === null && (
                 <button
@@ -600,38 +600,38 @@ export default function OnboardingWizard({
                     setExpEndDate("");
                     setExpDescription("");
                   }}
-                  className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+                  className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
                 >
-                  <Icon name="add" className="text-[18px]" /> Add Position
+                  <Icon name="add" className="text-[16px]" /> Add Position
                 </button>
               )}
             </div>
 
             {editingExpId !== null && (
-              <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-4">
-                <h4 className="font-bold text-[14px] text-primary">{editingExpId === 'new' ? "Add Position" : "Edit Position"}</h4>
+              <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-4">
+                <h4 className="font-bold text-[14px] text-jp-accent">{editingExpId === 'new' ? "Add Position" : "Edit Position"}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Company" value={expCompany} onChange={(e) => setExpCompany(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Role Title" value={expRole} onChange={(e) => setExpRole(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Start Date" value={expStartDate} onChange={(e) => setExpStartDate(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="End Date" value={expEndDate} onChange={(e) => setExpEndDate(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <textarea rows={3} placeholder="Responsibilities" value={expDescription} onChange={(e) => setExpDescription(e.target.value)} className="md:col-span-2 w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
+                  <input type="text" placeholder="Company" value={expCompany} onChange={(e) => setExpCompany(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Role Title" value={expRole} onChange={(e) => setExpRole(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Start Date" value={expStartDate} onChange={(e) => setExpStartDate(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="End Date" value={expEndDate} onChange={(e) => setExpEndDate(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <textarea rows={3} placeholder="Responsibilities" value={expDescription} onChange={(e) => setExpDescription(e.target.value)} className="md:col-span-2 w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
-                  <button onClick={() => setEditingExpId(null)} className="px-4 py-1.5 border border-outline-variant rounded-lg text-[13px] hover:bg-surface-container-lowest">Cancel</button>
-                  <button onClick={saveExperience} className="px-4 py-1.5 bg-primary text-on-primary rounded-lg text-[13px] font-semibold">Save</button>
+                  <button onClick={() => setEditingExpId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
+                  <button onClick={saveExperience} className="jp-btn jp-btn-primary jp-btn-sm">Save</button>
                 </div>
               </div>
             )}
 
             <div className="space-y-3">
               {profileData.resume_data.experience.map((exp) => (
-                <div key={exp.id} className="flex justify-between items-start p-4 border border-outline-variant/40 bg-surface-container-lowest rounded-xl">
+                <div key={exp.id} className="flex justify-between items-start p-4 border border-jp-border bg-jp-bg-surface rounded-xl">
                   <div>
-                    <div className="font-bold text-[15px]">{exp.role}</div>
-                    <div className="text-[13px] font-semibold text-primary">{exp.company}</div>
-                    <div className="text-[12px] text-outline">{exp.start_date} - {exp.end_date}</div>
-                    <p className="text-[13px] text-on-surface-variant mt-1">{exp.description}</p>
+                    <div className="font-semibold text-[15px] text-jp-text-primary">{exp.role}</div>
+                    <div className="text-[13px] font-medium text-jp-text-secondary">{exp.company}</div>
+                    <div className="text-[12px] text-jp-text-tertiary mt-0.5">{exp.start_date} - {exp.end_date}</div>
+                    <p className="text-[13px] text-jp-text-tertiary mt-2 leading-relaxed">{exp.description}</p>
                   </div>
                   <div className="flex gap-1.5">
                     <button
@@ -643,12 +643,12 @@ export default function OnboardingWizard({
                         setExpEndDate(exp.end_date || "");
                         setExpDescription(exp.description || "");
                       }}
-                      className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg"
+                      className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                     >
-                      <Icon name="edit" className="text-[18px]" />
+                      <Icon name="edit" className="text-[16px]" />
                     </button>
-                    <button onClick={() => deleteExperience(exp.id)} className="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg">
-                      <Icon name="delete" className="text-[18px]" />
+                    <button onClick={() => deleteExperience(exp.id)} className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors">
+                      <Icon name="delete" className="text-[16px]" />
                     </button>
                   </div>
                 </div>
@@ -657,10 +657,10 @@ export default function OnboardingWizard({
           </section>
 
           {/* Education Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
-              <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-                <Icon name="school" className="text-primary" /> Education History
+          <section className="jp-card p-6 space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-jp-border-subtle">
+              <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+                <Icon name="school" className="text-jp-accent" /> Education History
               </h3>
               {editingEduId === null && (
                 <button
@@ -670,35 +670,35 @@ export default function OnboardingWizard({
                     setEduDegree("");
                     setEduYear("");
                   }}
-                  className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+                  className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
                 >
-                  <Icon name="add" className="text-[18px]" /> Add Degree
+                  <Icon name="add" className="text-[16px]" /> Add Degree
                 </button>
               )}
             </div>
 
             {editingEduId !== null && (
-              <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-4">
-                <h4 className="font-bold text-[14px] text-primary">{editingEduId === 'new' ? "Add Education" : "Edit Education"}</h4>
+              <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-4">
+                <h4 className="font-bold text-[14px] text-jp-accent">{editingEduId === 'new' ? "Add Education" : "Edit Education"}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <input type="text" placeholder="Institution" value={eduInstitution} onChange={(e) => setEduInstitution(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Degree" value={eduDegree} onChange={(e) => setEduDegree(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Graduation Year" value={eduYear} onChange={(e) => setEduYear(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
+                  <input type="text" placeholder="Institution" value={eduInstitution} onChange={(e) => setEduInstitution(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Degree" value={eduDegree} onChange={(e) => setEduDegree(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Graduation Year" value={eduYear} onChange={(e) => setEduYear(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
-                  <button onClick={() => setEditingEduId(null)} className="px-4 py-1.5 border border-outline-variant rounded-lg text-[13px] hover:bg-surface-container-lowest">Cancel</button>
-                  <button onClick={saveEducation} className="px-4 py-1.5 bg-primary text-on-primary rounded-lg text-[13px] font-semibold">Save</button>
+                  <button onClick={() => setEditingEduId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
+                  <button onClick={saveEducation} className="jp-btn jp-btn-primary jp-btn-sm">Save</button>
                 </div>
               </div>
             )}
 
             <div className="space-y-3">
               {profileData.resume_data.education.map((edu) => (
-                <div key={edu.id} className="flex justify-between items-center p-4 border border-outline-variant/40 bg-surface-container-lowest rounded-xl">
+                <div key={edu.id} className="flex justify-between items-center p-4 border border-jp-border bg-jp-bg-surface rounded-xl">
                   <div>
-                    <div className="font-bold text-[15px]">{edu.degree}</div>
-                    <div className="text-[13px] font-semibold text-primary">{edu.institution}</div>
-                    <div className="text-[12px] text-outline">Graduated: {edu.year}</div>
+                    <div className="font-semibold text-[15px] text-jp-text-primary">{edu.degree}</div>
+                    <div className="text-[13px] font-medium text-jp-text-secondary">{edu.institution}</div>
+                    <div className="text-[12px] text-jp-text-tertiary">Graduated: {edu.year}</div>
                   </div>
                   <div className="flex gap-1.5">
                     <button
@@ -708,12 +708,12 @@ export default function OnboardingWizard({
                         setEduDegree(edu.degree);
                         setEduYear(edu.year || "");
                       }}
-                      className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg"
+                      className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                     >
-                      <Icon name="edit" className="text-[18px]" />
+                      <Icon name="edit" className="text-[16px]" />
                     </button>
-                    <button onClick={() => deleteEducation(edu.id)} className="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg">
-                      <Icon name="delete" className="text-[18px]" />
+                    <button onClick={() => deleteEducation(edu.id)} className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors">
+                      <Icon name="delete" className="text-[16px]" />
                     </button>
                   </div>
                 </div>
@@ -722,10 +722,10 @@ export default function OnboardingWizard({
           </section>
 
           {/* Projects Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
-              <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-                <Icon name="folder_open" className="text-primary" /> Projects
+          <section className="jp-card p-6 space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-jp-border-subtle">
+              <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+                <Icon name="folder_open" className="text-jp-accent" /> Projects
               </h3>
               {editingProjId === null && (
                 <button
@@ -735,34 +735,34 @@ export default function OnboardingWizard({
                     setProjDescription("");
                     setProjTech("");
                   }}
-                  className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+                  className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
                 >
-                  <Icon name="add" className="text-[18px]" /> Add Project
+                  <Icon name="add" className="text-[16px]" /> Add Project
                 </button>
               )}
             </div>
 
             {editingProjId !== null && (
-              <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-4">
-                <h4 className="font-bold text-[14px] text-primary">{editingProjId === 'new' ? "Add Project" : "Edit Project"}</h4>
+              <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-4">
+                <h4 className="font-bold text-[14px] text-jp-accent">{editingProjId === 'new' ? "Add Project" : "Edit Project"}</h4>
                 <div className="grid grid-cols-1 gap-4">
-                  <input type="text" placeholder="Project Title" value={projTitle} onChange={(e) => setProjTitle(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Technologies (comma-separated)" value={projTech} onChange={(e) => setProjTech(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <textarea rows={2} placeholder="Project Description" value={projDescription} onChange={(e) => setProjDescription(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
+                  <input type="text" placeholder="Project Title" value={projTitle} onChange={(e) => setProjTitle(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Technologies (comma-separated)" value={projTech} onChange={(e) => setProjTech(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <textarea rows={2} placeholder="Project Description" value={projDescription} onChange={(e) => setProjDescription(e.target.value)} className="w-full bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
-                  <button onClick={() => setEditingProjId(null)} className="px-4 py-1.5 border border-outline-variant rounded-lg text-[13px] hover:bg-surface-container-lowest">Cancel</button>
-                  <button onClick={saveProject} className="px-4 py-1.5 bg-primary text-on-primary rounded-lg text-[13px] font-semibold">Save</button>
+                  <button onClick={() => setEditingProjId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
+                  <button onClick={saveProject} className="jp-btn jp-btn-primary jp-btn-sm">Save</button>
                 </div>
               </div>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {profileData.resume_data.projects.map((proj) => (
-                <div key={proj.id} className="p-4 border border-outline-variant/45 bg-surface-container-lowest rounded-xl flex flex-col justify-between">
+                <div key={proj.id} className="p-4 border border-jp-border bg-jp-bg-surface rounded-xl flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between items-center">
-                      <h4 className="font-bold text-[15px]">{proj.title}</h4>
+                      <h4 className="font-semibold text-[15px] text-jp-text-primary">{proj.title}</h4>
                       <div className="flex gap-1">
                         <button
                           onClick={() => {
@@ -771,21 +771,21 @@ export default function OnboardingWizard({
                             setProjDescription(proj.description || "");
                             setProjTech(proj.technologies ? proj.technologies.join(", ") : "");
                           }}
-                          className="p-1 text-on-surface-variant hover:text-primary rounded-md"
+                          className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                         >
                           <Icon name="edit" className="text-[16px]" />
                         </button>
-                        <button onClick={() => deleteProject(proj.id)} className="p-1 text-on-surface-variant hover:text-error rounded-md">
+                        <button onClick={() => deleteProject(proj.id)} className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors">
                           <Icon name="delete" className="text-[16px]" />
                         </button>
                       </div>
                     </div>
-                    <p className="text-[13px] text-on-surface-variant mt-1">{proj.description}</p>
+                    <p className="text-[13px] text-jp-text-tertiary mt-2">{proj.description}</p>
                   </div>
                   {proj.technologies && proj.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-outline-variant/20">
+                    <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-jp-border-subtle">
                       {proj.technologies.map((t, i) => (
-                        <span key={i} className="bg-surface-container text-[11px] font-semibold px-2 py-0.5 rounded text-outline">{t}</span>
+                        <span key={i} className="bg-jp-bg-inset border border-jp-border text-[11px] font-medium px-2 py-0.5 rounded-lg text-jp-text-secondary">{t}</span>
                       ))}
                     </div>
                   )}
@@ -795,10 +795,10 @@ export default function OnboardingWizard({
           </section>
 
           {/* Certifications Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
-              <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-                <Icon name="verified" className="text-primary" /> Certifications
+          <section className="jp-card p-6 space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-jp-border-subtle">
+              <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+                <Icon name="verified" className="text-jp-accent" /> Certifications
               </h3>
               {editingCertId === null && (
                 <button
@@ -809,58 +809,64 @@ export default function OnboardingWizard({
                     setCertYear("");
                     setCertUrl("");
                   }}
-                  className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+                  className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
                 >
-                  <Icon name="add" className="text-[18px]" /> Add Certification
+                  <Icon name="add" className="text-[16px]" /> Add Certification
                 </button>
               )}
             </div>
 
             {editingCertId !== null && (
-              <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-4">
-                <h4 className="font-bold text-[14px] text-primary">{editingCertId === 'new' ? "Add Certification" : "Edit Certification"}</h4>
+              <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-4">
+                <h4 className="font-bold text-[14px] text-jp-accent">{editingCertId === 'new' ? "Add Certification" : "Edit Certification"}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Certification Name" value={certName} onChange={(e) => setCertName(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Issuer (e.g. Google, AWS)" value={certIssuer} onChange={(e) => setCertIssuer(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Year" value={certYear} onChange={(e) => setCertYear(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
-                  <input type="text" placeholder="Verification URL (optional)" value={certUrl} onChange={(e) => setCertUrl(e.target.value)} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[14px] outline-none" />
+                  <input type="text" placeholder="Certification Name" value={certName} onChange={(e) => setCertName(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Issuer (e.g. AWS, Google)" value={certIssuer} onChange={(e) => setCertIssuer(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Year" value={certYear} onChange={(e) => setCertYear(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
+                  <input type="text" placeholder="Verification URL" value={certUrl} onChange={(e) => setCertUrl(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors" />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
-                  <button onClick={() => setEditingCertId(null)} className="px-4 py-1.5 border border-outline-variant rounded-lg text-[13px] hover:bg-surface-container-lowest">Cancel</button>
-                  <button onClick={saveCertification} className="px-4 py-1.5 bg-primary text-on-primary rounded-lg text-[13px] font-semibold">Save</button>
+                  <button onClick={() => setEditingCertId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
+                  <button onClick={saveCertification} className="jp-btn jp-btn-primary jp-btn-sm">Save</button>
                 </div>
               </div>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {(!profileData.resume_data.certifications || profileData.resume_data.certifications.length === 0) ? (
-                <p className="text-[13px] text-outline italic col-span-2">No certifications listed.</p>
+              {(!profileData?.resume_data?.certifications || profileData.resume_data.certifications.length === 0) ? (
+                <div className="text-center py-8 bg-jp-bg-inset rounded-xl border border-dashed border-jp-border-subtle col-span-2">
+                  <Icon name="verified" className="text-[32px] text-jp-text-muted mb-2" />
+                  <p className="text-[13px] text-jp-text-secondary font-medium">No certifications listed yet.</p>
+                </div>
               ) : (
                 profileData.resume_data.certifications.map((cert) => (
-                  <div key={cert.id} className="p-4 border border-outline-variant/45 bg-surface-container-lowest rounded-xl flex justify-between items-start">
+                  <div key={cert.id} className="p-4 border border-jp-border bg-jp-bg-surface rounded-xl flex justify-between items-start group">
                     <div>
-                      <h4 className="font-bold text-[15px]">{cert.name}</h4>
-                      <div className="text-[13px] font-semibold text-primary">{cert.issuer} {cert.year && `• ${cert.year}`}</div>
+                      <h4 className="font-semibold text-[15px] text-jp-text-primary">{cert.name}</h4>
+                      <div className="text-[13px] font-medium text-jp-text-secondary mt-0.5">{cert.issuer} {cert.year && `• ${cert.year}`}</div>
                       {cert.url && (
-                        <a href={cert.url} target="_blank" rel="noreferrer" className="text-[12px] text-primary hover:underline flex items-center gap-0.5 mt-1 font-semibold">
+                        <a href={cert.url} target="_blank" rel="noreferrer" className="text-[12px] text-jp-accent hover:text-jp-accent-hover transition-colors flex items-center gap-1 mt-2 font-medium">
                           <Icon name="link" className="text-[14px]" /> Verify Credential
                         </a>
                       )}
                     </div>
-                    <div className="flex gap-1">
-                      <button
+                    <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button 
                         onClick={() => {
                           setEditingCertId(cert.id);
                           setCertName(cert.name);
                           setCertIssuer(cert.issuer || "");
                           setCertYear(cert.year || "");
                           setCertUrl(cert.url || "");
-                        }}
-                        className="p-1 text-on-surface-variant hover:text-primary rounded-md"
+                        }} 
+                        className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                       >
                         <Icon name="edit" className="text-[16px]" />
                       </button>
-                      <button onClick={() => deleteCertification(cert.id)} className="p-1 text-on-surface-variant hover:text-error rounded-md">
+                      <button 
+                        onClick={() => deleteCertification(cert.id)} 
+                        className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors"
+                      >
                         <Icon name="delete" className="text-[16px]" />
                       </button>
                     </div>
@@ -870,217 +876,139 @@ export default function OnboardingWizard({
             </div>
           </section>
 
-          {/* Co-curricular Activities Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-2 border-b border-outline-variant/30">
-              <Icon name="emoji_events" className="text-primary" /> Co-curricular Activities
+          {/* Co-curricular Activities */}
+          <section className="jp-card p-6 space-y-4">
+            <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2 pb-3 border-b border-jp-border-subtle">
+              <Icon name="emoji_events" className="text-jp-accent" /> Co-curricular Activities
             </h3>
+            
             <div className="flex flex-wrap gap-2 mb-3">
-              {(!profileData.resume_data.co_curricular_activities || profileData.resume_data.co_curricular_activities.length === 0) ? (
-                <p className="text-[13px] text-outline italic">No co-curricular activities listed.</p>
+              {(!profileData?.resume_data?.co_curricular_activities || profileData.resume_data.co_curricular_activities.length === 0) ? (
+                <p className="text-[13px] text-jp-text-tertiary">No co-curricular activities listed yet.</p>
               ) : (
-                profileData.resume_data.co_curricular_activities.map((act, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5 bg-secondary-container/10 text-secondary border border-secondary-container/30 px-3 py-1.5 rounded-lg">
-                    <span className="text-[13px] font-bold">{act}</span>
-                    <button onClick={() => removeCoCurricular(act)} className="hover:text-error flex items-center"><Icon name="close" className="text-[14px]" /></button>
+                profileData.resume_data.co_curricular_activities.map((act, index) => (
+                  <div key={index} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg hover:bg-jp-bg-inset transition-colors">
+                    <span className="text-[13px] font-medium text-jp-text-primary">{act}</span>
+                    <button onClick={() => removeCoCurricular(act)} className="text-jp-text-muted hover:text-jp-error transition-colors flex items-center ml-1">
+                      <Icon name="close" className="text-[14px]" />
+                    </button>
                   </div>
                 ))
               )}
             </div>
+
             <div className="flex gap-2 max-w-sm">
               <input
                 type="text"
                 value={newCoCurricular}
                 onChange={(e) => setNewCoCurricular(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addCoCurricular())}
-                placeholder="Add activity (e.g. Hackathon participant)"
-                className="flex-1 bg-surface-container-low border border-outline-variant/70 rounded-xl py-2 px-3 text-[14px] outline-none"
+                placeholder="Add activity (e.g. Hackathon winner)"
+                className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl py-2 px-3 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
               />
-              <button onClick={addCoCurricular} className="bg-primary/10 text-primary py-2 px-4 rounded-xl text-[14px] font-bold hover:bg-primary/20">Add</button>
+              <button onClick={addCoCurricular} className="jp-btn jp-btn-secondary py-2 px-4 rounded-xl text-[14px]">Add</button>
             </div>
           </section>
+
         </div>
       )}
 
-      {/* STEP 3: PREFERENCES */}
+      {/* STEP 3: PREFERENCES & COMPLETE */}
       {activeStep === 3 && (
         <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-[28px] font-semibold text-on-surface tracking-tight">Define Job Search Preferences</h2>
-              <p className="text-on-surface-variant text-[14px]">Let AI understand what jobs to find and target for you.</p>
-            </div>
-            <button
-              onClick={() => setActiveStep(2)}
-              className="border border-outline-variant bg-surface text-on-surface py-2.5 px-6 rounded-xl font-bold flex items-center gap-1.5 hover:bg-surface-container-low transition-all"
-            >
-              <Icon name="arrow_back" className="text-[18px]" /> Back
-            </button>
+          <div className="text-center space-y-2 mb-8">
+            <h2 className="text-[32px] font-semibold text-jp-text-primary tracking-tight">Set Career Preferences</h2>
+            <p className="text-jp-text-secondary max-w-xl mx-auto">
+              Define your target roles and locations so the AI agent can find the most relevant opportunities and optimize your ATS score accurately.
+            </p>
           </div>
 
-          {/* Experience Level Dropdown */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-2 border-b border-outline-variant/30">
-              <Icon name="grade" className="text-primary" /> Overall Professional Experience
-            </h3>
-            <div className="max-w-md pt-2">
+          <div className="jp-card p-8 max-w-2xl mx-auto space-y-8">
+            {/* Preferred Roles */}
+            <div className="space-y-3">
+              <label className="text-[13px] font-bold text-jp-text-secondary uppercase tracking-wider">Target Roles <span className="text-jp-error">*</span></label>
+              <div className="flex flex-wrap gap-2">
+                {profileData.preferences.preferred_roles.map((role, idx) => (
+                  <div key={idx} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg">
+                    <span className="text-[13px] font-medium text-jp-text-primary">{role}</span>
+                    <button onClick={() => removeRole(role)} className="text-jp-text-muted hover:text-jp-error ml-1 transition-colors">
+                      <Icon name="close" className="text-[14px]" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newRole}
+                  onChange={(e) => setNewRole(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addRole())}
+                  placeholder="e.g. Frontend Engineer, Product Manager"
+                  className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl py-3 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
+                />
+                <button onClick={addRole} className="jp-btn jp-btn-secondary py-3 px-6 rounded-xl">Add</button>
+              </div>
+            </div>
+
+            {/* Preferred Locations */}
+            <div className="space-y-3">
+              <label className="text-[13px] font-bold text-jp-text-secondary uppercase tracking-wider">Target Locations <span className="text-jp-error">*</span></label>
+              <div className="flex flex-wrap gap-2">
+                {profileData.preferences.preferred_locations.map((loc, idx) => (
+                  <div key={idx} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg">
+                    <span className="text-[13px] font-medium text-jp-text-primary">{loc}</span>
+                    <button onClick={() => removeLocation(loc)} className="text-jp-text-muted hover:text-jp-error ml-1 transition-colors">
+                      <Icon name="close" className="text-[14px]" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newLocation}
+                  onChange={(e) => setNewLocation(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addLocation())}
+                  placeholder="e.g. Remote, San Francisco, London"
+                  className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl py-3 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
+                />
+                <button onClick={addLocation} className="jp-btn jp-btn-secondary py-3 px-6 rounded-xl">Add</button>
+              </div>
+            </div>
+
+            {/* Experience Level */}
+            <div className="space-y-3">
+              <label className="text-[13px] font-bold text-jp-text-secondary uppercase tracking-wider">Experience Level <span className="text-jp-error">*</span></label>
               <select
                 value={profileData.preferences.experience_level || ""}
                 onChange={(e) => setProfileData({
                   ...profileData,
                   preferences: { ...profileData.preferences, experience_level: e.target.value }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant/70 rounded-xl py-2.5 px-4 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer font-medium"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl py-3 px-4 text-[14px] text-jp-text-primary focus:border-jp-accent outline-none transition-colors"
               >
-                <option value="" disabled>Select your experience level</option>
-                <option value="Fresher">Fresher (No professional experience)</option>
-                <option value="0-2 Years">0-2 Years (Junior)</option>
-                <option value="2-5 Years">2-5 Years (Mid-Level)</option>
-                <option value="5+ Years">5+ Years (Senior)</option>
+                <option value="">Select your experience level...</option>
+                <option value="Fresher">Fresher (0 Years)</option>
+                <option value="0-2 Years">Entry Level (0-2 Years)</option>
+                <option value="2-5 Years">Mid Level (2-5 Years)</option>
+                <option value="5+ Years">Senior Level (5+ Years)</option>
               </select>
             </div>
-          </section>
 
-          {/* Target Roles Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-2 border-b border-outline-variant/30">
-              <Icon name="star" className="text-primary" /> Target Job Roles
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {profileData.preferences.preferred_roles.map((role, idx) => (
-                <div key={idx} className="flex items-center gap-1.5 bg-secondary-container/10 text-secondary border border-secondary-container/30 px-3 py-1.5 rounded-lg">
-                  <span className="text-[13px] font-bold">{role}</span>
-                  <button onClick={() => removeRole(role)} className="hover:text-error flex items-center"><Icon name="close" className="text-[14px]" /></button>
-                </div>
-              ))}
+            <div className="pt-6 border-t border-jp-border-subtle flex justify-between items-center">
+              <button
+                onClick={() => setActiveStep(2)}
+                className="jp-btn jp-btn-secondary py-3 px-6 rounded-xl"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleCompleteOnboarding}
+                className="jp-btn jp-btn-primary py-3 px-8 rounded-xl font-bold flex items-center gap-2"
+              >
+                Complete Profile <Icon name="check_circle" className="text-[18px]" />
+              </button>
             </div>
-            <div className="flex gap-2 max-w-sm">
-              <input
-                type="text"
-                value={newRole}
-                onChange={(e) => setNewRole(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addRole())}
-                placeholder="Add role and press enter"
-                className="flex-1 bg-surface-container-low border border-outline-variant/70 rounded-xl py-2 px-3 text-[14px] outline-none"
-              />
-              <button onClick={addRole} className="bg-primary/10 text-primary py-2 px-4 rounded-xl text-[14px] font-bold hover:bg-primary/20">Add</button>
-            </div>
-            <div className="space-y-2 pt-2">
-              <label className="text-[12px] font-bold text-outline uppercase tracking-wider block">Suggestions (click to toggle)</label>
-              <div className="flex flex-wrap gap-1.5">
-                {[
-                  "Software Engineer",
-                  "Backend Developer",
-                  "Frontend Developer",
-                  "Full Stack Developer",
-                  "Python Developer",
-                  "Java Developer",
-                  "DevOps Engineer"
-                ].map((role) => {
-                  const isSelected = profileData.preferences.preferred_roles.includes(role);
-                  return (
-                    <button
-                      key={role}
-                      type="button"
-                      onClick={() => {
-                        if (isSelected) {
-                          removeRole(role);
-                        } else {
-                          setProfileData({
-                            ...profileData,
-                            preferences: {
-                              ...profileData.preferences,
-                              preferred_roles: [...profileData.preferences.preferred_roles, role]
-                            }
-                          });
-                        }
-                      }}
-                      className={`text-[12px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all ${
-                        isSelected
-                          ? "bg-primary/10 text-primary border-primary"
-                          : "bg-surface-container hover:bg-surface-container-high text-on-surface-variant border-outline-variant/40"
-                      }`}
-                    >
-                      {role}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          {/* Locations Card */}
-          <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-            <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2 pb-2 border-b border-outline-variant/30">
-              <Icon name="location_on" className="text-primary" /> Target Locations
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {profileData.preferences.preferred_locations.map((loc, idx) => (
-                <div key={idx} className="flex items-center gap-1.5 bg-secondary-container/10 text-secondary border border-secondary-container/30 px-3 py-1.5 rounded-lg">
-                  <span className="text-[13px] font-bold">{loc}</span>
-                  <button onClick={() => removeLocation(loc)} className="hover:text-error flex items-center"><Icon name="close" className="text-[14px]" /></button>
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-2 max-w-sm">
-              <input
-                type="text"
-                value={newLocation}
-                onChange={(e) => setNewLocation(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addLocation())}
-                placeholder="Add location and press enter"
-                className="flex-1 bg-surface-container-low border border-outline-variant/70 rounded-xl py-2 px-3 text-[14px] outline-none"
-              />
-              <button onClick={addLocation} className="bg-primary/10 text-primary py-2 px-4 rounded-xl text-[14px] font-bold hover:bg-primary/20">Add</button>
-            </div>
-            <div className="space-y-2 pt-2">
-              <label className="text-[12px] font-bold text-outline uppercase tracking-wider block">Suggestions (click to toggle)</label>
-              <div className="flex flex-wrap gap-1.5">
-                {[
-                  "Pune",
-                  "Mumbai",
-                  "Bangalore",
-                  "Hyderabad",
-                  "Remote"
-                ].map((loc) => {
-                  const isSelected = profileData.preferences.preferred_locations.includes(loc);
-                  return (
-                    <button
-                      key={loc}
-                      type="button"
-                      onClick={() => {
-                        if (isSelected) {
-                          removeLocation(loc);
-                        } else {
-                          setProfileData({
-                            ...profileData,
-                            preferences: {
-                              ...profileData.preferences,
-                              preferred_locations: [...profileData.preferences.preferred_locations, loc]
-                            }
-                          });
-                        }
-                      }}
-                      className={`text-[12px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all ${
-                        isSelected
-                          ? "bg-primary/10 text-primary border-primary"
-                          : "bg-surface-container hover:bg-surface-container-high text-on-surface-variant border-outline-variant/40"
-                      }`}
-                    >
-                      {loc}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          {/* Complete */}
-          <div className="pt-4 flex justify-between">
-            <button onClick={() => setActiveStep(2)} className="px-6 py-3 border border-outline-variant rounded-xl font-bold text-on-surface hover:bg-surface-container-low">Back</button>
-            <button onClick={handleCompleteOnboarding} className="bg-primary-container text-on-primary font-bold py-3.5 px-10 rounded-xl shadow-lg hover:brightness-110 flex items-center gap-2">
-              Launch Career Engine <Icon name="rocket_launch" />
-            </button>
           </div>
         </div>
       )}

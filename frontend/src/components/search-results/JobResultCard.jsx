@@ -62,7 +62,7 @@ export default function JobResultCard({
 }) {
     return (
         <div
-            className="bg-white border rounded-2xl p-6 space-y-4"
+            className="bg-[var(--color-surface-container-lowest)] border border-white/5 rounded-2xl p-6 space-y-4 shadow-sm hover:border-primary/20 transition-all duration-300"
             style={{ borderColor: "var(--color-outline-variant)" }}
         >
             {/* Recommended badge */}
@@ -156,8 +156,8 @@ export default function JobResultCard({
                     Generate Tailored Resume
                 </button>
                 <button
-                    className="px-5 py-2 bg-white border text-[14px] leading-[20px] font-medium rounded-lg transition-colors hover:bg-[var(--color-surface-container-low)]"
-                    style={{ borderColor: "var(--color-outline-variant)", color: "var(--color-on-surface)" }}
+                    className="px-5 py-2 bg-[var(--color-surface-container-low)] border border-white/10 text-[14px] leading-[20px] font-medium rounded-lg transition-all hover:bg-white/5 hover:border-primary/20"
+                    style={{ color: "var(--color-on-surface)" }}
                     onClick={onViewDetails}
                     onMouseDown={withRipple}
                     onMouseUp={resetRipple}

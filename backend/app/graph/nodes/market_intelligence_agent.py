@@ -187,7 +187,7 @@ Your output must match the structure of the schema.
             try:
                 llm = ChatGroq(
                     api_key=settings.GROQ_API_KEY,
-                    model_name="llama-3.1-8b-instant",
+                    model_name="llama-3.3-70b-versatile",
                     temperature=0.1
                 )
                 structured_llm = llm.with_structured_output(QueryOutput)
@@ -373,7 +373,7 @@ RESEARCH CONTEXT:
             try:
                 llm = ChatGroq(
                     api_key=settings.GROQ_API_KEY,
-                    model_name="llama-3.1-8b-instant",
+                    model_name="llama-3.3-70b-versatile",
                     temperature=0.1
                 )
                 formatted_prompt = prompt.format(**payload_vars)

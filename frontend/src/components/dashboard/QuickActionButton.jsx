@@ -21,7 +21,7 @@ import Icon, { withRipple, resetRipple } from "../common/Icon";
 export default function QuickActionButton({ icon, label, iconBgColor, iconColor, onClick }) {
     return (
         <button
-            className="flex flex-col items-center gap-3 p-6 bg-white border rounded-2xl hover:border-[var(--color-primary)] hover:bg-[var(--color-surface-container)] transition-all group"
+            className="flex flex-col items-center gap-3 p-6 bg-[var(--color-surface-container-lowest)] border rounded-2xl hover:border-[var(--color-primary)]/50 hover:bg-[var(--color-surface-container)] transition-all group"
             style={{ borderColor: "var(--color-outline-variant)" }}
             onClick={onClick}
             onMouseDown={withRipple}

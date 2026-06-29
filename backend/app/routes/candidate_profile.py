@@ -1,4 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import StreamingResponse
+import logging
+import json
+import asyncio
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
 from datetime import datetime, timezone
@@ -6,6 +10,8 @@ from app.core.database import get_db
 from app.models.user import User
 from app.dependencies.auth import get_current_user
 from app.services.profile_service import check_profile_exists, get_candidate_profile_by_user_id, create_candidate_profile
+
+logger = logging.getLogger(__name__)
 
 from app.schemas.candidate_profile import (
     ProfileStatusResponse,
@@ -17,9 +23,18 @@ from app.schemas.candidate_profile import (
 )
 from app.services.resume_parser import ResumeParserService
 from app.services.evidence_engine import EvidenceEngineService
+from app.services.knowledge_engine import CandidateKnowledgeEngine
+from app.services.project_intelligence import ProjectIntelligenceService
+from app.services.experience_intelligence import ExperienceIntelligenceService
+from app.services.academic_intelligence import AcademicIntelligenceService
+from app.services.knowledge_fusion import KnowledgeFusionService
+from app.services.evidence_engine_v2 import EvidenceEngineV2
+from app.core.evaluation_strategy import DefaultEvaluationStrategy
+from app.services.candidate_synthesizer import CandidateSynthesizerService
+from app.schemas.evidence import CandidateSynthesisInput, CandidateKnowledge
+from app.models.candidate_insights import CandidateInsights, InsightStatus, ArtifactType
 from app.graph.workflow import build_intelligence_graph
 from app.graph.state import IntelligenceGraphState
-from app.models.candidate_insights import CandidateInsights, InsightStatus
 
 router = APIRouter(
     prefix="/profile",
@@ -54,7 +69,7 @@ async def parse_resume(
     IMPORTANT: This endpoint must NOT save anything to the database.
     """
     try:
-        parsed_data = ResumeParserService.parse_resume_text(payload.resume_text)
+        parsed_data = await ResumeParserService.parse_resume_text(payload.resume_text)
         return parsed_data
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -71,25 +86,166 @@ async def complete_onboarding(
     Receive verified resume data, user preferences, and resume metadata.
     Persist Candidate Profile.
     Mark onboarding as completed.
+    Runs inside a single atomic database transaction. If any part (including LLM extraction)
+    fails, the entire operation is rolled back.
     """
-    # Store complete payload data in profile_json to satisfy Pydantic response models
-    profile_data = payload.model_dump(mode="json")
-    
-    db_profile = get_candidate_profile_by_user_id(db, current_user.id)
-    if db_profile:
-        db_profile.profile_json = profile_data
-        db_profile.onboarding_completed = True
+    try:
+        profile_data = payload.model_dump(mode="json")
+        
+        db_profile = get_candidate_profile_by_user_id(db, current_user.id)
+        if db_profile:
+            db_profile.profile_json = profile_data
+            db_profile.onboarding_completed = True
+            db.flush()
+            db.refresh(db_profile)
+            msg = "Profile updated successfully"
+        else:
+            db_profile = create_candidate_profile(db, current_user.id, profile_data)
+            msg = "Profile created successfully"
+            
+        # Mark knowledge as STALE and then regenerate it
+        CandidateKnowledgeEngine.mark_knowledge_stale(db, db_profile)
+        await CandidateKnowledgeEngine.generate_and_persist(db, db_profile)
+        
+        # Commit the transaction ONLY after everything succeeds
         db.commit()
         db.refresh(db_profile)
-        msg = "Profile updated successfully"
-    else:
-        db_profile = create_candidate_profile(db, current_user.id, profile_data)
-        msg = "Profile created successfully"
-    
-    return CompleteOnboardingResponse(
-        message=msg,
-        profile_id=db_profile.id
-    )
+        
+        return CompleteOnboardingResponse(
+            message=msg,
+            profile_id=db_profile.id
+        )
+    except Exception as e:
+        db.rollback()
+        logger.exception(e)
+        logger.error(f"Onboarding failed. Database transaction rolled back. Error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Candidate onboarding failed and was rolled back. Details: {str(e)}"
+        )
+
+@router.post("/complete-onboarding-stream")
+async def complete_onboarding_stream(
+    payload: CompleteOnboardingRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Onboard user and stream the real progress of the Candidate Knowledge Engine.
+    Runs inside a single atomic database transaction. If any part fails, it rolls back.
+    """
+    async def event_generator():
+        try:
+            # 1. Start Transaction & Parse Profile
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'parsing', 'message': 'Parsing resume structure & properties'})}\n\n"
+            await asyncio.sleep(0.5)
+            
+            profile_data = payload.model_dump(mode="json")
+            db_profile = get_candidate_profile_by_user_id(db, current_user.id)
+            if db_profile:
+                db_profile.profile_json = profile_data
+                db_profile.onboarding_completed = True
+                db.flush()
+                db.refresh(db_profile)
+            else:
+                db_profile = create_candidate_profile(db, current_user.id, profile_data)
+            
+            # 2. Extracting Intelligence Agents (Projects, Experience, Academics)
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'intelligence', 'message': 'Running concurrent Intelligence Agents (Projects, Experience, Academics)'})}\n\n"
+            
+            projects = payload.resume_data.projects
+            experience = payload.resume_data.experience
+            education = payload.resume_data.education
+            certifications = payload.resume_data.certifications
+            
+            project_intel, exp_intel, edu_intel, cert_intel = await asyncio.gather(
+                ProjectIntelligenceService.analyze_projects(projects),
+                ExperienceIntelligenceService.analyze_experiences(experience),
+                AcademicIntelligenceService.analyze_education(education),
+                AcademicIntelligenceService.analyze_certifications(certifications)
+            )
+            
+            # 3. Knowledge Fusion
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'fusion', 'message': 'Fusing extracted intelligence into Unified Knowledge profile'})}\n\n"
+            
+            unified_knowledge = await KnowledgeFusionService.fuse_knowledge(
+                skills=payload.resume_data.skills,
+                project_intel=project_intel,
+                exp_intel=exp_intel,
+                edu_intel=edu_intel,
+                cert_intel=cert_intel
+            )
+            
+            # 4. Evidence Evaluation (V2)
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'evidence', 'message': 'Running Evidence Engine V2 competency checks'})}\n\n"
+            
+            strategy = DefaultEvaluationStrategy()
+            evidence_report = EvidenceEngineV2.evaluate(unified_knowledge, strategy)
+            evidence = EvidenceEngineService.build_candidate_evidence(payload, project_intel)
+            
+            # 5. Candidate Synthesis (LLM)
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'synthesis', 'message': 'Synthesizing final Candidate Engineering Identity'})}\n\n"
+            
+            synthesis_input = CandidateSynthesisInput(
+                unified_knowledge=unified_knowledge,
+                evidence_report=evidence_report,
+                project_intelligence=project_intel,
+                experience_intelligence=exp_intel,
+                education_intelligence=edu_intel,
+                certification_intelligence=cert_intel
+            )
+            synthesizer = CandidateSynthesizerService()
+            candidate_identity = await synthesizer.synthesize(synthesis_input)
+            
+            # 6. Assembly & DB Persistence
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'persistence', 'message': 'Finalizing database transaction & committing insights'})}\n\n"
+            
+            candidate_knowledge = CandidateKnowledge(
+                candidate_level=evidence.candidate_level,
+                candidate_maturity=evidence.candidate_maturity,
+                unified_knowledge=unified_knowledge,
+                evidence_report=evidence_report,
+                candidate_identity=candidate_identity,
+                project_intelligence=project_intel,
+                experience_intelligence=exp_intel,
+                education_intelligence=edu_intel,
+                certification_intelligence=cert_intel
+            )
+            artifact_data = candidate_knowledge.model_dump(mode="json")
+            generated_now = datetime.now(timezone.utc)
+            
+            # Upsert insight
+            insight = db.query(CandidateInsights).filter(
+                CandidateInsights.candidate_profile_id == db_profile.id,
+                CandidateInsights.artifact_type == ArtifactType.CANDIDATE_KNOWLEDGE
+            ).order_by(CandidateInsights.created_at.desc()).first()
+
+            if insight:
+                insight.artifact_json = artifact_data
+                insight.status = InsightStatus.COMPLETED
+                insight.generated_at = generated_now
+                flag_modified(insight, "artifact_json")
+            else:
+                insight = CandidateInsights(
+                    candidate_profile_id=db_profile.id,
+                    artifact_type=ArtifactType.CANDIDATE_KNOWLEDGE,
+                    artifact_json=artifact_data,
+                    status=InsightStatus.COMPLETED,
+                    generated_at=generated_now
+                )
+                db.add(insight)
+            
+            db.flush()
+            db.commit()
+            
+            yield f"data: {json.dumps({'status': 'success', 'profile_id': str(db_profile.id), 'message': 'Onboarding completed successfully!'})}\n\n"
+            
+        except Exception as e:
+            db.rollback()
+            logger.exception(e)
+            yield f"data: {json.dumps({'status': 'error', 'message': str(e)})}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 @router.get("/me", response_model=CandidateProfileResponse)
 async def get_current_profile(
@@ -157,6 +313,8 @@ def calculate_profile_completeness(profile_json: dict) -> tuple[float, list[str]
     percentage = (filled_count / len(fields_checked)) * 100.0
     return percentage, missing_fields
 
+from app.services.knowledge_engine import CandidateKnowledgeEngine
+
 @router.get("/insights")
 async def get_candidate_insights(
     current_user: User = Depends(get_current_user),
@@ -174,12 +332,13 @@ async def get_candidate_insights(
     # Calculate deterministic profile completeness
     completeness_score, missing_fields = calculate_profile_completeness(profile_json)
     
-    # Retrieve the latest insights snapshot
+    # Retrieve the latest CANDIDATE_KNOWLEDGE snapshot
     insight = db.query(CandidateInsights).filter(
-        CandidateInsights.candidate_profile_id == profile.id
+        CandidateInsights.candidate_profile_id == profile.id,
+        CandidateInsights.artifact_type == ArtifactType.CANDIDATE_KNOWLEDGE
     ).order_by(CandidateInsights.created_at.desc()).first()
     
-    if not insight or not insight.insights_json:
+    if not insight or not insight.artifact_json:
         return {
             "status": "NO_INSIGHTS",
             "profile_completeness": completeness_score,
@@ -202,11 +361,18 @@ async def get_candidate_insights(
     if profile_updated and insight_generated and profile_updated > insight_generated:
         status = "STALE"
         
+    from typing import cast
+    from app.schemas.evidence import CandidateKnowledge
+    ck = CandidateKnowledge(**(cast(dict, insight.artifact_json) or {}))
+        
     return {
         "status": status,
         "profile_completeness": completeness_score,
         "missing_fields": missing_fields,
-        "insights": insight.insights_json,
+        "insights": {
+            "evidence_engine": ck.model_dump(mode="json"),
+            "project_intelligence": [p.model_dump(mode="json") for p in ck.project_intelligence]
+        },
         "generated_at": insight.generated_at
     }
 
@@ -216,8 +382,7 @@ async def generate_candidate_insights(
     db: Session = Depends(get_db)
 ):
     """
-    Force run the Evidence Engine and execute the LangGraph workflow asynchronously.
-    Updates or inserts the snapshot in CandidateInsights database table.
+    Force run the Candidate Knowledge Engine (if needed) and execute the LangGraph workflow asynchronously.
     """
     profile = get_candidate_profile_by_user_id(db, current_user.id)
     if not profile:
@@ -230,14 +395,40 @@ async def generate_candidate_insights(
     # Calculate completeness
     completeness_score, missing_fields = calculate_profile_completeness(profile_json)
     
-    # Parse profile for evidence engine
+    # Self-healing regeneration of Candidate Knowledge
     try:
-        profile_req = CompleteOnboardingRequest(**profile_json)
-    except Exception as parse_err:
-        raise HTTPException(status_code=400, detail=f"Invalid profile format in database: {parse_err}")
+        knowledge = await CandidateKnowledgeEngine.ensure_candidate_knowledge(db, profile)
         
-    # Run Evidence Engine
-    evidence = EvidenceEngineService.build_candidate_evidence(profile_req)
+        # TODO(Sprint 2/3): The graph should eventually consume CandidateKnowledge directly.
+        # Rebuilding CandidateEvidence here is a temporary compatibility bridge for Sprint 1.
+        from typing import cast
+        from app.schemas.evidence import CandidateKnowledge, CandidateEvidence, EvidenceSummary, SkillEvidenceItem
+        ck = CandidateKnowledge(**(cast(dict, knowledge.artifact_json) or {}))
+        
+        skill_evidence_map = {}
+        if hasattr(ck, "evidence_report") and ck.evidence_report and ck.evidence_report.evaluations:
+            for skill, eval_item in ck.evidence_report.evaluations.items():
+                tier = "Demonstrated" if eval_item.practical_demonstration > 50 else "Claimed"
+                skill_evidence_map[skill] = SkillEvidenceItem(
+                    total_score=eval_item.confidence_score,
+                    tier=tier,
+                    sources=[]
+                )
+                
+        evidence = CandidateEvidence(
+            candidate_level=ck.candidate_level,
+            candidate_maturity=ck.candidate_maturity,
+            current_domains=[d.value for d in ck.candidate_identity.engineering_domains] if ck.candidate_identity else [],
+            target_domains=[ck.candidate_identity.primary_specialization] + ck.candidate_identity.secondary_specializations if ck.candidate_identity else ["General Software Engineer"],
+            skill_evidence=skill_evidence_map,
+            evidence_summary=EvidenceSummary(
+                total_skills_detected=len(skill_evidence_map),
+                demonstrated_skills_count=len([s for s in skill_evidence_map.values() if s.tier == "Demonstrated"]),
+                claimed_only_skills_count=len([s for s in skill_evidence_map.values() if s.tier == "Claimed"])
+            )
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load or generate Candidate Knowledge: {str(e)}")
     
     # Run Async LangGraph Workflow
     state = IntelligenceGraphState(
@@ -268,42 +459,24 @@ async def generate_candidate_insights(
             recommendations_dump[role] = res.model_dump(mode="json")
 
     full_insights_json = {
-        "evidence_engine": evidence.model_dump(mode="json"),
+        "evidence_engine": ck.model_dump(mode="json"),
+        "project_intelligence": [p.model_dump(mode="json") for p in ck.project_intelligence],
         "market_intelligence": market_intel_dump,
         "recommendations": recommendations_dump
     }
 
-    # --- Upsert: update existing latest insight row, or create a new one ---
-    generated_now = datetime.now(timezone.utc)
-
-    existing_insight = db.query(CandidateInsights).filter(
-        CandidateInsights.candidate_profile_id == profile.id
+    # Fetch the generated_at from the knowledge artifact to return
+    insight = db.query(CandidateInsights).filter(
+        CandidateInsights.candidate_profile_id == profile.id,
+        CandidateInsights.artifact_type == ArtifactType.CANDIDATE_KNOWLEDGE
     ).order_by(CandidateInsights.created_at.desc()).first()
-
-    if existing_insight:
-        existing_insight.insights_json = full_insights_json
-        existing_insight.status = InsightStatus.COMPLETED
-        existing_insight.generated_at = generated_now
-        flag_modified(existing_insight, "insights_json")
-        insight = existing_insight
-    else:
-        insight = CandidateInsights(
-            candidate_profile_id=profile.id,
-            insights_json=full_insights_json,
-            status=InsightStatus.COMPLETED,
-            generated_at=generated_now
-        )
-        db.add(insight)
-
-    db.commit()
-    db.refresh(insight)
 
     return {
         "status": "COMPLETED",
         "profile_completeness": completeness_score,
         "missing_fields": missing_fields,
         "insights": full_insights_json,
-        "generated_at": insight.generated_at
+        "generated_at": insight.generated_at if insight else datetime.now(timezone.utc)
     }
 
 

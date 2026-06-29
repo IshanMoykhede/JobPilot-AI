@@ -238,15 +238,15 @@ export default function ProfileEditor({
   return (
     <div className="space-y-6">
       {/* SECTION 1: Personal Info Card */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-6 shadow-sm relative group">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="person" className="text-primary" /> Personal Information
+      <section className="jp-card p-6 space-y-6 group">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="person" className="text-jp-accent text-[20px]" /> Personal Information
           </h3>
           {editingSection !== 'personal' ? (
             <button
               onClick={() => setEditingSection('personal')}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="edit" className="text-[16px]" /> Edit Info
             </button>
@@ -254,13 +254,13 @@ export default function ProfileEditor({
             <div className="flex gap-2">
               <button
                 onClick={() => setEditingSection(null)}
-                className="px-3 py-1 border border-outline-variant text-[13px] rounded-lg hover:bg-surface-container"
+                className="jp-btn jp-btn-secondary jp-btn-sm"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveProfileChanges}
-                className="px-3 py-1 bg-primary text-on-primary text-[13px] font-semibold rounded-lg hover:opacity-90"
+                className="jp-btn jp-btn-primary jp-btn-sm"
               >
                 Save
               </button>
@@ -271,7 +271,7 @@ export default function ProfileEditor({
         {editingSection === 'personal' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-[12px] font-bold text-outline">Phone Number</label>
+              <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Phone Number</label>
               <input
                 type="text"
                 value={profileData.resume_data.contact_info.phone || ""}
@@ -282,11 +282,11 @@ export default function ProfileEditor({
                     contact_info: { ...profileData.resume_data.contact_info, phone: e.target.value }
                   }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-[14px] outline-none"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[12px] font-bold text-outline">LinkedIn URL</label>
+              <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">LinkedIn URL</label>
               <input
                 type="text"
                 value={profileData.resume_data.contact_info.linkedin_url || ""}
@@ -297,11 +297,11 @@ export default function ProfileEditor({
                     contact_info: { ...profileData.resume_data.contact_info, linkedin_url: e.target.value }
                   }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-[14px] outline-none"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[12px] font-bold text-outline">GitHub URL</label>
+              <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">GitHub URL</label>
               <input
                 type="text"
                 value={profileData.resume_data.contact_info.github_url || ""}
@@ -312,11 +312,11 @@ export default function ProfileEditor({
                     contact_info: { ...profileData.resume_data.contact_info, github_url: e.target.value }
                   }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-[14px] outline-none"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[12px] font-bold text-outline">Portfolio URL</label>
+              <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Portfolio URL</label>
               <input
                 type="text"
                 value={profileData.resume_data.contact_info.portfolio_url || ""}
@@ -327,11 +327,11 @@ export default function ProfileEditor({
                     contact_info: { ...profileData.resume_data.contact_info, portfolio_url: e.target.value }
                   }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-[14px] outline-none"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               />
             </div>
             <div className="md:col-span-2 space-y-1">
-              <label className="text-[12px] font-bold text-outline">Professional Summary</label>
+              <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Professional Summary</label>
               <textarea
                 rows={3}
                 value={profileData.resume_data.summary || ""}
@@ -339,51 +339,51 @@ export default function ProfileEditor({
                   ...profileData,
                   resume_data: { ...profileData.resume_data, summary: e.target.value }
                 })}
-                className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-[14px] outline-none"
+                className="w-full bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               />
             </div>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[22px]">
+              <div className="w-16 h-16 rounded-full bg-jp-accent flex items-center justify-center font-bold text-[22px] text-white">
                 {(user?.name || "A").split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2)}
               </div>
               <div>
-                <h4 className="font-bold text-[20px] text-on-surface">{user?.name || "Candidate"}</h4>
-                <p className="text-[13px] text-on-surface-variant font-medium">{profileData.preferences.experience_level} Experience</p>
-                <div className="flex gap-4 mt-1">
+                <h4 className="font-semibold text-[20px] text-jp-text-primary">{user?.name || "Candidate"}</h4>
+                <p className="text-[13px] text-jp-text-secondary font-medium">{profileData.preferences.experience_level} Experience</p>
+                <div className="flex gap-4 mt-1.5">
                   {profileData.resume_data.contact_info.phone && (
-                    <span className="text-[12px] text-outline flex items-center gap-1">
-                      <Icon name="phone" className="text-[15px]" /> {profileData.resume_data.contact_info.phone}
+                    <span className="text-[12px] text-jp-text-tertiary flex items-center gap-1">
+                      <Icon name="phone" className="text-[14px]" /> {profileData.resume_data.contact_info.phone}
                     </span>
                   )}
-                  <span className="text-[12px] text-outline flex items-center gap-1">
-                    <Icon name="mail" className="text-[15px]" /> {user?.email}
+                  <span className="text-[12px] text-jp-text-tertiary flex items-center gap-1">
+                    <Icon name="mail" className="text-[14px]" /> {user?.email}
                   </span>
                 </div>
               </div>
             </div>
 
             {profileData.resume_data.summary && (
-              <div className="bg-surface-container-low/50 p-4 rounded-xl border border-outline-variant/30">
-                <p className="text-[13px] text-on-surface-variant leading-relaxed italic">"{profileData.resume_data.summary}"</p>
+              <div className="bg-jp-bg-inset p-4 rounded-xl border border-jp-border-subtle">
+                <p className="text-[13px] text-jp-text-secondary leading-relaxed">"{profileData.resume_data.summary}"</p>
               </div>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               {profileData.resume_data.contact_info.linkedin_url && (
-                <a href={profileData.resume_data.contact_info.linkedin_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-semibold text-primary hover:underline">
+                <a href={profileData.resume_data.contact_info.linkedin_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-medium text-jp-text-secondary hover:text-jp-accent transition-colors">
                   <Icon name="link" className="text-[15px]" /> LinkedIn
                 </a>
               )}
               {profileData.resume_data.contact_info.github_url && (
-                <a href={profileData.resume_data.contact_info.github_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-semibold text-primary hover:underline ml-4">
+                <a href={profileData.resume_data.contact_info.github_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-medium text-jp-text-secondary hover:text-jp-accent transition-colors">
                   <Icon name="code" className="text-[15px]" /> GitHub
                 </a>
               )}
               {profileData.resume_data.contact_info.portfolio_url && (
-                <a href={profileData.resume_data.contact_info.portfolio_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-semibold text-primary hover:underline ml-4">
+                <a href={profileData.resume_data.contact_info.portfolio_url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[13px] font-medium text-jp-text-secondary hover:text-jp-accent transition-colors">
                   <Icon name="language" className="text-[15px]" /> Portfolio
                 </a>
               )}
@@ -393,22 +393,22 @@ export default function ProfileEditor({
       </section>
 
       {/* SECTION 2: Skills Card */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="psychology" className="text-primary" /> Core Technical Skills
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="psychology" className="text-jp-accent text-[20px]" /> Core Technical Skills
           </h3>
           {editingSection !== 'skills' ? (
             <button
               onClick={() => setEditingSection('skills')}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="edit" className="text-[16px]" /> Manage Skills
             </button>
           ) : (
             <button
               onClick={handleSaveProfileChanges}
-              className="px-3 py-1 bg-primary text-on-primary text-[13px] font-semibold rounded-lg hover:opacity-90"
+              className="jp-btn jp-btn-primary jp-btn-sm"
             >
               Done
             </button>
@@ -417,10 +417,10 @@ export default function ProfileEditor({
 
         <div className="flex flex-wrap gap-2 pt-2">
           {profileData.resume_data.skills.map((skill, index) => (
-            <div key={index} className="flex items-center gap-1 bg-secondary-container/5 text-secondary border border-secondary-container/20 py-1.5 px-3 rounded-lg text-[13px] font-semibold">
+            <div key={index} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg text-[13px] font-medium text-jp-text-primary">
               <span>{skill}</span>
               {editingSection === 'skills' && (
-                <button onClick={() => removeSkill(skill)} className="text-on-surface-variant hover:text-error ml-1 flex items-center">
+                <button onClick={() => removeSkill(skill)} className="text-jp-text-muted hover:text-jp-error ml-1 flex items-center transition-colors">
                   <Icon name="close" className="text-[14px]" />
                 </button>
               )}
@@ -429,25 +429,25 @@ export default function ProfileEditor({
         </div>
 
         {editingSection === 'skills' && (
-          <div className="flex gap-2 max-w-xs pt-2">
+          <div className="flex gap-2 max-w-sm pt-2">
             <input
               type="text"
               value={newSkill}
               onChange={(e) => setNewSkill(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addSkill())}
               placeholder="Add skill (e.g. AWS)"
-              className="flex-1 bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 text-[13px] outline-none"
+              className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl px-3 py-2 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
             />
-            <button onClick={addSkill} className="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-[13px] font-bold hover:bg-primary/20">Add</button>
+            <button onClick={addSkill} className="jp-btn jp-btn-secondary py-2 px-4 rounded-xl text-[13px]">Add</button>
           </div>
         )}
       </section>
 
       {/* SECTION 3: Work Milestones Timeline */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="work" className="text-primary" /> Work Milestones
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="work" className="text-jp-accent text-[20px]" /> Work Milestones
           </h3>
           {editingExpId === null && (
             <button
@@ -459,7 +459,7 @@ export default function ProfileEditor({
                 setExpEndDate("");
                 setExpDescription("");
               }}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="add" className="text-[16px]" /> Add Experience
             </button>
@@ -467,23 +467,23 @@ export default function ProfileEditor({
         </div>
 
         {editingExpId !== null && (
-          <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-3">
-            <h4 className="font-bold text-[13px] text-primary">{editingExpId === 'new' ? "Add Position" : "Edit Position"}</h4>
+          <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-3">
+            <h4 className="font-bold text-[13px] text-jp-accent">{editingExpId === 'new' ? "Add Position" : "Edit Position"}</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <input type="text" placeholder="Company" value={expCompany} onChange={(e) => setExpCompany(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="Job Title" value={expRole} onChange={(e) => setExpRole(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="Start Date" value={expStartDate} onChange={(e) => setExpStartDate(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="End Date" value={expEndDate} onChange={(e) => setExpEndDate(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <textarea rows={3} placeholder="Responsibilities" value={expDescription} onChange={(e) => setExpDescription(e.target.value)} className="md:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
+              <input type="text" placeholder="Company" value={expCompany} onChange={(e) => setExpCompany(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="Job Title" value={expRole} onChange={(e) => setExpRole(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="Start Date" value={expStartDate} onChange={(e) => setExpStartDate(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="End Date" value={expEndDate} onChange={(e) => setExpEndDate(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <textarea rows={3} placeholder="Responsibilities" value={expDescription} onChange={(e) => setExpDescription(e.target.value)} className="md:col-span-2 bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
             </div>
-            <div className="flex justify-end gap-2 pt-1">
-              <button onClick={() => setEditingExpId(null)} className="px-3 py-1 border border-outline-variant rounded-lg text-[12px]">Cancel</button>
+            <div className="flex justify-end gap-2 pt-2">
+              <button onClick={() => setEditingExpId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
               <button
                 onClick={() => {
                   saveExperience();
                   setTimeout(() => handleSaveProfileChanges(), 50);
                 }}
-                className="px-3 py-1 bg-primary text-on-primary rounded-lg text-[12px] font-semibold"
+                className="jp-btn jp-btn-primary jp-btn-sm"
               >
                 Save
               </button>
@@ -493,17 +493,17 @@ export default function ProfileEditor({
 
         <div className="space-y-4 pt-2">
           {profileData.resume_data.experience.map((exp) => (
-            <div key={exp.id} className="relative pl-6 border-l-2 border-primary/20 pb-4 last:pb-0">
-              <div className="absolute -left-[7px] top-[5px] w-3 h-3 rounded-full bg-primary" />
+            <div key={exp.id} className="relative pl-6 border-l-2 border-jp-border-subtle pb-4 last:pb-0">
+              <div className="absolute -left-[7px] top-[5px] w-3 h-3 rounded-full bg-jp-accent ring-4 ring-jp-bg-surface" />
               <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="font-bold text-[15px] text-on-surface">{exp.role}</h4>
-                  <div className="text-[13px] font-semibold text-primary">{exp.company}</div>
-                  <div className="text-[12px] text-outline font-medium mt-0.5">{exp.start_date} - {exp.end_date}</div>
-                  <p className="text-[13px] text-on-surface-variant leading-relaxed mt-2">{exp.description}</p>
+                  <h4 className="font-semibold text-[15px] text-jp-text-primary">{exp.role}</h4>
+                  <div className="text-[13px] font-medium text-jp-text-secondary">{exp.company}</div>
+                  <div className="text-[12px] text-jp-text-tertiary mt-0.5">{exp.start_date} - {exp.end_date}</div>
+                  <p className="text-[13px] text-jp-text-tertiary leading-relaxed mt-2">{exp.description}</p>
                 </div>
                 <div className="flex gap-1">
-                  <button onClick={() => startEditExperience(exp)} className="p-1 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md">
+                  <button onClick={() => startEditExperience(exp)} className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors">
                     <Icon name="edit" className="text-[16px]" />
                   </button>
                   <button
@@ -511,7 +511,7 @@ export default function ProfileEditor({
                       deleteExperience(exp.id);
                       setTimeout(() => handleSaveProfileChanges(), 50);
                     }}
-                    className="p-1 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md"
+                    className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors"
                   >
                     <Icon name="delete" className="text-[16px]" />
                   </button>
@@ -523,38 +523,38 @@ export default function ProfileEditor({
       </section>
 
       {/* SECTION 4: Education History */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="school" className="text-primary" /> Education History
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="school" className="text-jp-accent text-[20px]" /> Education History
           </h3>
           <button
             onClick={() => alert("Feature coming soon! Modify education during onboarding or check back later.")}
-            className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+            className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
           >
             <Icon name="add" className="text-[16px]" /> Add Education
           </button>
         </div>
 
         {(!profileData?.resume_data?.education || profileData.resume_data.education.length === 0) ? (
-          <div className="text-center py-6 bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/50">
-            <Icon name="school" className="text-[32px] text-outline/60 mb-2" />
-            <p className="text-[13px] text-on-surface-variant font-medium">No education details added yet.</p>
+          <div className="text-center py-8 bg-jp-bg-inset rounded-xl border border-dashed border-jp-border-subtle">
+            <Icon name="school" className="text-[32px] text-jp-text-muted mb-2" />
+            <p className="text-[13px] text-jp-text-secondary font-medium">No education details added yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             {profileData.resume_data.education.map((edu, idx) => (
-              <div key={edu.id || idx} className="p-4 border border-outline-variant/40 bg-surface-container-low/30 rounded-xl flex justify-between items-start hover:shadow-md transition-all group">
+              <div key={edu.id || idx} className="p-4 border border-jp-border bg-jp-bg-surface rounded-xl flex justify-between items-start group">
                 <div>
-                  <h4 className="font-bold text-[15px] text-on-surface">{edu.degree}</h4>
-                  <div className="text-[13px] font-semibold text-primary mt-0.5">{edu.institution}</div>
-                  {edu.year && <div className="text-[12px] text-outline font-medium mt-1">Graduation Year: {edu.year}</div>}
+                  <h4 className="font-semibold text-[15px] text-jp-text-primary">{edu.degree}</h4>
+                  <div className="text-[13px] font-medium text-jp-text-secondary mt-0.5">{edu.institution}</div>
+                  {edu.year && <div className="text-[12px] text-jp-text-tertiary mt-1">Graduation Year: {edu.year}</div>}
                 </div>
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => alert("Feature coming soon!")} className="p-1 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md">
+                  <button onClick={() => alert("Feature coming soon!")} className="p-1 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-md transition-colors">
                     <Icon name="edit" className="text-[14px]" />
                   </button>
-                  <button onClick={() => alert("Feature coming soon!")} className="p-1 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md">
+                  <button onClick={() => alert("Feature coming soon!")} className="p-1 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-md transition-colors">
                     <Icon name="delete" className="text-[14px]" />
                   </button>
                 </div>
@@ -565,23 +565,23 @@ export default function ProfileEditor({
       </section>
 
       {/* SECTION 5: Featured Projects */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="folder_open" className="text-primary" /> Featured Projects
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="folder_open" className="text-jp-accent text-[20px]" /> Featured Projects
           </h3>
           <button
             onClick={() => alert("Feature coming soon! Modify projects during onboarding or check back later.")}
-            className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+            className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
           >
             <Icon name="add" className="text-[16px]" /> Add Project
           </button>
         </div>
 
         {(!profileData?.resume_data?.projects || profileData.resume_data.projects.length === 0) ? (
-          <div className="text-center py-6 bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/50">
-            <Icon name="folder" className="text-[32px] text-outline/60 mb-2" />
-            <p className="text-[13px] text-on-surface-variant font-medium">No projects added yet.</p>
+          <div className="text-center py-8 bg-jp-bg-inset rounded-xl border border-dashed border-jp-border-subtle">
+            <Icon name="folder" className="text-[32px] text-jp-text-muted mb-2" />
+            <p className="text-[13px] text-jp-text-secondary font-medium">No projects added yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
@@ -589,13 +589,13 @@ export default function ProfileEditor({
               <div 
                 key={proj.id || idx} 
                 onClick={() => setSelectedProjectForModal(proj)}
-                className="p-4 border border-outline-variant/40 bg-surface-container-low/30 rounded-xl flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all group relative cursor-pointer"
+                className="p-5 border border-jp-border bg-jp-bg-surface rounded-xl flex flex-col justify-between hover:border-jp-accent/40 transition-colors group relative cursor-pointer"
               >
                 <div>
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-2">
-                      <Icon name="folder" className="text-primary text-[20px]" />
-                      <h4 className="font-bold text-[15px] text-on-surface group-hover:text-primary transition-colors">{proj.title}</h4>
+                      <Icon name="folder" className="text-jp-accent text-[20px]" />
+                      <h4 className="font-semibold text-[15px] text-jp-text-primary group-hover:text-jp-accent transition-colors">{proj.title}</h4>
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
@@ -603,7 +603,7 @@ export default function ProfileEditor({
                           e.stopPropagation();
                           alert("Feature coming soon!");
                         }} 
-                        className="p-1 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md"
+                        className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                       >
                         <Icon name="edit" className="text-[14px]" />
                       </button>
@@ -612,17 +612,17 @@ export default function ProfileEditor({
                           e.stopPropagation();
                           alert("Feature coming soon!");
                         }} 
-                        className="p-1 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md"
+                        className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors"
                       >
                         <Icon name="delete" className="text-[14px]" />
                       </button>
                     </div>
                   </div>
-                  <p className="text-[13px] text-on-surface-variant leading-relaxed mt-2">
+                  <p className="text-[13px] text-jp-text-tertiary leading-relaxed mt-3">
                     {proj.description && proj.description.length > 120 ? (
                       <>
                         {proj.description.slice(0, 120)}...{" "}
-                        <span className="text-primary font-semibold hover:underline inline-block">
+                        <span className="text-jp-accent font-medium hover:underline inline-block">
                           Read more
                         </span>
                       </>
@@ -632,9 +632,9 @@ export default function ProfileEditor({
                   </p>
                 </div>
                 {proj.technologies && proj.technologies.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-outline-variant/20">
+                  <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-jp-border-subtle">
                     {proj.technologies.map((tech, i) => (
-                      <span key={i} className="bg-surface-container text-[11px] font-semibold px-2 py-0.5 rounded text-outline">{tech}</span>
+                      <span key={i} className="bg-jp-bg-inset border border-jp-border text-[11px] font-medium px-2 py-0.5 rounded-lg text-jp-text-secondary">{tech}</span>
                     ))}
                   </div>
                 )}
@@ -645,10 +645,10 @@ export default function ProfileEditor({
       </section>
 
       {/* SECTION 6: Certifications */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="verified" className="text-primary" /> Certifications
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="verified" className="text-jp-accent text-[20px]" /> Certifications
           </h3>
           {editingCertId === null && (
             <button
@@ -659,7 +659,7 @@ export default function ProfileEditor({
                 setCertYear("");
                 setCertUrl("");
               }}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="add" className="text-[16px]" /> Add Certification
             </button>
@@ -667,22 +667,22 @@ export default function ProfileEditor({
         </div>
 
         {editingCertId !== null && (
-          <div className="p-4 bg-surface-container-low border border-outline-variant/60 rounded-xl space-y-3">
-            <h4 className="font-bold text-[13px] text-primary">{editingCertId === 'new' ? "Add Certification" : "Edit Certification"}</h4>
+          <div className="p-4 bg-jp-bg-inset border border-jp-border rounded-xl space-y-3">
+            <h4 className="font-bold text-[13px] text-jp-accent">{editingCertId === 'new' ? "Add Certification" : "Edit Certification"}</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <input type="text" placeholder="Certification Name" value={certName} onChange={(e) => setCertName(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="Issuer (e.g. AWS, Google)" value={certIssuer} onChange={(e) => setCertIssuer(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="Year" value={certYear} onChange={(e) => setCertYear(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
-              <input type="text" placeholder="Verification URL" value={certUrl} onChange={(e) => setCertUrl(e.target.value)} className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-[13px] outline-none" />
+              <input type="text" placeholder="Certification Name" value={certName} onChange={(e) => setCertName(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="Issuer (e.g. AWS, Google)" value={certIssuer} onChange={(e) => setCertIssuer(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="Year" value={certYear} onChange={(e) => setCertYear(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
+              <input type="text" placeholder="Verification URL" value={certUrl} onChange={(e) => setCertUrl(e.target.value)} className="bg-jp-bg-raised border border-jp-border rounded-xl p-2.5 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors" />
             </div>
-            <div className="flex justify-end gap-2 pt-1">
-              <button onClick={() => setEditingCertId(null)} className="px-3 py-1 border border-outline-variant rounded-lg text-[12px]">Cancel</button>
+            <div className="flex justify-end gap-2 pt-2">
+              <button onClick={() => setEditingCertId(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
               <button
                 onClick={() => {
                   saveCertification();
                   setTimeout(() => handleSaveProfileChanges(), 50);
                 }}
-                className="px-3 py-1 bg-primary text-on-primary rounded-lg text-[12px] font-semibold"
+                className="jp-btn jp-btn-primary jp-btn-sm"
               >
                 Save
               </button>
@@ -692,18 +692,18 @@ export default function ProfileEditor({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
           {(!profileData?.resume_data?.certifications || profileData.resume_data.certifications.length === 0) ? (
-            <div className="text-center py-6 bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/50 col-span-2">
-              <Icon name="verified" className="text-[32px] text-outline/60 mb-2" />
-              <p className="text-[13px] text-on-surface-variant font-medium">No certifications listed yet.</p>
+            <div className="text-center py-8 bg-jp-bg-inset rounded-xl border border-dashed border-jp-border-subtle col-span-2">
+              <Icon name="verified" className="text-[32px] text-jp-text-muted mb-2" />
+              <p className="text-[13px] text-jp-text-secondary font-medium">No certifications listed yet.</p>
             </div>
           ) : (
             profileData.resume_data.certifications.map((cert) => (
-              <div key={cert.id} className="p-4 border border-outline-variant/40 bg-surface-container-low/30 rounded-xl flex justify-between items-start hover:shadow-md transition-all group">
+              <div key={cert.id} className="p-4 border border-jp-border bg-jp-bg-surface rounded-xl flex justify-between items-start group">
                 <div>
-                  <h4 className="font-bold text-[15px] text-on-surface">{cert.name}</h4>
-                  <div className="text-[13px] font-semibold text-primary mt-0.5">{cert.issuer} {cert.year && `• ${cert.year}`}</div>
+                  <h4 className="font-semibold text-[15px] text-jp-text-primary">{cert.name}</h4>
+                  <div className="text-[13px] font-medium text-jp-text-secondary mt-0.5">{cert.issuer} {cert.year && `• ${cert.year}`}</div>
                   {cert.url && (
-                    <a href={cert.url} target="_blank" rel="noreferrer" className="text-[12px] text-primary hover:underline flex items-center gap-0.5 mt-1.5 font-semibold">
+                    <a href={cert.url} target="_blank" rel="noreferrer" className="text-[12px] text-jp-accent hover:text-jp-accent-hover transition-colors flex items-center gap-1 mt-2 font-medium">
                       <Icon name="link" className="text-[14px]" /> Verify Credential
                     </a>
                   )}
@@ -717,7 +717,7 @@ export default function ProfileEditor({
                       setCertYear(cert.year || "");
                       setCertUrl(cert.url || "");
                     }} 
-                    className="p-1 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md"
+                    className="p-1.5 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-lg transition-colors"
                   >
                     <Icon name="edit" className="text-[14px]" />
                   </button>
@@ -726,7 +726,7 @@ export default function ProfileEditor({
                       deleteCertification(cert.id);
                       setTimeout(() => handleSaveProfileChanges(), 50);
                     }} 
-                    className="p-1 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md"
+                    className="p-1.5 text-jp-text-muted hover:text-jp-error hover:bg-jp-error-muted/20 rounded-lg transition-colors"
                   >
                     <Icon name="delete" className="text-[14px]" />
                   </button>
@@ -738,22 +738,22 @@ export default function ProfileEditor({
       </section>
 
       {/* SECTION 7: Co-curricular Activities */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="emoji_events" className="text-primary" /> Co-curricular Activities
+      <section className="jp-card p-6 space-y-4">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="emoji_events" className="text-jp-accent text-[20px]" /> Co-curricular Activities
           </h3>
           {editingSection !== 'co_curricular' ? (
             <button
               onClick={() => setEditingSection('co_curricular')}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="edit" className="text-[16px]" /> Manage Activities
             </button>
           ) : (
             <button
               onClick={handleSaveProfileChanges}
-              className="px-3 py-1 bg-primary text-on-primary text-[13px] font-semibold rounded-lg hover:opacity-90"
+              className="jp-btn jp-btn-primary jp-btn-sm"
             >
               Done
             </button>
@@ -762,13 +762,13 @@ export default function ProfileEditor({
 
         <div className="flex flex-wrap gap-2 pt-2">
           {(!profileData?.resume_data?.co_curricular_activities || profileData.resume_data.co_curricular_activities.length === 0) ? (
-            <p className="text-[13px] text-outline italic">No co-curricular activities listed yet.</p>
+            <p className="text-[13px] text-jp-text-tertiary">No co-curricular activities listed yet.</p>
           ) : (
             profileData.resume_data.co_curricular_activities.map((act, index) => (
-              <div key={index} className="flex items-center gap-1 bg-secondary-container/5 text-secondary border border-secondary-container/20 py-1.5 px-3 rounded-lg text-[13px] font-semibold">
+              <div key={index} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg text-[13px] font-medium text-jp-text-primary">
                 <span>{act}</span>
                 {editingSection === 'co_curricular' && (
-                  <button onClick={() => removeCoCurricular(act)} className="text-on-surface-variant hover:text-error ml-1 flex items-center">
+                  <button onClick={() => removeCoCurricular(act)} className="text-jp-text-muted hover:text-jp-error ml-1 flex items-center transition-colors">
                     <Icon name="close" className="text-[14px]" />
                   </button>
                 )}
@@ -778,192 +778,166 @@ export default function ProfileEditor({
         </div>
 
         {editingSection === 'co_curricular' && (
-          <div className="flex gap-2 max-w-xs pt-2">
+          <div className="flex gap-2 max-w-sm pt-2">
             <input
               type="text"
               value={newCoCurricular}
               onChange={(e) => setNewCoCurricular(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addCoCurricular())}
               placeholder="Add activity (e.g. Hackathon winner)"
-              className="flex-1 bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 text-[13px] outline-none"
+              className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl px-3 py-2 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
             />
-            <button onClick={() => { addCoCurricular(); setTimeout(() => handleSaveProfileChanges(), 50); }} className="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-[13px] font-bold hover:bg-primary/20">Add</button>
+            <button onClick={() => { addCoCurricular(); setTimeout(() => handleSaveProfileChanges(), 50); }} className="jp-btn jp-btn-secondary py-2 px-4 rounded-xl text-[13px]">Add</button>
           </div>
         )}
       </section>
 
       {/* SECTION 8: Preferences Card */}
-      <section className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 space-y-4 shadow-sm">
-        <div className="flex justify-between items-center pb-2 border-b border-outline-variant/20">
-          <h3 className="text-[18px] font-bold text-on-surface flex items-center gap-2">
-            <Icon name="star" className="text-primary" /> Search Preferences
+      <section className="jp-card p-6 space-y-6">
+        <div className="flex justify-between items-center pb-2 border-b border-jp-border-subtle">
+          <h3 className="text-[18px] font-bold text-jp-text-primary flex items-center gap-2">
+            <Icon name="star" className="text-jp-accent text-[20px]" /> Search Preferences
           </h3>
           {editingSection !== 'preferences' ? (
             <button
               onClick={() => setEditingSection('preferences')}
-              className="text-primary font-bold text-[14px] flex items-center gap-1 hover:underline"
+              className="text-jp-accent font-semibold text-[13px] flex items-center gap-1 hover:text-jp-accent-hover transition-colors"
             >
               <Icon name="edit" className="text-[16px]" /> Edit Preferences
             </button>
           ) : (
-            <button
-              onClick={handleSaveProfileChanges}
-              className="px-3 py-1 bg-primary text-on-primary text-[13px] font-semibold rounded-lg hover:opacity-90"
-            >
-              Save Options
-            </button>
+            <div className="flex gap-2">
+              <button onClick={() => setEditingSection(null)} className="jp-btn jp-btn-secondary jp-btn-sm">Cancel</button>
+              <button onClick={handleSaveProfileChanges} className="jp-btn jp-btn-primary jp-btn-sm">Save</button>
+            </div>
           )}
         </div>
 
-        {editingSection === 'preferences' ? (
-          <div className="space-y-4 pt-2">
-            <div className="space-y-1">
-              <label className="text-[12px] font-bold text-outline">Experience Segment</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          {/* Preferred Roles */}
+          <div className="space-y-3">
+            <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Target Roles</label>
+            <div className="flex flex-wrap gap-2">
+              {profileData.preferences.preferred_roles.map((role, idx) => (
+                <div key={idx} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg text-[13px] font-medium text-jp-text-primary">
+                  <span>{role}</span>
+                  {editingSection === 'preferences' && (
+                    <button onClick={() => removeRole(role)} className="text-jp-text-muted hover:text-jp-error ml-1 transition-colors">
+                      <Icon name="close" className="text-[14px]" />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            {editingSection === 'preferences' && (
+              <div className="flex gap-2 mt-2">
+                <input
+                  type="text"
+                  value={newRole}
+                  onChange={(e) => setNewRole(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addRole())}
+                  placeholder="e.g. Frontend Engineer"
+                  className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl px-3 py-2 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
+                />
+                <button onClick={addRole} className="jp-btn jp-btn-secondary py-2 px-3 rounded-xl text-[13px]">Add</button>
+              </div>
+            )}
+          </div>
+
+          {/* Preferred Locations */}
+          <div className="space-y-3">
+            <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Locations</label>
+            <div className="flex flex-wrap gap-2">
+              {profileData.preferences.preferred_locations.map((loc, idx) => (
+                <div key={idx} className="flex items-center gap-1 bg-jp-bg-surface border border-jp-border py-1.5 px-3 rounded-lg text-[13px] font-medium text-jp-text-primary">
+                  <span>{loc}</span>
+                  {editingSection === 'preferences' && (
+                    <button onClick={() => removeLocation(loc)} className="text-jp-text-muted hover:text-jp-error ml-1 transition-colors">
+                      <Icon name="close" className="text-[14px]" />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            {editingSection === 'preferences' && (
+              <div className="flex gap-2 mt-2">
+                <input
+                  type="text"
+                  value={newLocation}
+                  onChange={(e) => setNewLocation(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addLocation())}
+                  placeholder="e.g. Remote, New York"
+                  className="flex-1 bg-jp-bg-inset border border-jp-border rounded-xl px-3 py-2 text-[13px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
+                />
+                <button onClick={addLocation} className="jp-btn jp-btn-secondary py-2 px-3 rounded-xl text-[13px]">Add</button>
+              </div>
+            )}
+          </div>
+
+          {/* Experience Level */}
+          <div className="space-y-3 md:col-span-2 pt-2">
+            <label className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider">Experience Level</label>
+            {editingSection === 'preferences' ? (
               <select
-                value={profileData.preferences.experience_level}
+                value={profileData.preferences.experience_level || ""}
                 onChange={(e) => setProfileData({
                   ...profileData,
                   preferences: { ...profileData.preferences, experience_level: e.target.value }
                 })}
-                className="w-full bg-surface-container border border-outline-variant rounded-lg p-2 text-[14px] outline-none"
+                className="w-full max-w-sm bg-jp-bg-inset border border-jp-border rounded-xl p-2.5 text-[14px] text-jp-text-primary focus:border-jp-accent focus:outline-none transition-colors"
               >
-                <option value="Fresher">Fresher (No professional experience)</option>
-                <option value="0-2 Years">Junior (0-2 Years)</option>
-                <option value="2-5 Years">Mid-Level (2-5 Years)</option>
-                <option value="5+ Years">Senior (5+ Years)</option>
+                <option value="">Select Level...</option>
+                <option value="Fresher">Fresher (0 Years)</option>
+                <option value="0-2 Years">Entry Level (0-2 Years)</option>
+                <option value="2-5 Years">Mid Level (2-5 Years)</option>
+                <option value="5+ Years">Senior Level (5+ Years)</option>
               </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[12px] font-bold text-outline">Target Roles</label>
-              <div className="flex flex-wrap gap-2">
-                {profileData.preferences.preferred_roles.map((r, i) => (
-                  <span key={i} className="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-lg text-[12px] font-bold">
-                    {r} <button onClick={() => removeRole(r)}><Icon name="close" className="text-[13px] text-error" /></button>
-                  </span>
-                ))}
+            ) : (
+              <div className="text-[14px] font-medium text-jp-text-primary">
+                {profileData.preferences.experience_level || <span className="text-jp-text-tertiary">Not specified</span>}
               </div>
-              <div className="flex gap-2 max-w-xs">
-                <input
-                  type="text"
-                  placeholder="Add Role"
-                  value={newRole}
-                  onChange={(e) => setNewRole(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addRole())}
-                  className="flex-1 bg-surface-container border border-outline-variant rounded-lg px-2 py-1 text-[13px] outline-none"
-                />
-                <button onClick={addRole} className="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[13px] font-bold">Add</button>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[12px] font-bold text-outline">Preferred Job Locations</label>
-              <div className="flex flex-wrap gap-2">
-                {profileData.preferences.preferred_locations.map((l, i) => (
-                  <span key={i} className="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-lg text-[12px] font-bold">
-                    {l} <button onClick={() => removeLocation(l)}><Icon name="close" className="text-[13px] text-error" /></button>
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-2 max-w-xs">
-                <input
-                  type="text"
-                  placeholder="Add Location"
-                  value={newLocation}
-                  onChange={(e) => setNewLocation(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addLocation())}
-                  className="flex-1 bg-surface-container border border-outline-variant rounded-lg px-2 py-1 text-[13px] outline-none"
-                />
-                <button onClick={addLocation} className="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[13px] font-bold">Add</button>
-              </div>
-            </div>
+            )}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <div>
-              <span className="text-[12px] font-bold text-outline block uppercase tracking-wider">Preferred Roles</span>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
-                {profileData.preferences.preferred_roles.map((role, idx) => (
-                  <span key={idx} className="bg-secondary-container/10 text-secondary border border-secondary-container/20 text-[12px] font-bold px-2.5 py-1 rounded-lg">
-                    {role}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div>
-              <span className="text-[12px] font-bold text-outline block uppercase tracking-wider">Preferred Locations</span>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
-                {profileData.preferences.preferred_locations.map((loc, idx) => (
-                  <span key={idx} className="bg-secondary-container/10 text-secondary border border-secondary-container/20 text-[12px] font-bold px-2.5 py-1 rounded-lg">
-                    {loc}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </section>
 
-      {/* Floating Modal for Project Details */}
+      {/* Project Detail Modal */}
       {selectedProjectForModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 transition-all"
-          onClick={() => setSelectedProjectForModal(null)}
-        >
-          <div 
-            className="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="flex justify-between items-start pb-4 border-b border-outline-variant/20 mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                  <Icon name="folder" className="text-[22px]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[18px] text-on-surface">{selectedProjectForModal.title}</h4>
-                  <span className="text-[11px] font-semibold text-outline">Project Details</span>
-                </div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-jp-bg-surface border border-jp-border w-full max-w-2xl rounded-2xl p-8 relative shadow-2xl">
+            <button 
+              onClick={() => setSelectedProjectForModal(null)} 
+              className="absolute top-6 right-6 p-2 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-inset rounded-full transition-colors"
+            >
+              <Icon name="close" className="text-[20px]" />
+            </button>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-jp-bg-inset border border-jp-border flex items-center justify-center text-jp-accent">
+                <Icon name="folder" className="text-[24px]" />
               </div>
-              <button 
-                onClick={() => setSelectedProjectForModal(null)} 
-                className="p-1.5 hover:bg-surface-container rounded-full text-on-surface-variant hover:text-on-surface transition-colors"
-              >
-                <Icon name="close" className="text-[20px]" />
-              </button>
-            </div>
-
-            {/* Body */}
-            <div className="space-y-4">
               <div>
-                <span className="text-[11px] font-bold text-outline block uppercase tracking-wider mb-1">Description</span>
-                <p className="text-[14px] text-on-surface-variant leading-relaxed whitespace-pre-wrap">
-                  {selectedProjectForModal.description}
+                <h2 className="text-[22px] font-bold text-jp-text-primary tracking-tight">{selectedProjectForModal.title}</h2>
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider mb-2">Description</h4>
+                <p className="text-[14px] text-jp-text-primary leading-relaxed whitespace-pre-wrap bg-jp-bg-inset p-4 rounded-xl border border-jp-border-subtle">
+                  {selectedProjectForModal.description || "No description provided."}
                 </p>
               </div>
 
               {selectedProjectForModal.technologies && selectedProjectForModal.technologies.length > 0 && (
-                <div className="pt-4 border-t border-outline-variant/10">
-                  <span className="text-[11px] font-bold text-outline block uppercase tracking-wider mb-2">Technologies Used</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedProjectForModal.technologies.map((tech, i) => (
-                      <span key={i} className="bg-surface-container text-[12px] font-semibold px-2.5 py-1 rounded text-outline">
-                        {tech}
-                      </span>
+                <div>
+                  <h4 className="text-[12px] font-bold text-jp-text-secondary uppercase tracking-wider mb-3">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProjectForModal.technologies.map((t, i) => (
+                      <span key={i} className="bg-jp-bg-inset border border-jp-border text-[12px] font-medium px-3 py-1 rounded-lg text-jp-text-primary">{t}</span>
                     ))}
                   </div>
                 </div>
               )}
-            </div>
-
-            {/* Footer */}
-            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-outline-variant/20">
-              <button 
-                onClick={() => setSelectedProjectForModal(null)}
-                className="px-4 py-2 border border-outline-variant text-[13px] font-semibold rounded-lg hover:bg-surface-container text-on-surface transition-colors"
-              >
-                Close
-              </button>
             </div>
           </div>
         </div>

@@ -1,271 +1,255 @@
-import React from "react";
-import Sidebar from "../components/layout/SideBar";
-import PromoCard from "../components/layout/PromoCard";
-import TopHeader from "../components/layout/TopHeader";
-import Breadcrumb from "../components/layout/Breadcrumb";
-import UserAvatarMenu from "../components/layout/UserAvatarMenu";
-import ResultsSummaryBar from "../components/search-results/ResultsSummaryBar";
-import FilterBar from "../components/search-results/FilterBar";
-import JobResultCard from "../components/search-results/JobResultCard";
-import InsightsPanelCard from "../components/search-results/InsightsPanelCard";
-import SkillProgressBar from "../components/search-results/SkillProgressBar";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import AppShell from "../components/layout/AppShell";
 import Icon from "../components/common/Icon";
-import { themeVars } from "../styles/Theme";
+import SkillTag from "../components/common/SkillTag";
+import CircularProgress from "../components/common/CircularProgress";
+
+function JobCard({ title, company, location, workMode, matchPercentage, recommended, matchingSkills = [], missingSkills = [], insightText, onGenerateResume, onViewDetails }) {
+  return (
+    <div className="jp-card p-5 space-y-4 hover:border-jp-accent/30 transition-all">
+      {recommended && (
+        <div className="flex justify-end -mt-1 -mr-1">
+          <span className="jp-badge jp-badge-accent">
+            <Icon name="workspace_premium" className="text-[12px]" />
+            #{recommended.rank} Recommended
+          </span>
+        </div>
+      )}
+
+      <div className="flex items-start gap-4">
+        <div className="w-10 h-10 rounded-lg bg-jp-bg-raised border border-jp-border flex items-center justify-center shrink-0">
+          <Icon name="business" className="text-[20px] text-jp-text-muted" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-[15px] font-semibold text-jp-text-primary">{title}</h3>
+          <p className="text-[13px] text-jp-text-tertiary mt-0.5">
+            {company} · {location}{workMode ? ` · ${workMode}` : ""}
+          </p>
+        </div>
+        <CircularProgress percentage={matchPercentage} size={48} strokeWidth={4} />
+      </div>
+
+      {matchingSkills.length > 0 && (
+        <div>
+          <p className="text-[10px] font-semibold text-jp-text-muted uppercase tracking-wider mb-2">Matching Skills</p>
+          <div className="flex flex-wrap gap-1.5">
+            {matchingSkills.map(s => <SkillTag key={s} label={s} variant="success" />)}
+          </div>
+        </div>
+      )}
+
+      {missingSkills.length > 0 && (
+        <div>
+          <p className="text-[10px] font-semibold text-jp-text-muted uppercase tracking-wider mb-2">Gaps</p>
+          <div className="flex flex-wrap gap-1.5">
+            {missingSkills.map(s => <SkillTag key={s} label={s} variant="warning" />)}
+          </div>
+        </div>
+      )}
+
+      {insightText && (
+        <div className="flex gap-2.5 p-3 rounded-lg bg-jp-accent-muted/50 border border-jp-accent/10">
+          <Icon name="lightbulb" fill className="text-[16px] text-jp-accent shrink-0 mt-0.5" />
+          <p className="text-[12px] text-jp-text-secondary leading-relaxed">{insightText}</p>
+        </div>
+      )}
+
+      <div className="flex gap-2 pt-1">
+        <button className="jp-btn jp-btn-primary jp-btn-sm" onClick={onGenerateResume}>
+          <Icon name="bolt" className="text-[16px]" />
+          Generate Resume
+        </button>
+        <Link to="/job-detail" className="jp-btn jp-btn-secondary jp-btn-sm no-underline">
+          View Details
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function InsightCard({ icon, title, children, variant }) {
+  return (
+    <div className={`jp-card p-4 ${variant === 'highlight' ? 'border-jp-accent/30 bg-jp-accent-muted/30' : ''}`}>
+      <h4 className="text-[11px] font-semibold text-jp-text-muted uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        {icon && <Icon name={icon} className="text-[14px] text-jp-accent" />}
+        {title}
+      </h4>
+      {children}
+    </div>
+  );
+}
+
+function SkillBar({ label, percentage }) {
+  return (
+    <div className="space-y-1">
+      <div className="flex justify-between text-[12px]">
+        <span className="text-jp-text-secondary font-medium">{label}</span>
+        <span className="text-jp-text-muted">{percentage}%</span>
+      </div>
+      <div className="h-1.5 bg-jp-bg-raised rounded-full overflow-hidden">
+        <div className="h-full bg-jp-accent rounded-full transition-all" style={{ width: `${percentage}%` }} />
+      </div>
+    </div>
+  );
+}
 
 export default function JobSearch() {
+  const [refineQuery, setRefineQuery] = useState("");
+
   return (
-    <div
-      style={{
-        ...themeVars,
-        fontFamily: "'Inter', sans-serif",
-        backgroundColor: "var(--color-background)",
-        color: "var(--color-on-background)",
-        minHeight: "100vh",
-      }}
-      className="selection:bg-[var(--color-primary-container)] selection:text-[var(--color-on-primary-container)]"
-    >
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet"
-      />
-
-      <div className="flex h-screen overflow-hidden">
-        {/* Left Sidebar */}
-        <Sidebar activeItem="search" bottomCard={<PromoCard />} />
-
-        {/* Main Content Pane */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden" style={{ backgroundColor: "rgba(248,249,255,0.5)" }}>
-        {/* Top Header */}
-        <TopHeader
-          left={
-            <Breadcrumb
-              items={[
-                { label: "Dashboard", href: "/dashboard" },
-                { label: "Search Results" },
-              ]}
-            />
-          }
-          right={<UserAvatarMenu name="Alex Chen" />}
-        />
-
-        {/* Content Area */}
-        <div className="flex-1 overflow-y-auto flex flex-col justify-between">
-          <div className="px-8 py-6 space-y-6 max-w-7xl w-full mx-auto">
-            {/* Summary Bar */}
-            <ResultsSummaryBar
-              title="DevOps Engineer Jobs in Pune"
-              stats={[
-                { label: "127 Jobs Found" },
-                { label: "10 Top Matches" },
-                { label: "Average Match: 78%" },
-              ]}
-              onShareClick={() => alert("Sharing search results...")}
-            />
-
-            {/* Filter Bar */}
-            <FilterBar
-              filters={[
-                { label: "Location", options: ["Pune", "Remote", "Bengaluru"] },
-                { label: "Experience", options: ["0-2 years", "3-5 years", "5+ years"] },
-                { label: "Work Mode", options: ["Remote", "Hybrid", "On-site"] },
-                { label: "Min Match Score", options: ["70%+", "80%+", "90%+"] },
-              ]}
-              sortOptions={["Highest Match", "Most Recent", "Salary Range"]}
-              sortValue="Highest Match"
-              onFilterChange={(label, val) => console.log(`Filter ${label} changed to ${val}`)}
-              onSortChange={(val) => console.log(`Sort changed to ${val}`)}
-            />
-
-            {/* Job Search & Insights Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left: Job listings */}
-              <div className="lg:col-span-8 space-y-4">
-                <JobResultCard
-                  logo={
-                    <div className="w-full h-full bg-[#0a192f] flex items-center justify-center rounded-lg">
-                      <div className="w-5 h-5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]"></div>
-                    </div>
-                  }
-                  title="Senior DevOps Architect"
-                  company="CloudStream Solutions"
-                  location="Pune"
-                  workMode="Hybrid"
-                  matchPercentage={94}
-                  recommended={{ rank: 1 }}
-                  matchingSkills={["AWS (Expert)", "Docker", "Kubernetes"]}
-                  missingSkills={["Terraform", "ArgoCD"]}
-                  insightText={
-                    <>
-                      Your experience with EKS perfectly aligns with their stack. Mentioning your{" "}
-                      <strong>multi-cluster management</strong> could secure an interview.
-                    </>
-                  }
-                  onGenerateResume={() => alert("Generating tailored resume for Senior DevOps Architect...")}
-                  onViewDetails={() => alert("Opening job details...")}
-                />
-
-                <JobResultCard
-                  logo={
-                    <div className="w-full h-full bg-[#1e293b] flex items-center justify-center rounded-lg">
-                      <div className="w-4 h-4 rounded-full bg-amber-400"></div>
-                    </div>
-                  }
-                  title="Cloud Infrastructure Engineer"
-                  company="Nexus Systems"
-                  location="Pune"
-                  workMode="On-site"
-                  matchPercentage={82}
-                  matchingSkills={["Linux", "Terraform"]}
-                  missingSkills={["Jenkins CI"]}
-                  missingSkillsVariant="red"
-                  summaryText="You meet 8 out of 10 primary requirements. They focus heavily on Infrastructure as Code."
-                  onGenerateResume={() => alert("Generating tailored resume for Cloud Infrastructure Engineer...")}
-                  onViewDetails={() => alert("Opening job details...")}
-                />
-
-                <JobResultCard
-                  logo={
-                    <div className="w-full h-full bg-[#111827] flex items-center justify-center rounded-lg">
-                      <div className="w-4 h-4 rounded bg-emerald-400 transform rotate-45"></div>
-                    </div>
-                  }
-                  title="Platform Engineer (SRE)"
-                  company="Velocity AI"
-                  location="Pune"
-                  workMode="Remote"
-                  matchPercentage={76}
-                  matchingSkills={["Prometheus", "Go"]}
-                  missingSkills={["Service Mesh"]}
-                  missingSkillsVariant="red"
-                  onGenerateResume={() => alert("Generating tailored resume for Platform Engineer...")}
-                  onViewDetails={() => alert("Opening job details...")}
-                />
-              </div>
-
-              {/* Right: Insights Sidebar */}
-              <aside className="lg:col-span-4 space-y-4">
-                <h3
-                  className="text-[14px] leading-[20px] font-bold uppercase tracking-wider flex items-center gap-2 px-1"
-                  style={{ color: "var(--color-on-surface-variant)" }}
-                >
-                  <Icon name="auto_awesome" className="text-primary text-[18px]" />
-                  AI Search Insights
-                </h3>
-
-                <div className="space-y-4">
-                  {/* Skills Found */}
-                  <InsightsPanelCard icon="insights" title="Most Common Skills Found">
-                    <div className="space-y-3 mt-1">
-                      <SkillProgressBar label="AWS" percentage={80} />
-                      <SkillProgressBar label="Docker" percentage={65} />
-                      <SkillProgressBar label="Linux" percentage={55} />
-                    </div>
-                  </InsightsPanelCard>
-
-                  {/* Skills to Learn */}
-                  <InsightsPanelCard title="Skills to Learn" variant="alert">
-                    <div className="space-y-3 mt-1">
-                      <div className="flex flex-wrap gap-2">
-                        <span className="inline-flex items-center gap-1 bg-[#fff7ed] text-[#c2410c] border border-[#fed7aa] rounded px-2.5 py-0.5 text-[12px] font-semibold">
-                          ⬈ Terraform
-                        </span>
-                        <span className="inline-flex items-center gap-1 bg-[#fff7ed] text-[#c2410c] border border-[#fed7aa] rounded px-2.5 py-0.5 text-[12px] font-semibold">
-                          ⬈ Jenkins
-                        </span>
-                        <span className="inline-flex items-center gap-1 bg-[#fff7ed] text-[#c2410c] border border-[#fed7aa] rounded px-2.5 py-0.5 text-[12px] font-semibold">
-                          ⬈ CI/CD
-                        </span>
-                      </div>
-                      <p className="text-[12px] text-[#9a3412] leading-[16px]">
-                        These skills appear in 60%+ of your search results.
-                      </p>
-                    </div>
-                  </InsightsPanelCard>
-
-                  {/* Market Intelligence */}
-                  <InsightsPanelCard icon="analytics" title="Market Intelligence">
-                    <ul className="space-y-2 text-[13px] leading-[18px] list-disc pl-4 mt-1" style={{ color: "var(--color-on-surface-variant)" }}>
-                      <li>
-                        <strong>72%</strong> of matching jobs in Pune require{" "}
-                        <span className="underline cursor-pointer">AWS Certification</span>.
-                      </li>
-                      <li>
-                        Salary range for your profile is <strong>15% higher</strong> than average.
-                      </li>
-                    </ul>
-                  </InsightsPanelCard>
-
-                  {/* Profile Optimization */}
-                  <InsightsPanelCard icon="check_circle" title="Profile Optimization" variant="highlight">
-                    <div className="space-y-3 mt-1">
-                      <p className="text-[13px] leading-[18px] text-white/90">
-                        Add <strong>deployment metrics</strong> (e.g., 'reduced downtime by 30%') to
-                        your resume to increase your match score with Top 3 employers.
-                      </p>
-                      <button className="w-full py-2 bg-white text-primary font-bold rounded-lg text-[13px] leading-[18px] transition-colors hover:bg-white/95">
-                        Apply Recommendations
-                      </button>
-                    </div>
-                  </InsightsPanelCard>
-
-                  {/* Suggested Follow-ups */}
-                  <div
-                    className="border rounded-xl p-4 bg-white space-y-3"
-                    style={{ borderColor: "var(--color-outline-variant)" }}
-                  >
-                    <h4 className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-outline)" }}>
-                      Suggested Follow-ups
-                    </h4>
-                    <div className="flex flex-col gap-2">
-                      {[
-                        "Show only remote roles?",
-                        "What's the salary range?",
-                        "Learn Terraform fast?",
-                        "Best company culture?",
-                      ].map((text) => (
-                        <button
-                          key={text}
-                          className="w-full text-left px-3 py-2 bg-white border rounded-lg text-[13px] leading-[18px] font-medium transition-colors hover:bg-[var(--color-surface-container-low)]"
-                          style={{ borderColor: "var(--color-outline-variant)", color: "var(--color-on-surface)" }}
-                          onClick={() => alert(`Asking AI: "${text}"`)}
-                        >
-                          {text}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </aside>
+    <AppShell breadcrumbs={[
+      { label: "Dashboard", href: "/dashboard" },
+      { label: "Search Results" },
+    ]}>
+      <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        {/* Summary */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 className="text-xl font-semibold text-jp-text-primary">DevOps Engineer Jobs in Pune</h1>
+            <div className="flex items-center gap-4 mt-1">
+              <span className="text-[13px] text-jp-text-tertiary">127 jobs found</span>
+              <span className="text-[13px] text-jp-text-tertiary">10 top matches</span>
+              <span className="text-[13px] text-jp-text-tertiary">Avg match: 78%</span>
             </div>
           </div>
+          <button className="jp-btn jp-btn-secondary jp-btn-sm">
+            <Icon name="share" className="text-[16px]" />
+            Share
+          </button>
+        </div>
 
-          {/* Sticky Bottom Search input bar */}
-          <div className="sticky bottom-4 mx-auto max-w-2xl w-full px-4 pb-4 mt-6">
-            <div
-              className="bg-white border rounded-full pl-5 pr-2 py-2 flex items-center shadow-lg hover:shadow-xl focus-within:ring-2 focus-within:ring-primary/20 transition-all"
-              style={{ borderColor: "var(--color-outline-variant)" }}
-            >
-              <Icon name="auto_awesome" className="text-primary mr-3 text-[20px]" />
-              <input
-                type="text"
-                placeholder="Ask AI to refine your search..."
-                className="flex-1 bg-transparent border-none outline-none focus:ring-0 text-[14px]"
-              />
-              <button
-                className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md hover:opacity-90 transition-opacity shrink-0"
-                onClick={() => alert("Refining search with AI...")}
-              >
-                <Icon name="search" className="text-[18px]" />
-              </button>
+        {/* Filters */}
+        <div className="flex flex-wrap items-center gap-2">
+          {[
+            { label: "Location", options: ["Pune", "Remote", "Bengaluru"] },
+            { label: "Experience", options: ["0-2 years", "3-5 years", "5+ years"] },
+            { label: "Work Mode", options: ["Remote", "Hybrid", "On-site"] },
+            { label: "Min Match", options: ["70%+", "80%+", "90%+"] },
+          ].map(filter => (
+            <select key={filter.label} className="jp-select text-[12px]">
+              <option>{filter.label}</option>
+              {filter.options.map(opt => <option key={opt}>{opt}</option>)}
+            </select>
+          ))}
+          <div className="ml-auto">
+            <select className="jp-select text-[12px]">
+              <option>Sort: Highest Match</option>
+              <option>Sort: Most Recent</option>
+              <option>Sort: Salary Range</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Job Listings */}
+          <div className="lg:col-span-8 space-y-4">
+            <JobCard
+              title="Senior DevOps Architect"
+              company="CloudStream Solutions"
+              location="Pune"
+              workMode="Hybrid"
+              matchPercentage={94}
+              recommended={{ rank: 1 }}
+              matchingSkills={["AWS (Expert)", "Docker", "Kubernetes"]}
+              missingSkills={["Terraform", "ArgoCD"]}
+              insightText={<>Your experience with EKS perfectly aligns with their stack. Mentioning your <strong>multi-cluster management</strong> could secure an interview.</>}
+              onGenerateResume={() => alert("Generating tailored resume for Senior DevOps Architect...")}
+            />
+            <JobCard
+              title="Cloud Infrastructure Engineer"
+              company="Nexus Systems"
+              location="Pune"
+              workMode="On-site"
+              matchPercentage={82}
+              matchingSkills={["Linux", "Terraform"]}
+              missingSkills={["Jenkins CI"]}
+              insightText="You meet 8 out of 10 primary requirements. They focus heavily on Infrastructure as Code."
+              onGenerateResume={() => alert("Generating tailored resume for Cloud Infrastructure Engineer...")}
+            />
+            <JobCard
+              title="Platform Engineer (SRE)"
+              company="Velocity AI"
+              location="Pune"
+              workMode="Remote"
+              matchPercentage={76}
+              matchingSkills={["Prometheus", "Go"]}
+              missingSkills={["Service Mesh"]}
+              onGenerateResume={() => alert("Generating tailored resume for Platform Engineer...")}
+            />
+          </div>
+
+          {/* Insights Sidebar */}
+          <aside className="lg:col-span-4 space-y-4">
+            <h3 className="text-[11px] font-semibold text-jp-text-muted uppercase tracking-wider flex items-center gap-1.5 px-1">
+              <Icon name="auto_awesome" fill className="text-[14px] text-jp-accent" />
+              AI Search Insights
+            </h3>
+
+            <InsightCard icon="insights" title="Most Demanded Skills">
+              <div className="space-y-2.5">
+                <SkillBar label="AWS" percentage={80} />
+                <SkillBar label="Docker" percentage={65} />
+                <SkillBar label="Linux" percentage={55} />
+              </div>
+            </InsightCard>
+
+            <InsightCard title="Skills to Learn" variant="alert">
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {["Terraform", "Jenkins", "CI/CD"].map(s => (
+                  <SkillTag key={s} label={`↗ ${s}`} variant="accent" />
+                ))}
+              </div>
+              <p className="text-[11px] text-jp-text-muted">Appear in 60%+ of your search results.</p>
+            </InsightCard>
+
+            <InsightCard icon="analytics" title="Market Intelligence">
+              <ul className="space-y-2 text-[12px] text-jp-text-secondary leading-relaxed">
+                <li className="flex gap-2"><span className="text-jp-accent shrink-0">•</span><span><strong>72%</strong> of matching jobs require AWS Certification.</span></li>
+                <li className="flex gap-2"><span className="text-jp-accent shrink-0">•</span><span>Salary range for your profile is <strong>15% higher</strong> than average.</span></li>
+              </ul>
+            </InsightCard>
+
+            <InsightCard icon="check_circle" title="Profile Optimization" variant="highlight">
+              <p className="text-[12px] text-jp-text-secondary leading-relaxed mb-3">
+                Add <strong>deployment metrics</strong> to your resume to increase match score with Top 3 employers.
+              </p>
+              <button className="jp-btn jp-btn-primary w-full jp-btn-sm">Apply Recommendations</button>
+            </InsightCard>
+
+            <div className="jp-card p-4 space-y-2">
+              <h4 className="text-[10px] font-semibold text-jp-text-muted uppercase tracking-wider">Suggested Follow-ups</h4>
+              {["Show only remote roles?", "What's the salary range?", "Learn Terraform fast?", "Best company culture?"].map(text => (
+                <button
+                  key={text}
+                  className="w-full text-left px-3 py-2 rounded-lg text-[12px] font-medium text-jp-text-secondary bg-jp-bg-raised border border-jp-border-subtle hover:border-jp-accent/20 hover:text-jp-text-primary transition-all"
+                  onClick={() => alert(`Asking AI: "${text}"`)}
+                >
+                  {text}
+                </button>
+              ))}
             </div>
+          </aside>
+        </div>
+
+        {/* Sticky AI Refine Bar */}
+        <div className="sticky bottom-4 max-w-xl mx-auto w-full">
+          <div className="bg-jp-bg-surface/90 backdrop-blur-xl border border-jp-border rounded-full pl-4 pr-1.5 py-1.5 flex items-center gap-2 shadow-lg">
+            <Icon name="auto_awesome" className="text-[18px] text-jp-accent shrink-0" />
+            <input
+              type="text"
+              placeholder="Ask AI to refine your search..."
+              className="flex-1 bg-transparent border-none outline-none text-[13px] text-jp-text-primary placeholder:text-jp-text-muted"
+              value={refineQuery}
+              onChange={(e) => setRefineQuery(e.target.value)}
+            />
+            <button className="w-8 h-8 rounded-full bg-jp-accent text-white flex items-center justify-center shrink-0 hover:bg-jp-accent-hover transition-colors">
+              <Icon name="arrow_upward" className="text-[16px]" />
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </AppShell>
   );
 }

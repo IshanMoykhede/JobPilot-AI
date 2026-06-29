@@ -1,246 +1,247 @@
 import React from 'react';
-import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import AppShell from '../components/layout/AppShell';
+import Icon from '../components/common/Icon';
+import CircularProgress from '../components/common/CircularProgress';
+import SkillTag from '../components/common/SkillTag';
 
 function JobDetail() {
   return (
-    <>
-      <Header />
-      <div className="p-xl space-y-lg">
-        {/* HEADER SECTION: Job Overview Card */}
-        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col md:flex-row items-center gap-lg">
-          <div className="w-20 h-20 bg-surface-container rounded-xl flex items-center justify-center p-4">
-            <img alt="CloudStream Solutions Logo" className="w-full h-full object-contain" data-alt="A clean, minimalist tech company logo featuring a stylized geometric 'S' integrated with a cloud-like stream element. The color palette is professional primary blue and crisp white, conveying high-trust corporate reliability. It's set against a light-mode grey background with soft ambient lighting for a modern SaaS aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9s7eyf9NXaonDAu6UAhF0OuKJhJcVCqvSRqLlEvrAB-NRBqNV7dD0IUdcxBX5irBBcdDc1u8lEqbyMX4eo8FJKQ_L_VhwsNXqs-I9BtzWolz_LZy7PgAIrDNFwKFIjZuNLwT6KopwPt34Ezv__nlGaTG3NVJ070bWj-z9PhHgBTbXHipdNN8g1HsNnHcplLsYNXIv20mOHnQSuQgzDowgRxNpwjQi7zdQVjuagTPl97lAt0QRdQqHOQ5KrVDYkX7Ynaol3FYDlpEC" />
+    <AppShell breadcrumbs={[
+      { label: "Dashboard", href: "/dashboard" },
+      { label: "Search Results", href: "/search" },
+      { label: "Job Detail" },
+    ]}>
+      <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+
+        {/* ── Job Header ──────────────────────────────────── */}
+        <section className="jp-card p-6 flex flex-col md:flex-row md:items-center gap-5">
+          <div className="w-14 h-14 rounded-xl bg-jp-bg-raised border border-jp-border flex items-center justify-center shrink-0">
+            <Icon name="business" className="text-[28px] text-jp-text-muted" />
           </div>
-          <div className="flex-1 text-center md:text-left">
-            <h2 className="font-headline-md text-headline-md text-on-surface">Senior DevOps Architect</h2>
-            <div className="flex flex-wrap justify-center md:justify-start items-center gap-md mt-1 text-on-surface-variant">
-              <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">business</span> CloudStream Solutions</span>
-              <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">location_on</span> Pune, Hybrid</span>
-              <span className="bg-surface-container px-2 py-0.5 rounded text-label-sm font-semibold text-primary">Full-time</span>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-xl font-semibold text-jp-text-primary tracking-tight">Senior DevOps Architect</h1>
+            <div className="flex flex-wrap items-center gap-3 mt-1.5 text-[13px] text-jp-text-tertiary">
+              <span className="flex items-center gap-1"><Icon name="business" className="text-[16px]" /> CloudStream Solutions</span>
+              <span className="flex items-center gap-1"><Icon name="location_on" className="text-[16px]" /> Pune, Hybrid</span>
+              <span className="jp-badge jp-badge-accent">Full-time</span>
             </div>
           </div>
-          <div className="flex items-center gap-xl">
-            <div className="relative w-24 h-24">
-              <svg className="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
-                <path className="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3"></path>
-                <path className="text-primary animate-progress" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray="89, 100" strokeLinecap="round" strokeWidth="3"></path>
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-xl font-bold text-primary">89%</span>
-                <span className="text-[8px] uppercase font-bold text-outline">Match</span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              <button className="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md hover:bg-primary-container transition-all shadow-sm">Generate Tailored Resume</button>
-              <button className="border border-outline-variant text-on-surface px-6 py-2.5 rounded-lg font-label-md hover:bg-surface-container-low transition-all">Apply Now</button>
+          <div className="flex items-center gap-5 shrink-0">
+            <CircularProgress percentage={89} size={56} strokeWidth={4} label="Match" />
+            <div className="flex flex-col gap-2">
+              <button className="jp-btn jp-btn-primary">
+                <Icon name="bolt" className="text-[16px]" />
+                Generate Resume
+              </button>
+              <button className="jp-btn jp-btn-secondary">
+                Apply Now
+              </button>
             </div>
           </div>
         </section>
-        {/* THREE COLUMN DASHBOARD STRUCTURE */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg">
-          {/* COLUMN 1: Job Description (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col gap-lg">
-            <section className="bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col h-[700px]">
-              <div className="p-md border-b border-outline-variant">
-                <h3 className="font-label-md text-label-md text-primary uppercase tracking-wider">Job Requirements</h3>
+
+        {/* ── Three Column Layout ─────────────────────────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          {/* Column 1: Job Requirements */}
+          <div className="lg:col-span-4">
+            <div className="jp-card flex flex-col overflow-hidden">
+              <div className="px-5 py-3 border-b border-jp-border-subtle">
+                <h3 className="text-[11px] font-semibold text-jp-accent uppercase tracking-wider">Job Requirements</h3>
               </div>
-              <div className="p-lg overflow-y-auto custom-scrollbar space-y-lg">
+              <div className="p-5 space-y-6 overflow-y-auto max-h-[600px]">
                 <div>
-                  <h4 className="font-headline-sm text-headline-sm mb-4">Responsibilities</h4>
-                  <ul className="space-y-3 text-body-sm text-on-surface-variant list-disc pl-5">
-                    <li>Architect and maintain highly scalable, fault-tolerant infrastructure on AWS using best practices.</li>
-                    <li>Automate CI/CD pipelines for complex microservices architectures using Jenkins and GitHub Actions.</li>
+                  <h4 className="text-[14px] font-semibold text-jp-text-primary mb-3">Responsibilities</h4>
+                  <ul className="space-y-2 text-[13px] text-jp-text-secondary list-disc pl-4 leading-relaxed">
+                    <li>Architect and maintain highly scalable, fault-tolerant infrastructure on AWS.</li>
+                    <li>Automate CI/CD pipelines for complex microservices using Jenkins and GitHub Actions.</li>
                     <li>Design container orchestration strategies with Docker and Kubernetes (EKS).</li>
-                    <li>Lead security hardening initiatives and compliance audits for infrastructure.</li>
-                    <li>Collaborate with development teams to optimize application performance and monitoring.</li>
+                    <li>Lead security hardening initiatives and compliance audits.</li>
+                    <li>Collaborate with dev teams to optimize application performance.</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-headline-sm text-headline-sm mb-4">Qualifications</h4>
-                  <ul className="space-y-3 text-body-sm text-on-surface-variant list-disc pl-5">
-                    <li>8+ years of experience in DevOps or Infrastructure Engineering roles.</li>
-                    <li>Deep expertise in Terraform and Infrastructure as Code (IaC).</li>
+                  <h4 className="text-[14px] font-semibold text-jp-text-primary mb-3">Qualifications</h4>
+                  <ul className="space-y-2 text-[13px] text-jp-text-secondary list-disc pl-4 leading-relaxed">
+                    <li>8+ years of experience in DevOps or Infrastructure Engineering.</li>
+                    <li>Deep expertise in Terraform and Infrastructure as Code.</li>
                     <li>Strong background in Linux administration and Shell scripting.</li>
-                    <li>Certifications: AWS Solutions Architect Professional preferred.</li>
+                    <li>AWS Solutions Architect Professional preferred.</li>
                   </ul>
                 </div>
-                <div className="pt-4 border-t border-outline-variant">
-                  <h4 className="font-label-md text-label-md mb-3">Key Skills</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">AWS</span>
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">Terraform</span>
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">Docker</span>
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">CI/CD</span>
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">Kubernetes</span>
-                    <span className="bg-surface-container px-3 py-1 rounded-full text-label-sm text-primary">Python</span>
+                <div className="pt-4 border-t border-jp-border-subtle">
+                  <h4 className="text-[11px] font-semibold text-jp-text-muted uppercase tracking-wider mb-3">Key Skills</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {["AWS", "Terraform", "Docker", "CI/CD", "Kubernetes", "Python"].map(skill => (
+                      <SkillTag key={skill} label={skill} variant="accent" />
+                    ))}
                   </div>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
-          {/* COLUMN 2: AI Analysis (4 cols) */}
-          <div className="lg:col-span-4 space-y-lg">
-            <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg space-y-lg">
+
+          {/* Column 2: AI Analysis */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="jp-card p-5 space-y-5">
               <div className="flex items-center justify-between">
-                <h3 className="font-label-md text-label-md text-primary uppercase tracking-wider">AI Match Analysis</h3>
-                <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-tight">High Confidence</span>
+                <h3 className="text-[11px] font-semibold text-jp-accent uppercase tracking-wider">AI Match Analysis</h3>
+                <span className="jp-badge jp-badge-success">High Confidence</span>
               </div>
+
               {/* Readiness Bar */}
-              <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant/30">
+              <div className="p-4 rounded-lg bg-jp-bg-raised border border-jp-border-subtle">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-label-md font-bold text-on-surface">Application Readiness</span>
-                  <span className="text-label-md font-bold text-primary">82%</span>
+                  <span className="text-[13px] font-medium text-jp-text-primary">Application Readiness</span>
+                  <span className="text-[13px] font-semibold text-jp-accent">82%</span>
                 </div>
-                <div className="h-2 w-full bg-surface rounded-full overflow-hidden">
-                  <div className="h-full bg-primary" style={{ width: "82%" }}></div>
+                <div className="h-1.5 bg-jp-bg-app rounded-full overflow-hidden">
+                  <div className="h-full bg-jp-accent rounded-full" style={{ width: "82%" }} />
                 </div>
               </div>
+
               {/* Analysis Cards */}
-              <div className="space-y-4">
-                <div className="bg-surface p-4 rounded-xl border-l-4 border-primary shadow-sm">
-                  <div className="flex gap-3">
-                    <span className="material-symbols-outlined text-primary">auto_awesome</span>
+              <div className="space-y-3">
+                <div className="p-3 rounded-lg border-l-[3px] border-l-jp-accent bg-jp-accent-muted/20 border border-jp-border-subtle border-l-0">
+                  <div className="flex gap-2.5">
+                    <Icon name="auto_awesome" fill className="text-[18px] text-jp-accent shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-label-md font-bold">Why This Job Matches You</p>
-                      <p className="text-body-sm text-on-surface-variant mt-1">Your 5 years of AWS experience directly aligns with their architectural needs. Your Kubernetes background exceeds their base requirements.</p>
+                      <p className="text-[13px] font-semibold text-jp-text-primary">Why This Job Matches</p>
+                      <p className="text-[12px] text-jp-text-secondary mt-1 leading-relaxed">Your 5 years of AWS experience directly aligns with their architectural needs. Your Kubernetes background exceeds their base requirements.</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-surface p-4 rounded-xl border-l-4 border-error shadow-sm">
-                  <div className="flex gap-3">
-                    <span className="material-symbols-outlined text-error">warning</span>
+                <div className="p-3 rounded-lg border-l-[3px] border-l-jp-error bg-jp-error-muted/30 border border-jp-border-subtle border-l-0">
+                  <div className="flex gap-2.5">
+                    <Icon name="warning" fill className="text-[18px] text-jp-error shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-label-md font-bold">Missing Skills</p>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        <span className="bg-error-container text-on-error-container text-[11px] font-bold px-2 py-0.5 rounded">Terraform</span>
-                        <span className="bg-error-container text-on-error-container text-[11px] font-bold px-2 py-0.5 rounded">Jenkins</span>
+                      <p className="text-[13px] font-semibold text-jp-text-primary">Missing Skills</p>
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        <SkillTag label="Terraform" variant="error" />
+                        <SkillTag label="Jenkins" variant="error" />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-surface p-4 rounded-xl border-l-4 border-secondary shadow-sm">
-                  <div className="flex gap-3">
-                    <span className="material-symbols-outlined text-secondary">lightbulb</span>
+                <div className="p-3 rounded-lg border-l-[3px] border-l-jp-warning bg-jp-warning-muted/30 border border-jp-border-subtle border-l-0">
+                  <div className="flex gap-2.5">
+                    <Icon name="lightbulb" fill className="text-[18px] text-jp-warning shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-label-md font-bold">Improvement Suggestions</p>
-                      <p className="text-body-sm text-on-surface-variant mt-1 italic">"Add specific deployment metrics (e.g., 'reduced downtime by 30%') to your past CloudStream project."</p>
+                      <p className="text-[13px] font-semibold text-jp-text-primary">Improvement Tip</p>
+                      <p className="text-[12px] text-jp-text-secondary mt-1 italic leading-relaxed">"Add specific deployment metrics (e.g., 'reduced downtime by 30%') to boost your score."</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-            {/* Modifications Section */}
-            <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
-              <h3 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-lg">AI Modifications</h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-2">
-                  <div className="p-3 bg-red-50/50 border border-red-100 rounded-lg">
-                    <span className="text-[10px] font-bold text-red-700 uppercase">Before</span>
-                    <p className="text-body-sm text-on-surface-variant mt-1">Worked on Docker containers for various internal projects.</p>
-                  </div>
-                  <div className="p-3 bg-green-50/50 border border-green-100 rounded-lg">
-                    <span className="text-[10px] font-bold text-green-700 uppercase">After</span>
-                    <p className="text-body-sm text-on-surface-variant mt-1 font-medium">Implemented Docker containerization for scalable microservices, improving deployment speed by 40%.</p>
-                  </div>
+            </div>
+
+            {/* AI Modifications */}
+            <div className="jp-card p-5">
+              <h3 className="text-[11px] font-semibold text-jp-accent uppercase tracking-wider mb-4">AI Resume Modifications</h3>
+              <div className="space-y-3">
+                <div className="p-3 rounded-lg bg-jp-error-muted/20 border border-jp-error/10">
+                  <span className="text-[9px] font-bold text-jp-error uppercase tracking-wider">Before</span>
+                  <p className="text-[12px] text-jp-text-secondary mt-1 leading-relaxed">Worked on Docker containers for various internal projects.</p>
+                </div>
+                <div className="p-3 rounded-lg bg-jp-success-muted/30 border border-jp-success/10">
+                  <span className="text-[9px] font-bold text-jp-success uppercase tracking-wider">After</span>
+                  <p className="text-[12px] text-jp-text-primary mt-1 font-medium leading-relaxed">Implemented Docker containerization for scalable microservices, improving deployment speed by 40%.</p>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
-          {/* COLUMN 3: Workspace (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col gap-lg">
-            <section className="bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col h-full overflow-hidden">
-              <div className="p-md border-b border-outline-variant flex items-center justify-between">
-                <h3 className="font-label-md text-label-md text-primary uppercase tracking-wider">Tailored Resume Generator</h3>
-                <button className="text-primary hover:text-primary-container p-1"><span className="material-symbols-outlined">fullscreen</span></button>
+
+          {/* Column 3: Resume Generator + Checklist */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="jp-card flex flex-col overflow-hidden">
+              <div className="px-5 py-3 border-b border-jp-border-subtle flex items-center justify-between">
+                <h3 className="text-[11px] font-semibold text-jp-accent uppercase tracking-wider">Tailored Resume</h3>
+                <button className="jp-btn-icon jp-btn-ghost jp-btn-sm">
+                  <Icon name="fullscreen" className="text-[18px] text-jp-text-muted" />
+                </button>
               </div>
+
               {/* Resume Preview */}
-              <div className="flex-1 bg-surface-container-low p-md overflow-hidden relative group">
-                <div className="h-full w-full bg-white shadow-lg border border-outline-variant/30 p-lg custom-scrollbar overflow-y-auto">
-                  <div className="w-full h-4 bg-primary/10 rounded mb-4"></div>
-                  <div className="w-2/3 h-4 bg-primary/10 rounded mb-8"></div>
-                  <div className="space-y-4">
-                    <div className="h-2 w-full bg-on-surface-variant/10 rounded"></div>
-                    <div className="h-2 w-5/6 bg-on-surface-variant/10 rounded"></div>
-                    <div className="h-2 w-full bg-on-surface-variant/10 rounded"></div>
-                    <div className="h-2 w-4/6 bg-on-surface-variant/10 rounded"></div>
+              <div className="bg-jp-bg-inset p-4 min-h-[280px] relative group">
+                <div className="h-full bg-white rounded shadow-md p-5 overflow-hidden">
+                  <div className="w-full h-3 bg-jp-accent/10 rounded mb-3" />
+                  <div className="w-2/3 h-3 bg-jp-accent/10 rounded mb-5" />
+                  <div className="space-y-2">
+                    <div className="h-2 w-full bg-gray-100 rounded" />
+                    <div className="h-2 w-5/6 bg-gray-100 rounded" />
+                    <div className="h-2 w-full bg-gray-100 rounded" />
+                    <div className="h-2 w-4/6 bg-gray-100 rounded" />
                   </div>
-                  <div className="mt-8 pt-8 border-t border-outline-variant/20">
-                    <div className="h-4 w-1/4 bg-primary/10 rounded mb-4"></div>
-                    <div className="h-2 w-full bg-on-surface-variant/10 rounded mb-2"></div>
-                    <div className="h-2 w-full bg-on-surface-variant/10 rounded mb-2"></div>
-                    <div className="h-2 w-2/3 bg-on-surface-variant/10 rounded"></div>
-                  </div>
-                  <div className="mt-8">
-                    <div className="h-4 w-1/4 bg-primary/10 rounded mb-4"></div>
-                    <div className="flex flex-wrap gap-2">
-                      <div className="h-6 w-12 bg-surface-container rounded-full"></div>
-                      <div className="h-6 w-16 bg-surface-container rounded-full"></div>
-                      <div className="h-6 w-14 bg-surface-container rounded-full"></div>
-                    </div>
+                  <div className="mt-5 pt-5 border-t border-gray-100">
+                    <div className="h-3 w-1/4 bg-jp-accent/10 rounded mb-3" />
+                    <div className="h-2 w-full bg-gray-100 rounded mb-1.5" />
+                    <div className="h-2 w-full bg-gray-100 rounded mb-1.5" />
+                    <div className="h-2 w-2/3 bg-gray-100 rounded" />
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-surface-container-low/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="bg-white px-4 py-2 rounded-lg shadow-xl border border-outline-variant font-label-md text-primary flex items-center gap-2">
-                    <span className="material-symbols-outlined">edit</span> Edit Resume
+                <div className="absolute inset-0 bg-jp-bg-app/60 backdrop-blur-[1px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button className="jp-btn jp-btn-primary jp-btn-sm shadow-lg">
+                    <Icon name="edit" className="text-[16px]" />
+                    Edit Resume
                   </button>
                 </div>
               </div>
-              {/* Workspace Controls */}
-              <div className="p-lg bg-surface border-t border-outline-variant space-y-4">
+
+              {/* Controls */}
+              <div className="p-5 space-y-4 border-t border-jp-border-subtle">
                 <div>
-                  <label className="text-label-sm font-bold text-outline uppercase mb-2 block">Resume Focus</label>
-                  <select className="w-full bg-white border border-outline-variant rounded-lg px-4 py-2.5 text-body-sm focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer">
+                  <label className="text-[11px] font-semibold text-jp-text-muted uppercase tracking-wider mb-1.5 block">Resume Focus</label>
+                  <select className="jp-select w-full">
                     <option>Balanced (Recommended)</option>
                     <option>Skills-Heavy</option>
                     <option>Projects-Focused</option>
-                    <option>Leadership &amp; Strategy</option>
+                    <option>Leadership & Strategy</option>
                   </select>
                 </div>
-                <button className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md hover:bg-primary-container transition-all flex items-center justify-center gap-2">
-                  <span className="material-symbols-outlined">bolt</span> Generate Tailored Resume
+                <button className="jp-btn jp-btn-primary w-full">
+                  <Icon name="bolt" className="text-[18px]" />
+                  Generate Tailored Resume
                 </button>
-                <p className="text-[11px] text-center text-on-surface-variant/60">Takes ~15 seconds to rebuild with AI</p>
+                <p className="text-[11px] text-center text-jp-text-muted">Takes ~15 seconds to rebuild with AI</p>
               </div>
-            </section>
+            </div>
+
+            {/* Application Checklist */}
+            <div className="jp-card overflow-hidden">
+              <div className="bg-jp-accent px-5 py-3 flex items-center justify-between">
+                <span className="text-white font-semibold text-[13px] flex items-center gap-1.5">
+                  <Icon name="checklist" className="text-[18px]" />
+                  Application Checklist
+                </span>
+                <span className="bg-white/20 text-white px-2 py-0.5 rounded text-[10px] font-bold">3/5</span>
+              </div>
+              <div className="p-5 space-y-3">
+                {[
+                  { label: "Resume Uploaded", done: true },
+                  { label: "Job Selected", done: true },
+                  { label: "Match Score Generated", done: true },
+                  { label: "Resume Tailored", done: false },
+                  { label: "Apply on Portal", done: false },
+                ].map((item, idx) => (
+                  <label key={idx} className="flex items-center gap-3 cursor-pointer group">
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${item.done ? 'bg-jp-accent border-jp-accent' : 'border-jp-border-active bg-transparent'}`}>
+                      {item.done && <Icon name="check" className="text-[12px] text-white" />}
+                    </div>
+                    <span className={`text-[13px] ${item.done ? 'text-jp-text-secondary line-through' : 'text-jp-text-primary'} group-hover:text-jp-text-primary transition-colors`}>
+                      {item.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <div className="px-5 pb-5">
+                <button className="jp-btn jp-btn-secondary w-full jp-btn-sm">View Next Steps</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      {/* FLOATING PANEL: Application Checklist */}
-      <div className="fixed bottom-xl right-xl w-72 glass-panel rounded-xl shadow-2xl overflow-hidden transition-transform hover:-translate-y-1">
-        <div className="bg-primary px-lg py-3 flex items-center justify-between">
-          <span className="text-on-primary font-bold text-label-md flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">checklist</span>
-            Application Checklist
-          </span>
-          <span className="bg-on-primary/20 text-on-primary px-2 py-0.5 rounded text-[10px] font-bold">3/5</span>
-        </div>
-        <div className="p-lg space-y-3">
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <input checked="" className="w-4 h-4 rounded border-outline text-primary focus:ring-primary/20" type="checkbox" />
-            <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Resume Uploaded</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <input checked="" className="w-4 h-4 rounded border-outline text-primary focus:ring-primary/20" type="checkbox" />
-            <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Job Selected</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <input checked="" className="w-4 h-4 rounded border-outline text-primary focus:ring-primary/20" type="checkbox" />
-            <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Match Score Generated</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <input className="w-4 h-4 rounded border-outline text-primary focus:ring-primary/20" type="checkbox" />
-            <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Resume Tailored</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <input className="w-4 h-4 rounded border-outline text-primary focus:ring-primary/20" type="checkbox" />
-            <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Apply on Portal</span>
-          </label>
-        </div>
-        <div className="px-lg pb-lg">
-          <button className="w-full py-2 bg-surface-container-high text-primary font-bold text-[11px] rounded-lg border border-primary/10 hover:bg-surface-container transition-all">VIEW NEXT STEPS</button>
-        </div>
-      </div>
-    </>
+    </AppShell>
   );
 }
 

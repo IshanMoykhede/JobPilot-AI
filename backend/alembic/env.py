@@ -16,6 +16,7 @@ from app.models.user import User  # import models to register them on Base.metad
 from app.models.candidate_profile import CandidateProfile
 from app.models.candidate_insights import CandidateInsights
 from app.models.market_intelligence import MarketIntelligenceCache
+# from app.models.chat import Chat, Message, JobPool, GeneratedResume
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

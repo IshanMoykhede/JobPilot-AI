@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, HttpUrl, Field
+from pydantic import BaseModel, HttpUrl, Field, field_validator
 from typing import List, Optional
 from datetime import datetime
 from uuid import UUID
@@ -29,7 +29,12 @@ class EducationSchema(BaseModel):
 class ProjectSchema(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
-    technologies: List[str] = Field(default_factory=list)
+    technologies: Optional[List[str]] = Field(default_factory=list)
+
+    @field_validator("technologies", mode="before")
+    @classmethod
+    def coerce_technologies(cls, v):
+        return v if v is not None else []
 
 class CertificationSchema(BaseModel):
     name: Optional[str] = None
@@ -46,12 +51,22 @@ class ContactInfoSchema(BaseModel):
 class ResumeDataSchema(BaseModel):
     contact_info: Optional[ContactInfoSchema] = None
     summary: Optional[str] = None
-    skills: List[str] = Field(default_factory=list)
-    experience: List[ExperienceSchema] = Field(default_factory=list)
-    education: List[EducationSchema] = Field(default_factory=list)
-    projects: List[ProjectSchema] = Field(default_factory=list)
-    certifications: List[CertificationSchema] = Field(default_factory=list)
-    co_curricular_activities: List[str] = Field(default_factory=list)
+    skills: Optional[List[str]] = Field(default_factory=list)
+    experience: Optional[List[ExperienceSchema]] = Field(default_factory=list)
+    education: Optional[List[EducationSchema]] = Field(default_factory=list)
+    projects: Optional[List[ProjectSchema]] = Field(default_factory=list)
+    certifications: Optional[List[CertificationSchema]] = Field(default_factory=list)
+    co_curricular_activities: Optional[List[str]] = Field(default_factory=list)
+
+    @field_validator(
+        "skills", "experience", "education", "projects",
+        "certifications", "co_curricular_activities",
+        mode="before"
+    )
+    @classmethod
+    def coerce_null_to_list(cls, v):
+        """LLMs sometimes return null instead of [] for empty arrays."""
+        return v if v is not None else []
 
 class PreferencesSchema(BaseModel):
     preferred_roles: List[str] = Field(default_factory=list)
@@ -75,12 +90,15 @@ class ParseResumeRequest(BaseModel):
 class ParseResumeResponse(ResumeDataSchema):
     pass
 
-# --- Endpoint 3: POST /profile/complete-onboarding ---
-
-class CompleteOnboardingRequest(BaseModel):
+class CandidateProfileData(BaseModel):
     resume_data: ResumeDataSchema
     preferences: PreferencesSchema
     resume_metadata: ResumeMetadataSchema
+
+# --- Endpoint 3: POST /profile/complete-onboarding ---
+
+class CompleteOnboardingRequest(CandidateProfileData):
+    pass
 
 # this will be in response 
 class CompleteOnboardingResponse(BaseModel):

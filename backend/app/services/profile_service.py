@@ -25,7 +25,7 @@ def create_candidate_profile(db: Session, user_id: UUID, profile_data: dict) -> 
         onboarding_completed=True
     )
     db.add(db_profile)
-    db.commit()
+    db.flush()
     db.refresh(db_profile)
     return db_profile
 

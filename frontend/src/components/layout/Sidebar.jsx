@@ -1,133 +1,140 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Icon from "../common/Icon";
 import { useAuth } from "../../context/AuthContext";
 
-/**
- * Left navigation sidebar, shared across all pages.
- *
- * Props:
- *  - activeItem: string — which nav key is highlighted.
- *      One of: "dashboard" | "search" | "resumes" | "profile"
- *  - bottomCard: ReactNode — custom content rendered above
- *      "Help Center" / "Log Out" (e.g. user profile card on
- *      Dashboard, or "Power up your search" promo on Search Results)
- *
- * Usage:
- *   <Sidebar activeItem="dashboard" bottomCard={<UserProfileCard />} />
- *   <Sidebar activeItem="search" bottomCard={<UpgradePromoCard />} />
- */
-
 const NAV_ITEMS = [
-    { key: "dashboard", label: "Dashboard", icon: "dashboard" },
-    { key: "search", label: "Job Searches", icon: "search" },
-    { key: "resumes", label: "Generated Resumes", icon: "description" },
-    { key: "profile", label: "Profile", icon: "person" },
+  { key: "dashboard", path: "/dashboard", label: "Dashboard", icon: "space_dashboard" },
+  { key: "search", path: "/search", label: "Job Search", icon: "search" },
+  { key: "resumes", path: "/resumes", label: "Resumes", icon: "description" },
+  { key: "profile", path: "/profile", label: "Profile", icon: "person" },
+  { key: "insights", path: "/insights", label: "Career Agent", icon: "auto_awesome" },
+  { key: "evidence", path: "/evidence", label: "Graph Engine", icon: "memory" },
 ];
 
-export default function Sidebar({ activeItem = "dashboard", bottomCard = null }) {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
+export default function Sidebar({ collapsed = false, onToggle, mobileOpen = false, onMobileClose }) {
+  const { user, logout } = useAuth();
+  const location = useLocation();
 
-    const handleLogout = () => {
-        logout();
-        navigate("/auth");
-    };
+  const activeKey = NAV_ITEMS.find(item => location.pathname.startsWith(item.path))?.key || "dashboard";
 
-    return (
-        <aside
-            className="hidden md:flex flex-col h-full w-64 border-r py-6 px-4 shrink-0 overflow-y-auto"
-            style={{
-                borderColor: "var(--color-outline-variant)",
-                backgroundColor: "var(--color-surface)",
-            }}
+  const initials = user?.name
+    ? user.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2)
+    : "U";
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  const sidebarContent = (
+    <div className="flex flex-col h-full">
+      {/* Logo */}
+      <div className={`flex items-center ${collapsed ? 'justify-center px-2' : 'px-4'} h-14 shrink-0`}>
+        {collapsed ? (
+          <div className="w-8 h-8 rounded-lg bg-jp-accent flex items-center justify-center">
+            <Icon name="bolt" fill className="text-white text-[18px]" />
+          </div>
+        ) : (
+          <Link to="/dashboard" className="flex items-center gap-2.5 no-underline">
+            <div className="w-8 h-8 rounded-lg bg-jp-accent flex items-center justify-center shrink-0">
+              <Icon name="bolt" fill className="text-white text-[18px]" />
+            </div>
+            <span className="text-[15px] font-semibold text-jp-text-primary tracking-tight">
+              JobPilot AI
+            </span>
+          </Link>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 px-2 py-4 space-y-0.5">
+        {NAV_ITEMS.map(item => {
+          const isActive = item.key === activeKey;
+          return (
+            <Link
+              key={item.key}
+              to={item.path}
+              onClick={onMobileClose}
+              className={`
+                flex items-center gap-3 rounded-lg px-3 h-9 text-[13px] font-medium transition-colors no-underline
+                ${collapsed ? 'justify-center px-0' : ''}
+                ${isActive
+                  ? 'bg-jp-accent-muted text-jp-accent-text'
+                  : 'text-jp-text-tertiary hover:text-jp-text-secondary hover:bg-jp-bg-raised'
+                }
+              `}
+              title={collapsed ? item.label : undefined}
+            >
+              <Icon
+                name={item.icon}
+                fill={isActive}
+                className={`text-[20px] ${isActive ? 'text-jp-accent' : ''}`}
+              />
+              {!collapsed && <span>{item.label}</span>}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Bottom section */}
+      <div className="mt-auto px-2 pb-4 space-y-1">
+        <div className="jp-divider mb-3" />
+
+        {!collapsed && (
+          <div className="flex items-center gap-3 px-3 py-2 rounded-lg mb-2">
+            <div className="w-8 h-8 rounded-full bg-jp-accent-muted flex items-center justify-center text-[11px] font-bold text-jp-accent-text shrink-0">
+              {initials}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[13px] font-medium text-jp-text-primary truncate">{user?.name || "User"}</p>
+              <p className="text-[11px] text-jp-text-muted truncate">{user?.email || ""}</p>
+            </div>
+          </div>
+        )}
+
+        <button
+          onClick={handleLogout}
+          className={`
+            flex items-center gap-3 rounded-lg px-3 h-9 text-[13px] font-medium w-full transition-colors
+            text-jp-text-tertiary hover:text-jp-error hover:bg-jp-error-muted
+            ${collapsed ? 'justify-center px-0' : ''}
+          `}
+          title={collapsed ? "Log out" : undefined}
         >
-            {/* Logo */}
-            <div className="mb-10 px-2">
-                <div className="flex items-center gap-3">
-                    <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{
-                            backgroundColor: "var(--color-primary)",
-                            color: "var(--color-on-primary)",
-                        }}
-                    >
-                        <Icon name="rocket_launch" fill />
-                    </div>
-                    <div>
-                        <h1
-                            className="text-[20px] leading-[28px] font-bold tracking-[-0.01em]"
-                            style={{ color: "var(--color-primary)" }}
-                        >
-                            JobPilot AI
-                        </h1>
-                        <p
-                            className="text-[12px] leading-[16px] tracking-[0.01em] font-medium"
-                            style={{ color: "var(--color-on-surface-variant)" }}
-                        >
-                            AI Career Engine
-                        </p>
-                    </div>
-                </div>
-            </div>
+          <Icon name="logout" className="text-[20px]" />
+          {!collapsed && <span>Log out</span>}
+        </button>
+      </div>
+    </div>
+  );
 
-            {/* Nav links */}
-            <nav className="flex-1 space-y-1">
-                {NAV_ITEMS.map((item) => {
-                    const isActive = item.key === activeItem;
-                    const path = item.key === "dashboard" ? "/dashboard" : `/${item.key}`;
-                    return (
-                        <a
-                            key={item.key}
-                            href={path}
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors"
-                            style={
-                                isActive
-                                    ? {
-                                        backgroundColor: "var(--color-surface-container)",
-                                        color: "var(--color-primary)",
-                                        fontWeight: 600,
-                                    }
-                                    : { color: "var(--color-on-surface-variant)" }
-                            }
-                            onMouseEnter={(e) => {
-                                if (!isActive) e.currentTarget.style.backgroundColor = "var(--color-surface-container-low)";
-                            }}
-                            onMouseLeave={(e) => {
-                                if (!isActive) e.currentTarget.style.backgroundColor = "transparent";
-                            }}
-                        >
-                            <Icon name={item.icon} />
-                            <span className="text-[14px] leading-[20px] font-medium">{item.label}</span>
-                        </a>
-                    );
-                })}
-            </nav>
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside
+        className={`
+          hidden md:flex flex-col h-full shrink-0 border-r border-jp-border-subtle bg-jp-bg-app
+          transition-all duration-200 overflow-hidden
+          ${collapsed ? 'w-16' : 'w-60'}
+        `}
+      >
+        {sidebarContent}
+      </aside>
 
-            {/* Bottom section */}
-            <div className="mt-auto space-y-4">
-                {bottomCard}
-
-                <div className="space-y-1">
-                    <a
-                        href="#"
-                        className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-[var(--color-surface-container-low)]"
-                        style={{ color: "var(--color-on-surface-variant)" }}
-                    >
-                        <Icon name="help" />
-                        <span className="text-[14px] leading-[20px] font-medium">Help Center</span>
-                    </a>
-                    <a
-                        href="#"
-                        className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-[rgba(186,26,26,0.08)]"
-                        style={{ color: "var(--color-error)" }}
-                        onClick={(e) => { e.preventDefault(); handleLogout(); }}
-                    >
-                        <Icon name="logout" />
-                        <span className="text-[14px] leading-[20px] font-medium">Log Out</span>
-                    </a>
-                </div>
-            </div>
-        </aside>
-    );
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/60 z-40 md:hidden animate-fade-in"
+            onClick={onMobileClose}
+          />
+          <aside className="fixed left-0 top-0 bottom-0 w-64 bg-jp-bg-app border-r border-jp-border-subtle z-50 md:hidden animate-slide-in-right overflow-y-auto"
+            style={{ animation: 'slide-in-right 0.2s ease forwards' }}
+          >
+            {sidebarContent}
+          </aside>
+        </>
+      )}
+    </>
+  );
 }

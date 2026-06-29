@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import Header from '../components/Header';
+import Icon from '../components/common/Icon';
 
 function Auth() {
-  // "login" | "signup" | "forgot"
-  const [view, setView] = useState("login");
+  const [view, setView] = useState("login"); // "login" | "signup" | "forgot"
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Form fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [forgotStep, setForgotStep] = useState("request"); // "request" | "reset"
 
   const { login, register, user, loading, hasProfile } = useAuth();
   const navigate = useNavigate();
@@ -36,6 +36,8 @@ function Auth() {
     setName("");
     setEmail("");
     setPassword("");
+    setOtp("");
+    setForgotStep("request");
     setShowPassword(false);
   };
 
@@ -45,11 +47,8 @@ function Auth() {
     setIsSubmitting(true);
     try {
       const { hasProfile } = await login({ email, password });
-      if (hasProfile) {
-        navigate("/dashboard");
-      } else {
-        navigate("/profile");
-      }
+      if (hasProfile) navigate("/dashboard");
+      else navigate("/profile");
     } catch (err) {
       setError(err.message || "Invalid email or password.");
     } finally {
@@ -75,10 +74,51 @@ function Auth() {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccess("If this email is registered, you'll receive a password reset link shortly.");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("http://localhost:8000/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.detail || "Failed to send OTP.");
+      }
+      setSuccess("OTP sent successfully to your email. Check your inbox or console.");
+      setForgotStep("reset");
+    } catch (err) {
+      setError(err.message || "An error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  /* ---------- Title / subtitle per view ---------- */
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("http://localhost:8000/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp, new_password: password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.detail || "Failed to reset password.");
+      }
+      setSuccess("Password reset successfully! Redirecting to login...");
+      setTimeout(() => {
+        switchView("login");
+      }, 2000);
+    } catch (err) {
+      setError(err.message || "An error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const viewConfig = {
     login: {
       title: "Welcome Back",
@@ -93,145 +133,164 @@ function Auth() {
       onSubmit: handleSignup,
     },
     forgot: {
-      title: "Reset Password",
-      subtitle: "Enter your email and we'll send you a link to reset your password.",
-      buttonLabel: "Send Reset Link",
-      onSubmit: handleForgotPassword,
+      title: forgotStep === "request" ? "Reset Password" : "Enter Verification OTP",
+      subtitle: forgotStep === "request" 
+        ? "Enter your email and we'll send you a 6-digit OTP to reset your password." 
+        : "Enter the OTP sent to your email and your new password to verify.",
+      buttonLabel: forgotStep === "request" ? "Send OTP" : "Reset Password",
+      onSubmit: forgotStep === "request" ? handleForgotPassword : handleResetPassword,
     },
   };
 
   const cfg = viewConfig[view];
 
   return (
-    <>
-      <Header />
-      <main className="flex min-h-screen flex-col md:flex-row">
-        {/* ========== Left Side: Form ========== */}
-        <div className="flex flex-col w-full md:w-[45%] xl:w-[40%] bg-surface-container-lowest px-margin md:px-3xl py-xl md:py-3xl min-h-screen relative z-10">
+    <main className="flex min-h-screen bg-jp-bg-app">
+      {/* ========== Left Side: Form ========== */}
+      <div className="flex flex-col w-full md:w-[45%] xl:w-[40%] bg-jp-bg-surface/80 backdrop-blur-xl border-r border-jp-border-subtle p-8 md:p-12 lg:p-16 justify-center relative z-10">
+        
+        <div className="w-full max-w-sm mx-auto space-y-8">
           {/* Logo */}
-          <div className="mb-3xl">
-            <div className="flex items-center gap-xs">
-              <img alt="JobPilot AI Logo" className="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLv0-zrysfExadzID741iTQSs4XDmG0OEvLtyvXx5YwR18W1KEz4jyoaa16VuHOYeWZUd5wuXFM9HDStZvne2zsCbaKbkaB0y-xTocGTs4F4gMavnY5D80BT-CiG06xamXK5rVP-xBmP9gyfnl0_9HUI6nUe2tOdZ4G7gZVRQ_DG_9kctRKTmWDrDNQhigbxAQ5ojrqI3da1xEA1RK_x8FkG8dNc-nJVMYUXlHPiR6fmoDIQuRx-MO8fMTpG" />
-              <span className="font-headline-md text-headline-md font-bold text-primary">JobPilot AI</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <Icon name="sparkles" fill className="text-jp-accent text-[28px]" />
+            <span className="text-[20px] font-bold text-jp-text-primary tracking-tight">JobPilot AI</span>
           </div>
 
           {/* Title */}
-          <div className="mb-xl">
-            <h1 className="font-headline-xl text-headline-xl text-on-background mb-xs tracking-tight">{cfg.title}</h1>
-            <p className="font-body-md text-body-md text-on-surface-variant">{cfg.subtitle}</p>
+          <div>
+            <h1 className="text-3xl font-semibold text-jp-text-primary tracking-tight">{cfg.title}</h1>
+            <p className="text-[14px] text-jp-text-tertiary mt-2">{cfg.subtitle}</p>
           </div>
 
           {/* Feedback Messages */}
           {error && (
-            <div className="mb-lg px-md py-sm rounded-lg flex items-center gap-xs text-error" style={{ backgroundColor: "rgba(186,26,26,0.08)" }}>
-              <span className="material-symbols-outlined text-[18px]">error</span>
-              <span className="font-body-sm text-body-sm font-medium">{error}</span>
+            <div className="p-4 rounded-xl flex items-center gap-3 bg-jp-error-muted/30 border border-jp-error/20 text-jp-error">
+              <Icon name="error" className="text-[20px] shrink-0" />
+              <span className="text-[13px] font-medium leading-tight">{error}</span>
             </div>
           )}
           {success && (
-            <div className="mb-lg px-md py-sm rounded-lg flex items-center gap-xs" style={{ backgroundColor: "rgba(0,84,121,0.08)", color: "#005479" }}>
-              <span className="material-symbols-outlined text-[18px]">check_circle</span>
-              <span className="font-body-sm text-body-sm font-medium">{success}</span>
+            <div className="p-4 rounded-xl flex items-center gap-3 bg-jp-success-muted/30 border border-jp-success/20 text-jp-success">
+              <Icon name="check_circle" className="text-[20px] shrink-0" />
+              <span className="text-[13px] font-medium leading-tight">{success}</span>
             </div>
           )}
 
           {/* Form */}
-          <form className="space-y-lg flex-grow" onSubmit={cfg.onSubmit}>
-            {/* Name (Sign Up only) */}
+          <form className="space-y-5" onSubmit={cfg.onSubmit}>
+            {/* Name */}
             {view === "signup" && (
               <div>
-                <label className="block font-label-md text-label-md text-on-surface mb-xs" htmlFor="name">Full Name</label>
+                <label className="block text-[13px] font-medium text-jp-text-secondary mb-1.5" htmlFor="name">Full Name</label>
                 <input
-                  className="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest font-body-md text-body-md form-input-focus transition-all"
                   id="name"
-                  placeholder="Jane Doe"
-                  required
                   type="text"
+                  required
+                  placeholder="Jane Doe"
+                  className="w-full px-4 py-3 rounded-xl border border-jp-border bg-jp-bg-raised text-[14px] text-jp-text-primary placeholder:text-jp-text-muted focus:border-jp-accent focus:outline-none transition-colors"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
             )}
 
-            {/* Email (all views) */}
+            {/* Email */}
             <div>
-              <label className="block font-label-md text-label-md text-on-surface mb-xs" htmlFor="email">Email Address</label>
+              <label className="block text-[13px] font-medium text-jp-text-secondary mb-1.5" htmlFor="email">Email Address</label>
               <input
-                className="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest font-body-md text-body-md form-input-focus transition-all"
                 id="email"
-                placeholder="name@company.com"
-                required
                 type="email"
+                required
+                disabled={view === "forgot" && forgotStep === "reset"}
+                placeholder="name@company.com"
+                className="w-full px-4 py-3 rounded-xl border border-jp-border bg-jp-bg-raised text-[14px] text-jp-text-primary placeholder:text-jp-text-muted focus:border-jp-accent focus:outline-none transition-colors disabled:opacity-50"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
-            {/* Password (login + signup only) */}
-            {view !== "forgot" && (
-              <div className="relative">
-                <div className="flex justify-between items-center mb-xs">
-                  <label className="block font-label-md text-label-md text-on-surface" htmlFor="password">Password</label>
+            {/* OTP Verification (Step 2 of Forgot Password) */}
+            {view === "forgot" && forgotStep === "reset" && (
+              <div>
+                <label className="block text-[13px] font-medium text-jp-text-secondary mb-1.5" htmlFor="otp">Verification OTP</label>
+                <input
+                  id="otp"
+                  type="text"
+                  required
+                  maxLength={6}
+                  placeholder="123456"
+                  className="w-full px-4 py-3 rounded-xl border border-jp-border bg-jp-bg-raised text-[14px] text-jp-text-primary placeholder:text-jp-text-muted focus:border-jp-accent focus:outline-none transition-colors"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                />
+              </div>
+            )}
+
+            {/* Password */}
+            {(view !== "forgot" || (view === "forgot" && forgotStep === "reset")) && (
+              <div>
+                <div className="flex justify-between items-center mb-1.5">
+                  <label className="text-[13px] font-medium text-jp-text-secondary" htmlFor="password">
+                    {view === "forgot" ? "New Password" : "Password"}
+                  </label>
                   {view === "login" && (
-                    <button
-                      type="button"
-                      className="font-label-sm text-label-sm text-primary hover:underline transition-colors"
-                      onClick={() => switchView("forgot")}
-                    >
+                    <button type="button" className="text-[12px] font-medium text-jp-accent hover:text-jp-accent-hover transition-colors" onClick={() => switchView("forgot")}>
                       Forgot Password?
                     </button>
                   )}
                 </div>
                 <div className="relative">
                   <input
-                    className="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest font-body-md text-body-md form-input-focus transition-all pr-12"
                     id="password"
-                    placeholder="••••••••"
-                    required
                     type={showPassword ? "text" : "password"}
+                    required
+                    placeholder="••••••••"
+                    className="w-full pl-4 pr-12 py-3 rounded-xl border border-jp-border bg-jp-bg-raised text-[14px] text-jp-text-primary placeholder:text-jp-text-muted focus:border-jp-accent focus:outline-none transition-colors"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <button
-                    className="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors"
                     type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-jp-text-muted hover:text-jp-text-primary transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    <span className="material-symbols-outlined">{showPassword ? "visibility_off" : "visibility"}</span>
+                    <Icon name={showPassword ? "visibility_off" : "visibility"} className="text-[20px]" />
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
-              className="w-full bg-primary-container text-on-primary font-label-md text-label-md py-md rounded-lg shadow-sm hover:brightness-110 active:scale-[0.98] transition-all flex justify-center items-center gap-xs disabled:opacity-60 disabled:cursor-not-allowed"
               type="submit"
               disabled={isSubmitting}
+              className="w-full jp-btn jp-btn-primary py-3 justify-center text-[14px] rounded-xl"
             >
               {isSubmitting ? (
                 <>
-                  <span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                  <Icon name="progress_activity" className="text-[18px] animate-spin" />
                   Please wait...
                 </>
               ) : (
                 <>
                   {cfg.buttonLabel}
-                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  <Icon name="arrow_forward" className="text-[18px]" />
                 </>
               )}
             </button>
 
-            {/* Google OAuth (login + signup only) */}
+            {/* OAuth */}
             {view !== "forgot" && (
               <>
-                <div className="flex items-center gap-md py-xs">
-                  <div className="flex-grow h-px bg-outline-variant"></div>
-                  <span className="font-label-sm text-label-sm text-outline">OR</span>
-                  <div className="flex-grow h-px bg-outline-variant"></div>
+                <div className="flex items-center gap-4 py-2">
+                  <div className="flex-1 h-px bg-jp-border-subtle" />
+                  <span className="text-[11px] font-semibold text-jp-text-muted uppercase tracking-wider">OR</span>
+                  <div className="flex-1 h-px bg-jp-border-subtle" />
                 </div>
-                <button className="w-full flex items-center justify-center gap-sm px-md py-md rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container transition-colors font-label-md text-label-md" type="button">
+                <button
+                  type="button"
+                  className="w-full px-4 py-3 rounded-xl border border-jp-border bg-jp-bg-surface hover:bg-jp-bg-raised flex items-center justify-center gap-3 text-[14px] font-medium text-jp-text-primary transition-colors"
+                >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
@@ -245,102 +304,77 @@ function Auth() {
           </form>
 
           {/* Footer Links */}
-          <div className="mt-xl text-center">
+          <div className="text-center">
             {view === "login" && (
-              <p className="font-body-sm text-body-sm text-on-surface-variant">
-                Don&apos;t have an account?{" "}
-                <button type="button" className="text-primary font-bold hover:underline transition-colors" onClick={() => switchView("signup")}>
+              <p className="text-[13px] text-jp-text-secondary">
+                Don't have an account?{" "}
+                <button type="button" className="text-jp-accent font-medium hover:text-jp-accent-hover transition-colors" onClick={() => switchView("signup")}>
                   Create Account
                 </button>
               </p>
             )}
             {view === "signup" && (
-              <p className="font-body-sm text-body-sm text-on-surface-variant">
+              <p className="text-[13px] text-jp-text-secondary">
                 Already have an account?{" "}
-                <button type="button" className="text-primary font-bold hover:underline transition-colors" onClick={() => switchView("login")}>
+                <button type="button" className="text-jp-accent font-medium hover:text-jp-accent-hover transition-colors" onClick={() => switchView("login")}>
                   Sign In
                 </button>
               </p>
             )}
             {view === "forgot" && (
-              <p className="font-body-sm text-body-sm text-on-surface-variant">
+              <p className="text-[13px] text-jp-text-secondary">
                 Remember your password?{" "}
-                <button type="button" className="text-primary font-bold hover:underline transition-colors" onClick={() => switchView("login")}>
+                <button type="button" className="text-jp-accent font-medium hover:text-jp-accent-hover transition-colors" onClick={() => switchView("login")}>
                   Back to Sign In
                 </button>
               </p>
             )}
           </div>
         </div>
+      </div>
 
-        {/* ========== Right Side: Capability Showcase ========== */}
-        <div className="hidden md:flex flex-col w-full md:w-[55%] xl:w-[60%] bg-surface-container relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
-          <div className="relative z-10 flex flex-col h-full px-2xl py-3xl max-w-4xl mx-auto">
-            <div className="mb-2xl">
-              <h2 className="font-headline-xl text-headline-xl text-on-background mb-sm tracking-tight">What You&apos;ll Be Able To Do</h2>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg">Unlock the power of artificial intelligence to accelerate your career growth with surgical precision.</p>
+      {/* ========== Right Side: Showcase ========== */}
+      <div className="hidden md:flex flex-col flex-1 bg-jp-bg-inset relative overflow-hidden justify-center items-center p-12">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-jp-accent/10 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="max-w-2xl relative z-10 w-full space-y-12">
+          <div>
+            <h2 className="text-4xl font-semibold text-jp-text-primary mb-4 tracking-tight">AI-Powered Career Growth</h2>
+            <p className="text-[16px] text-jp-text-secondary leading-relaxed">
+              Unlock the power of artificial intelligence to accelerate your career. Search intelligently, tailor resumes instantly, and stand out.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-6">
+            {[
+              { icon: "search", title: "Smart Search", desc: "Real-time indexing filtered by your professional DNA." },
+              { icon: "analytics", title: "Match Scoring", desc: "Instantly see how well your profile aligns with job descriptions." },
+              { icon: "bolt", title: "Skill Analysis", desc: "Identify critical skill gaps to secure high-impact roles." },
+              { icon: "edit_document", title: "Resume Tailoring", desc: "One-click AI optimizations to boost ATS compliance." },
+            ].map(item => (
+              <div key={item.title} className="jp-card p-6">
+                <div className="w-12 h-12 rounded-xl bg-jp-bg-raised border border-jp-border flex items-center justify-center mb-4">
+                  <Icon name={item.icon} className="text-[24px] text-jp-accent" />
+                </div>
+                <h3 className="text-[15px] font-semibold text-jp-text-primary mb-2">{item.title}</h3>
+                <p className="text-[13px] text-jp-text-tertiary leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-8 pt-8 border-t border-jp-border-subtle">
+            <div className="flex -space-x-3">
+              <div className="w-10 h-10 rounded-full border-2 border-jp-bg-inset bg-jp-accent flex items-center justify-center text-white font-semibold text-[12px]">AI</div>
+              <div className="w-10 h-10 rounded-full border-2 border-jp-bg-inset bg-jp-success flex items-center justify-center text-white font-semibold text-[12px]">ML</div>
+              <div className="w-10 h-10 rounded-full border-2 border-jp-bg-inset bg-jp-warning flex items-center justify-center text-white font-semibold text-[12px]">ATS</div>
             </div>
-            {/* Bento Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg flex-grow">
-              <div className="glass-card p-xl rounded-xl group hover:-translate-y-1 transition-transform duration-300">
-                <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                  <span className="material-symbols-outlined">search</span>
-                </div>
-                <h3 className="font-headline-sm text-headline-sm mb-xs">Search Jobs</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">Real-time indexing of thousands of boards filtered by your unique professional DNA.</p>
-              </div>
-              <div className="glass-card p-xl rounded-xl group hover:-translate-y-1 transition-transform duration-300">
-                <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary mb-md group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
-                  <span className="material-symbols-outlined">analytics</span>
-                </div>
-                <h3 className="font-headline-sm text-headline-sm mb-xs">Resume Matching</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">Instantly see how well your profile matches any job description with high-accuracy scores.</p>
-              </div>
-              <div className="glass-card p-xl rounded-xl group hover:-translate-y-1 transition-transform duration-300">
-                <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary mb-md group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
-                  <span className="material-symbols-outlined">bolt</span>
-                </div>
-                <h3 className="font-headline-sm text-headline-sm mb-xs">Skill Gap Analysis</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">Identify specific skills to acquire or emphasize to secure your next high-impact role.</p>
-              </div>
-              <div className="glass-card p-xl rounded-xl group hover:-translate-y-1 transition-transform duration-300">
-                <div className="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                  <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>magic_button</span>
-                </div>
-                <h3 className="font-headline-sm text-headline-sm mb-xs">Resume Tailoring</h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">One-click AI optimizations that reorganize your experience for maximum ATS compliance.</p>
-              </div>
-            </div>
-            {/* Trust Section */}
-            <div className="mt-2xl pt-xl border-t border-outline-variant flex flex-col sm:flex-row gap-lg items-center justify-between">
-              <div className="flex items-center gap-sm">
-                <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-dim"></div>
-                  <div className="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary-fixed"></div>
-                  <div className="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-secondary-fixed"></div>
-                </div>
-                <span className="font-label-sm text-label-sm text-on-surface-variant">Trusted by 10k+ professionals</span>
-              </div>
-              <div className="flex flex-wrap gap-md justify-center">
-                <div className="flex items-center gap-xs font-label-sm text-label-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  Secure Storage
-                </div>
-                <div className="flex items-center gap-xs font-label-sm text-label-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  AI Tailoring
-                </div>
-                <div className="flex items-center gap-xs font-label-sm text-label-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  Personalized
-                </div>
-              </div>
-            </div>
+            <p className="text-[13px] font-medium text-jp-text-secondary">
+              Trusted by professionals at top-tier tech companies.
+            </p>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

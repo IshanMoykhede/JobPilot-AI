@@ -56,7 +56,7 @@ export default function ListRowCard({
 }) {
     return (
         <div
-            className={`group flex items-center justify-between p-4 bg-white border rounded-xl transition-all ${hoverEffect ? "hover:border-[var(--color-primary)]/50 hover:shadow-sm" : ""
+            className={`group flex items-center justify-between p-4 bg-[var(--color-surface-container-lowest)] border rounded-xl transition-all ${hoverEffect ? "hover:border-[var(--color-primary)]/50 hover:shadow-sm" : ""
                 }`}
             style={{ borderColor: "var(--color-outline-variant)" }}
         >

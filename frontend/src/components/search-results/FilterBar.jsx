@@ -33,7 +33,7 @@ export default function FilterBar({
     onSortChange,
 }) {
     return (
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border rounded-xl p-4" style={{ borderColor: "var(--color-outline-variant)" }}>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[var(--color-surface-container-lowest)] border border-white/5 rounded-xl p-4" style={{ borderColor: "var(--color-outline-variant)" }}>
             <div className="flex flex-wrap items-center gap-3">
                 <span className="text-[14px] leading-[20px] font-semibold" style={{ color: "var(--color-on-surface)" }}>
                     Filters:
@@ -41,7 +41,7 @@ export default function FilterBar({
                 {filters.map((filter) => (
                     <div className="relative" key={filter.label}>
                         <select
-                            className="pl-3 pr-8 py-2 bg-white border rounded-lg text-[14px] leading-[20px] font-medium appearance-none"
+                            className="pl-3 pr-8 py-2 bg-[var(--color-surface-container-low)] text-white border border-white/10 rounded-lg text-[14px] leading-[20px] font-medium appearance-none"
                             style={{ borderColor: "var(--color-outline-variant)" }}
                             onChange={(e) => onFilterChange?.(filter.label, e.target.value)}
                             defaultValue={filter.label}
@@ -64,7 +64,7 @@ export default function FilterBar({
                 </span>
                 <div className="relative">
                     <select
-                        className="pl-3 pr-8 py-2 border rounded-lg text-[14px] leading-[20px] font-semibold appearance-none"
+                        className="pl-3 pr-8 py-2 bg-[var(--color-surface-container-low)] border border-white/10 rounded-lg text-[14px] leading-[20px] font-semibold appearance-none"
                         style={{ borderColor: "var(--color-primary)", color: "var(--color-primary)" }}
                         value={sortValue}
                         onChange={(e) => onSortChange?.(e.target.value)}

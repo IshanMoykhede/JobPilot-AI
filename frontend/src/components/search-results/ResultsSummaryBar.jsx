@@ -55,8 +55,8 @@ export default function ResultsSummaryBar({
             </div>
 
             <button
-                className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg text-[14px] leading-[20px] font-medium transition-colors hover:bg-[var(--color-surface-container-low)] self-start sm:self-auto"
-                style={{ borderColor: "var(--color-outline-variant)", color: "var(--color-on-surface)" }}
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface-container-low)] border border-white/10 rounded-lg text-[14px] leading-[20px] font-medium transition-all hover:bg-white/5 hover:border-primary/20 self-start sm:self-auto"
+                style={{ color: "var(--color-on-surface)" }}
                 onClick={onShareClick}
                 onMouseDown={withRipple}
                 onMouseUp={resetRipple}

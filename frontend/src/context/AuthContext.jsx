@@ -49,6 +49,9 @@ export function AuthProvider({ children }) {
    * Login: calls the API, stores the token, then fetches the user profile.
    */
   const login = async ({ email, password }) => {
+    localStorage.removeItem("jobpilot_candidate_profile");
+    localStorage.removeItem("jobpilot_has_profile");
+    
     const data = await apiLogin({ email, password });
     localStorage.setItem("token", data.access_token);
     setToken(data.access_token);
@@ -68,6 +71,8 @@ export function AuthProvider({ children }) {
    */
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("jobpilot_candidate_profile");
+    localStorage.removeItem("jobpilot_has_profile");
     setToken(null);
     setUser(null);
     setHasProfile(null);

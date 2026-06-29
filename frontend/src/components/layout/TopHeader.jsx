@@ -1,32 +1,28 @@
 import React from "react";
+import Icon from "../common/Icon";
+import { Link } from "react-router-dom";
 
 /**
- * Sticky top header bar shell, shared across all pages.
- * Content differs per page, so `left` and `right` are passed in as nodes.
- *
- * Dashboard usage:
- *   <TopHeader
- *     left={<GlobalSearchInput />}
- *     right={<><NavLinks /><NotificationButton /><HistoryButton /></>}
- *   />
- *
- * Search Results usage:
- *   <TopHeader
- *     left={<Breadcrumbs items={["Dashboard", "Search Results"]} />}
- *     right={<UserAvatarMenu />}
- *   />
+ * Sticky top header bar for authenticated pages.
+ * Renders left slot (breadcrumb) and right slot (user menu + actions).
  */
-export default function TopHeader({ left = null, right = null }) {
-    return (
-        <header
-            className="flex justify-between items-center h-16 w-full px-8 sticky top-0 z-40 backdrop-blur-md border-b"
-            style={{
-                backgroundColor: "rgba(248,249,255,0.8)",
-                borderColor: "rgba(195,197,217,0.3)",
-            }}
+export default function TopHeader({ left = null, right = null, onMenuClick }) {
+  return (
+    <header className="flex items-center justify-between h-14 w-full px-6 sticky top-0 z-30 bg-jp-bg-surface/80 backdrop-blur-md border-b border-jp-border-subtle">
+      <div className="flex items-center gap-3">
+        {/* Mobile menu trigger */}
+        <button
+          onClick={onMenuClick}
+          className="md:hidden jp-btn-icon jp-btn-ghost"
+          aria-label="Open menu"
         >
-            <div className="flex items-center gap-6">{left}</div>
-            <div className="flex items-center gap-4">{right}</div>
-        </header>
-    );
+          <Icon name="menu" className="text-[20px]" />
+        </button>
+        {left}
+      </div>
+      <div className="flex items-center gap-2">
+        {right}
+      </div>
+    </header>
+  );
 }

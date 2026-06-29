@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from app.schemas.auth import RegistrationRequest, LoginRequest, AuthResponse, CurrentUserResponse
+from app.schemas.auth import RegistrationRequest, LoginRequest, AuthResponse, CurrentUserResponse, ForgotPasswordRequest, ResetPasswordRequest
 from app.services import auth_service
 from app.core.security import create_access_token
 from app.dependencies.auth import get_current_user
@@ -26,3 +26,15 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 def get_me(current_user: User = Depends(get_current_user)):
     """Retrieve details of the currently authenticated user using their JWT."""
     return current_user
+
+@router.post("/forgot-password")
+def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(get_db)):
+    """Generate and email an OTP code to a user if their email exists."""
+    auth_service.generate_otp(db, request.email)
+    return {"message": "OTP sent successfully to your email."}
+
+@router.post("/reset-password")
+def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db)):
+    """Verify OTP code and reset the user's password."""
+    auth_service.verify_and_reset_password(db, request)
+    return {"message": "Password reset successfully. You can now log in."}

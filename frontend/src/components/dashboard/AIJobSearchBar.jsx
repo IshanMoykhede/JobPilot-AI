@@ -53,7 +53,7 @@ export default function AIJobSearchBar({
     searchButtonLabel = "Search Jobs",
 }) {
     return (
-        <section className="bg-white border rounded-2xl p-6 shadow-sm" style={{ borderColor: "var(--color-outline-variant)" }}>
+        <section className="bg-[var(--color-surface-container-lowest)] border border-white/5 rounded-2xl p-6 shadow-sm" style={{ borderColor: "var(--color-outline-variant)" }}>
             <div className="flex flex-col gap-6">
                 <div className="space-y-4">
                     {/* Search input */}
@@ -97,7 +97,7 @@ export default function AIJobSearchBar({
                             {filters.map((filter) => (
                                 <div className="relative" key={filter.label}>
                                     <select
-                                        className="w-full pl-3 pr-8 py-2.5 bg-white border rounded-lg text-[14px] leading-[20px] font-medium appearance-none"
+                                        className="w-full pl-3 pr-8 py-2.5 bg-[var(--color-surface-container-low)] text-white border border-white/10 rounded-lg text-[14px] leading-[20px] font-medium appearance-none"
                                         style={{ borderColor: "var(--color-outline-variant)" }}
                                     >
                                         <option>{filter.label}</option>

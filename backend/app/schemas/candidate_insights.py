@@ -2,19 +2,20 @@ from pydantic import BaseModel, ConfigDict
 from typing import Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime
-from app.models.candidate_insights import InsightStatus
+from app.models.candidate_insights import InsightStatus, ArtifactType
 
 class CandidateInsightsBase(BaseModel):
-    insights_json: Optional[Dict[str, Any]] = None
-    graph_version: Optional[str] = None
+    artifact_type: ArtifactType
+    artifact_json: Optional[Dict[str, Any]] = None
+    engine_version: Optional[str] = None
     status: InsightStatus = InsightStatus.PENDING
 
 class CandidateInsightsCreate(CandidateInsightsBase):
     candidate_profile_id: UUID
 
 class CandidateInsightsUpdate(BaseModel):
-    insights_json: Optional[Dict[str, Any]] = None
-    graph_version: Optional[str] = None
+    artifact_json: Optional[Dict[str, Any]] = None
+    engine_version: Optional[str] = None
     status: Optional[InsightStatus] = None
     generated_at: Optional[datetime] = None
 

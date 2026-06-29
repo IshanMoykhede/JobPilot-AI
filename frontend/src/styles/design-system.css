@@ -1,0 +1,471 @@
+/* ============================================================
+   JobPilot AI — Design System
+   Single source of truth for all design tokens and utilities.
+   TailwindCSS v4 theme configuration + custom properties.
+   ============================================================ */
+
+@import "tailwindcss";
+
+/* ── Tailwind v4 Theme ─────────────────────────────────────── */
+@theme {
+  /* Colors - Backgrounds */
+  --color-jp-bg-app: #09090b;
+  --color-jp-bg-surface: #0f0f11;
+  --color-jp-bg-raised: #18181b;
+  --color-jp-bg-overlay: #27272a;
+  --color-jp-bg-inset: #0c0c0e;
+
+  /* Colors - Borders */
+  --color-jp-border: #27272a;
+  --color-jp-border-subtle: #1e1e21;
+  --color-jp-border-active: #3f3f46;
+
+  /* Colors - Text */
+  --color-jp-text-primary: #fafafa;
+  --color-jp-text-secondary: #a1a1aa;
+  --color-jp-text-tertiary: #71717a;
+  --color-jp-text-muted: #52525b;
+
+  /* Colors - Brand Accent (Indigo) */
+  --color-jp-accent: #6366f1;
+  --color-jp-accent-hover: #818cf8;
+  --color-jp-accent-muted: oklch(0.55 0.18 264 / 0.15);
+  --color-jp-accent-text: #c7d2fe;
+  --color-jp-accent-strong: #4f46e5;
+
+  /* Colors - Semantic */
+  --color-jp-success: #22c55e;
+  --color-jp-success-muted: oklch(0.6 0.15 145 / 0.12);
+  --color-jp-success-text: #86efac;
+  --color-jp-warning: #f59e0b;
+  --color-jp-warning-muted: oklch(0.7 0.15 80 / 0.12);
+  --color-jp-warning-text: #fcd34d;
+  --color-jp-error: #ef4444;
+  --color-jp-error-muted: oklch(0.55 0.2 25 / 0.12);
+  --color-jp-error-text: #fca5a5;
+  --color-jp-info: #3b82f6;
+  --color-jp-info-muted: oklch(0.55 0.18 260 / 0.12);
+
+  /* Font families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-display: 'Geist', 'Inter', sans-serif;
+
+  /* Spacing */
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0_5: 2px;
+  --spacing-1: 4px;
+  --spacing-1_5: 6px;
+  --spacing-2: 8px;
+  --spacing-2_5: 10px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 24px oklch(0.55 0.18 264 / 0.2);
+  --shadow-glow-sm: 0 0 12px oklch(0.55 0.18 264 / 0.15);
+
+  /* Transitions */
+  --transition-fast: 100ms ease;
+  --transition-base: 150ms ease;
+  --transition-slow: 250ms ease;
+  --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 64px;
+  --topbar-height: 56px;
+  --container-max: 1200px;
+}
+
+/* ── Global Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: var(--color-jp-bg-app);
+  color: var(--color-jp-text-primary);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background-color: oklch(0.55 0.18 264 / 0.3);
+  color: var(--color-jp-text-primary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-jp-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-jp-border-active);
+}
+
+/* Material Symbols base */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+/* ── Animation Keyframes ───────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes toast-enter {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toast-exit {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(8px) scale(0.95); }
+}
+
+/* ── Utility Classes ───────────────────────────────────────── */
+
+/* Animation utilities */
+.animate-shimmer {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease forwards;
+}
+.animate-slide-up {
+  animation: slide-up 0.25s ease forwards;
+}
+.animate-slide-down {
+  animation: slide-down 0.2s ease forwards;
+}
+.animate-scale-in {
+  animation: scale-in 0.2s ease forwards;
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ── Component Classes ─────────────────────────────────────── */
+
+/* Card */
+.jp-card {
+  background: var(--color-jp-bg-surface);
+  border: 1px solid var(--color-jp-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-base);
+}
+.jp-card:hover {
+  border-color: var(--color-jp-border-active);
+}
+.jp-card-raised {
+  background: var(--color-jp-bg-raised);
+  border: 1px solid var(--color-jp-border);
+  border-radius: var(--radius-lg);
+}
+.jp-card-interactive {
+  background: var(--color-jp-bg-surface);
+  border: 1px solid var(--color-jp-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+.jp-card-interactive:hover {
+  border-color: var(--color-jp-accent);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+/* Buttons */
+.jp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+  border-radius: var(--radius-md);
+  padding: 0 16px;
+  height: 36px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  text-decoration: none;
+}
+.jp-btn:focus-visible {
+  outline: 2px solid var(--color-jp-accent);
+  outline-offset: 2px;
+}
+.jp-btn:active {
+  transform: scale(0.97);
+}
+.jp-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.jp-btn-primary {
+  background: var(--color-jp-accent);
+  color: white;
+}
+.jp-btn-primary:hover:not(:disabled) {
+  background: var(--color-jp-accent-hover);
+}
+
+.jp-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-jp-border);
+  color: var(--color-jp-text-primary);
+}
+.jp-btn-secondary:hover:not(:disabled) {
+  background: var(--color-jp-bg-raised);
+  border-color: var(--color-jp-border-active);
+}
+
+.jp-btn-ghost {
+  background: transparent;
+  color: var(--color-jp-text-secondary);
+}
+.jp-btn-ghost:hover:not(:disabled) {
+  background: var(--color-jp-bg-raised);
+  color: var(--color-jp-text-primary);
+}
+
+.jp-btn-danger {
+  background: var(--color-jp-error-muted);
+  color: var(--color-jp-error);
+}
+.jp-btn-danger:hover:not(:disabled) {
+  background: var(--color-jp-error);
+  color: white;
+}
+
+.jp-btn-sm {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.jp-btn-lg {
+  height: 44px;
+  padding: 0 24px;
+  font-size: 15px;
+  border-radius: var(--radius-lg);
+}
+
+.jp-btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+.jp-btn-icon.jp-btn-sm {
+  width: 28px;
+  height: 28px;
+}
+
+/* Inputs */
+.jp-input {
+  width: 100%;
+  background: var(--color-jp-bg-surface);
+  border: 1px solid var(--color-jp-border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  color: var(--color-jp-text-primary);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  outline: none;
+}
+.jp-input::placeholder {
+  color: var(--color-jp-text-muted);
+}
+.jp-input:focus {
+  border-color: var(--color-jp-accent);
+  box-shadow: 0 0 0 3px var(--color-jp-accent-muted);
+}
+.jp-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.jp-select {
+  appearance: none;
+  background: var(--color-jp-bg-surface);
+  border: 1px solid var(--color-jp-border);
+  border-radius: var(--radius-md);
+  padding: 8px 32px 8px 12px;
+  color: var(--color-jp-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: border-color var(--transition-base);
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2371717a' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+.jp-select:focus {
+  border-color: var(--color-jp-accent);
+  box-shadow: 0 0 0 3px var(--color-jp-accent-muted);
+}
+
+/* Badges / Tags */
+.jp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.jp-badge-accent {
+  background: var(--color-jp-accent-muted);
+  color: var(--color-jp-accent-text);
+  border-color: oklch(0.55 0.18 264 / 0.25);
+}
+.jp-badge-success {
+  background: var(--color-jp-success-muted);
+  color: var(--color-jp-success-text);
+  border-color: oklch(0.6 0.15 145 / 0.2);
+}
+.jp-badge-warning {
+  background: var(--color-jp-warning-muted);
+  color: var(--color-jp-warning-text);
+  border-color: oklch(0.7 0.15 80 / 0.2);
+}
+.jp-badge-error {
+  background: var(--color-jp-error-muted);
+  color: var(--color-jp-error-text);
+  border-color: oklch(0.55 0.2 25 / 0.2);
+}
+.jp-badge-neutral {
+  background: var(--color-jp-bg-raised);
+  color: var(--color-jp-text-secondary);
+  border-color: var(--color-jp-border);
+}
+
+/* Skeleton loader */
+.jp-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-jp-bg-raised) 25%,
+    var(--color-jp-bg-overlay) 50%,
+    var(--color-jp-bg-raised) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Divider */
+.jp-divider {
+  height: 1px;
+  background: var(--color-jp-border-subtle);
+  border: none;
+  margin: 0;
+}
+
+/* ── Focus Visible ─────────────────────────────────────────── */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-jp-accent);
+  outline-offset: 2px;
+}
+
+/* ── Page transition ───────────────────────────────────────── */
+.jp-page-enter {
+  animation: fade-in 0.15s ease forwards;
+}

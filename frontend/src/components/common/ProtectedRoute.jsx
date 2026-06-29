@@ -20,7 +20,8 @@ export default function ProtectedRoute({ children }) {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "100vh",
-          backgroundColor: "#f8f9ff",
+          backgroundColor: "#0A0A0B",
+          color: "#e5e2e3",
           fontFamily: "'Inter', sans-serif",
         }}
       >
@@ -29,13 +30,14 @@ export default function ProtectedRoute({ children }) {
             className="material-symbols-outlined"
             style={{
               fontSize: 48,
-              color: "#003ec7",
+              color: "#adc6ff",
               animation: "spin 1s linear infinite",
+              display: "inline-block",
             }}
           >
             progress_activity
           </span>
-          <p style={{ marginTop: 16, color: "#434656", fontSize: 14 }}>Loading...</p>
+          <p style={{ marginTop: 16, color: "#c2c6d6", fontSize: 14 }}>Loading...</p>
         </div>
       </div>
     );

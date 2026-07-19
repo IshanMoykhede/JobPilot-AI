@@ -7,8 +7,8 @@ from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
+
 
 from app.core.config import settings
 from app.graph.state import IntelligenceGraphState
@@ -181,13 +181,12 @@ Your output must match the structure of the schema.
 
         class QueryOutput(BaseModel):
             queries: List[str] = Field(description="Exactly 5 search queries, one for each category in order.")
-
-        # Try Groq first
-        if settings.GROQ_API_KEY:
+        provider = getattr(settings, "LLM_PROVIDER", "gemini")
+        if provider in ("groq", "grok"):
             try:
-                llm = ChatGroq(
-                    api_key=settings.GROQ_API_KEY,
-                    model_name="llama-3.3-70b-versatile",
+                llm = get_llm(
+                    provider="groq",
+                    model="llama-3.3-70b-versatile",
                     temperature=0.1
                 )
                 structured_llm = llm.with_structured_output(QueryOutput)
@@ -195,22 +194,36 @@ Your output must match the structure of the schema.
                 res: QueryOutput = await chain.ainvoke({"role_name": role_name, "level": level})
                 return res.queries
             except Exception as e:
-                print(f"[Market Intelligence Node] Groq query generation failed: {e}. Trying Gemini...")
+                print(f"[Market Intelligence Node] Groq query generation failed: {e}")
+        else:
+            if settings.GEMINI_API_KEY:
+                try:
+                    llm = get_llm(
+                        provider="gemini",
+                        model="gemini-2.5-flash",
+                        temperature=0.1
+                    )
+                    structured_llm = llm.with_structured_output(QueryOutput)
+                    chain = prompt | structured_llm
+                    res: QueryOutput = await chain.ainvoke({"role_name": role_name, "level": level})
+                    return res.queries
+                except Exception as e:
+                    print(f"[Market Intelligence Node] Gemini query generation failed: {e}. Trying Groq fallback...")
+            
+            if settings.GROQ_API_KEY:
+                try:
+                    llm = get_llm(
+                        provider="groq",
+                        model="llama-3.3-70b-versatile",
+                        temperature=0.1
+                    )
+                    structured_llm = llm.with_structured_output(QueryOutput)
+                    chain = prompt | structured_llm
+                    res: QueryOutput = await chain.ainvoke({"role_name": role_name, "level": level})
+                    return res.queries
+                except Exception as e:
+                    print(f"[Market Intelligence Node] Groq query generation fallback failed: {e}")
 
-        # Try Gemini second
-        if settings.GEMINI_API_KEY:
-            try:
-                llm = ChatGoogleGenerativeAI(
-                    api_key=settings.GEMINI_API_KEY,
-                    model="gemini-2.5-flash",
-                    temperature=0.1
-                )
-                structured_llm = llm.with_structured_output(QueryOutput)
-                chain = prompt | structured_llm
-                res: QueryOutput = await chain.ainvoke({"role_name": role_name, "level": level})
-                return res.queries
-            except Exception as e:
-                print(f"[Market Intelligence Node] Gemini query generation failed: {e}")
 
         # Fallback static queries
         role_full = f"{level} {role_name}".strip()
@@ -368,12 +381,12 @@ RESEARCH CONTEXT:
 
         parsed_json = None
 
-        # Try Groq first
-        if settings.GROQ_API_KEY:
+        provider = getattr(settings, "LLM_PROVIDER", "gemini")
+        if provider in ("groq", "grok"):
             try:
-                llm = ChatGroq(
-                    api_key=settings.GROQ_API_KEY,
-                    model_name="llama-3.3-70b-versatile",
+                llm = get_llm(
+                    provider="groq",
+                    model="llama-3.3-70b-versatile",
                     temperature=0.1
                 )
                 formatted_prompt = prompt.format(**payload_vars)
@@ -383,22 +396,37 @@ RESEARCH CONTEXT:
                     print(f"[Market Intelligence Node] Groq synthesis successful for {role_name}.")
             except Exception as e:
                 print(f"[Market Intelligence Node] Groq synthesis failed for {role_name}: {e}")
+        else:
+            if settings.GROQ_API_KEY:
+                try:
+                    llm = get_llm(
+                        provider="groq",
+                        model="llama-3.3-70b-versatile",
+                        temperature=0.1
+                    )
+                    formatted_prompt = prompt.format(**payload_vars)
+                    res = await llm.ainvoke(formatted_prompt)
+                    parsed_json = extract_json_block(res.content)
+                    if parsed_json:
+                        print(f"[Market Intelligence Node] Groq synthesis successful for {role_name}.")
+                except Exception as e:
+                    print(f"[Market Intelligence Node] Groq synthesis failed for {role_name}: {e}")
 
-        # Try Gemini second
-        if not parsed_json and settings.GEMINI_API_KEY:
-            try:
-                llm = ChatGoogleGenerativeAI(
-                    api_key=settings.GEMINI_API_KEY,
-                    model="gemini-2.5-flash",
-                    temperature=0.1
-                )
-                formatted_prompt = prompt.format(**payload_vars)
-                res = await llm.ainvoke(formatted_prompt)
-                parsed_json = extract_json_block(res.content)
-                if parsed_json:
-                    print(f"[Market Intelligence Node] Gemini synthesis successful for {role_name}.")
-            except Exception as e:
-                print(f"[Market Intelligence Node] Gemini synthesis failed for {role_name}: {e}")
+            if not parsed_json and settings.GEMINI_API_KEY:
+                try:
+                    llm = get_llm(
+                        provider="gemini",
+                        model="gemini-2.5-flash",
+                        temperature=0.1
+                    )
+                    formatted_prompt = prompt.format(**payload_vars)
+                    res = await llm.ainvoke(formatted_prompt)
+                    parsed_json = extract_json_block(res.content)
+                    if parsed_json:
+                        print(f"[Market Intelligence Node] Gemini synthesis successful for {role_name}.")
+                except Exception as e:
+                    print(f"[Market Intelligence Node] Gemini synthesis failed for {role_name}: {e}")
+
 
         if parsed_json:
             seen_skills = set()

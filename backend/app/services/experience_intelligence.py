@@ -3,9 +3,9 @@ import logging
 from typing import List
 import asyncio
 
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
 from langchain_core.prompts import ChatPromptTemplate
+
 
 from app.core.config import settings
 from app.schemas.candidate_profile import ExperienceSchema
@@ -30,95 +30,67 @@ class ExperienceIntelligenceService:
         if cls._groq_chain is None and cls._gemini_chain is None:
             prompt = ChatPromptTemplate.from_messages([
                 ("system", """## Role
-You are an expert Senior Technical Recruiter and Staff Engineering Manager.
+You are a Senior Engineering Hiring Manager conducting a work history review.
 
 ## Objective
-You are reconstructing what engineering work this person actually performed based on their professional experience. You must ONLY extract facts and directly observable capabilities. You are NOT evaluating the candidate, nor are you scoring evidence.
+Reconstruct what engineering work this person actually performed at this specific role. Extract only facts and directly observable activities. You are NOT evaluating the candidate. You are NOT scoring evidence.
 
-## Technology vs. Capability Distinction (CRITICAL):
-- Classify Programming Languages, Frameworks, Libraries, Databases, Cloud Platforms, Infrastructure, and Developer Tools as TECHNOLOGIES (e.g. Python, React, FastAPI, Docker, PostgreSQL, Redis).
-- Classify Activities and Processes as CAPABILITIES (e.g. REST API Design, Authentication, Authorization, Database Design, Performance Optimization, System Architecture, Caching, Deployment).
-- NEVER classify architectural concepts or general engineering topics (such as "REST APIs", "JWT Authentication", "Computer Networks", or "Object Oriented Programming") as technologies. Treat them as capabilities (e.g. "REST API Design", "Authentication") or general topics, or exclude them if they do not fit the schema enums.
+## Schema Field Guidance
 
-## Domain Safety & Hallucination Reduction (CRITICAL):
-- Assign engineering domains ONLY when the candidate's primary engineering work clearly belongs to that domain.
-- Do NOT infer domains from adjectives such as "secure" (does NOT mean Cyber Security), "distributed" (does NOT mean Distributed Systems), "scalable" or "cloud-ready" (does NOT mean Cloud Computing), or "AI-powered" (does NOT mean AI/ML unless they built model architectures/agents directly).
-- Examples: Security features != Cyber Security; Cloud deployment != Cloud Computing; OpenAI API usage != AI Engineering; Redis != Distributed Systems.
-- Always prefer conservative domain classification. If unsure, use UNKNOWN_ENGINEERING_DOMAIN.
+### `display_name`
+Format: "Role @ Company" (e.g., "Software Engineer @ Google", "Backend Intern @ Startup XYZ")
 
-## Recruiter Summary Styling (CRITICAL):
-- The summary MUST answer: What was built/done? How was it built/done? Why is it technically important?
-- Maximum 2 sentences.
-- Use professional recruiter language. Absolutely ban marketing or introduction phrases like "This project showcases...", "This experience demonstrates...", or "The candidate...".
+### `company` and `role`
+Extract exactly as stated.
 
-## Extraction Workflow
-Internal reasoning order:
-1. Understand the role.
-2. Determine the engineering team (e.g., Backend, Frontend, Platform, DevOps, AI, Cloud, Security, etc.).
-3. Determine the engineering problems solved.
-4. Determine daily responsibilities.
-5. Determine engineering activities.
-6. Map activities to descriptive Engineering Capabilities.
-7. Extract explicit technologies.
-8. Estimate engineering complexity.
-9. Write recruiter summary.
+### `work_type`
+- If the title contains "Intern", "Internship", or "Trainee" → set to "INTERNSHIP"
+- Otherwise → set to "EXPERIENCE"
 
-Only after completing these internal steps populate the schema.
+### `domain` (KnowledgeDomain)
+Same domain classification rules as Project Intelligence:
+- "Software Engineering": Backend, frontend, full-stack, mobile, DevTools
+- "AI/ML": Training models, building ML pipelines, autonomous agents
+- Use "Unknown Engineering Domain" if the role description is too sparse to determine
 
-Step 1: Determine Experience Domain. Classify based on the rules above.
-Step 2: Understand Experience Purpose. Extract normalized responsibilities and populate `summary` and `display_name` (e.g., 'Role @ Company').
-Step 3: Estimate Complexity using the Complexity Rubric.
-Step 4: Extract Explicit Technologies. Only extract tools strictly stated in the text. Do NOT infer or hallucinate.
-Step 5: Extract Observable Engineering Capabilities. Select ONLY from the provided EngineeringCapability enum based on explicitly described activities. Never invent capability names. If none accurately describe the engineering work, return an empty capability list. Do not force mappings.
+**Anti-hallucination rules**: Same as Project Intelligence — using cloud services ≠ Cloud Computing, adding auth ≠ Cyber Security, etc.
 
-## Responsibilities Extraction
-Normalize noisy resume descriptions into clean engineering intelligence. Responsibilities should represent engineering work, not resume wording.
-Examples:
-- "Developed REST APIs using FastAPI" -> "Designed and implemented REST APIs"
-- "Worked on deployment" -> "Managed application deployment"
-- "Optimized SQL queries" -> "Optimized database performance"
+### `duration`
+Format as "Start Date - End Date" (e.g., "Jun 2024 - Dec 2024" or "Jan 2023 - Present").
 
-## Capability Mapping
-Engineering Capability represents an engineering activity, not a technology.
-First identify the engineering work performed.
-Then map that work into the closest EngineeringCapability already defined in the schema.
+### `achievements` (List of StructuredAchievement)
+For every notable engineering action described in the work experience:
+- `action`: e.g. "Implemented", "Optimized", "Designed", "Containerized"
+- `technologies`: List of exact technologies involved
+- `problem`: The engineering challenge or problem solved
+- `solution`: The engineering solution implemented
+- `impact`: The measurable or observable technical outcome (if explicitly stated, otherwise a direct factual outcome)
 
-Examples:
-- Designing APIs -> REST_API_DESIGN
-- Managing authentication -> AUTHENTICATION
-- Designing HVAC systems -> THERMODYNAMICS_DESIGN
-- Developing printed circuit boards -> PCB_DESIGN
-- Analyzing soil for foundations -> GEOTECHNICAL_ANALYSIS
-- Scaling up chemical production -> CHEMICAL_PROCESS_SCALING
+### `explicit_technologies`
+Same rules as Project Intelligence. Extract only explicitly named tools. Concepts are NOT technologies.
 
-If no existing capability accurately represents the work, leave the capability list empty.
-Never invent new capability names.
-Never force an incorrect mapping.
+### `engineering_capabilities`
+Same canonical list as Project Intelligence. Extract observable engineering activities.
 
-## Sparse Experience Handling
-If only Role, Company, and Duration exist (the description is sparse or missing):
-- Extract ONLY the domain, display_name, role, company, conservative summary, and explicit technologies (if present in the title).
-- Return empty capability lists rather than hallucinating.
-- Always prefer under-classification over over-classification.
+### `complexity`
+- BEGINNER: Bug fixes, simple scripts, internal tools with no users
+- INTERMEDIATE: Feature development, database work, standard deployments
+- ADVANCED: System design, complex business logic, performance work, mentoring others
+- PRODUCTION: High-traffic systems, architecture ownership, organization-wide impact
 
-## Complexity Rubric
-- BEGINNER: Basic bug fixes, simple scripts, internal tools with no scale
-- INTERMEDIATE: Feature development, database integrations, standard deployments
-- ADVANCED: Distributed architecture, Complex business logic, Caching, Scalability, Production practices, Mentorship
-- PRODUCTION: High traffic systems, Mission-critical infrastructure, Architecture ownership, Organization-wide impact
+## Sparse Input Handling
+If only Role, Company, and Duration exist with no description:
+- Set `achievements` to empty list
+- Set `engineering_capabilities` to empty list
+- Set `explicit_technologies` to empty list (unless tech is in the job title, e.g., "Python Developer" → ["Python"])
+- Set complexity to BEGINNER
+- NEVER hallucinate achievements or technologies for sparse entries
 
 ## Constraints
-- Think internally.
-- Follow the reasoning sequence.
-- Populate every schema field.
-- Never invent responsibilities.
-- Never invent technologies.
-- Never invent engineering capabilities.
-- Never overestimate candidate expertise.
-- Prefer conservative interpretation.
-
-## Output Instructions
-Return ONLY the ExperienceIntelligence object JSON. No explanation. No markdown. No prose. Ensure `work_type` is set to "EXPERIENCE".
+- Populate every schema field
+- Never invent achievements not described
+- Never invent technologies not mentioned
+- Never overestimate complexity
 """),
                 ("user", """Here is the structured professional experience information:
 
@@ -128,17 +100,18 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
             ])
             
             if settings.GROQ_API_KEY:
-                llm = ChatGroq(
-                    api_key=SecretStr(settings.GROQ_API_KEY),
+                llm = get_llm(
+                    provider="groq",
                     model="llama-3.3-70b-versatile",
-                    temperature=0
+                    temperature=0,
+                    max_tokens=8192
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(ExperienceIntelligence)
-                
+
             if settings.GEMINI_API_KEY:
-                gemini_llm = ChatGoogleGenerativeAI(
+                gemini_llm = get_llm(
+                    provider="gemini",
                     model="gemini-2.0-flash",
-                    api_key=SecretStr(settings.GEMINI_API_KEY),
                     temperature=0
                 )
                 cls._gemini_chain = prompt | gemini_llm.with_structured_output(ExperienceIntelligence)
@@ -150,11 +123,24 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
         """
         Takes a list of experiences and runs the LLM analysis on them concurrently.
         """
+        import json
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: EXPERIENCE INTELLIGENCE AGENT")
+        print("--> Input Experiences:")
+        print(json.dumps([e.model_dump() for e in experiences], indent=2))
+
         if not experiences:
+            print("--> Output Experience Intelligence: []")
+            print(f"[{'='*50}]\n")
             return []
             
-        tasks = [ExperienceIntelligenceService.analyze_single_experience(exp) for exp in experiences]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        results = []
+        for exp in experiences:
+            try:
+                res = await ExperienceIntelligenceService.analyze_single_experience(exp)
+                results.append(res)
+            except Exception as e:
+                results.append(e)
         
         valid_intelligence = []
         for res in results:
@@ -163,6 +149,10 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
             else:
                 logger.error(f"Failed to analyze experience: {res}")
                 
+        print("--> Output Experience Intelligence:")
+        print(json.dumps([item.model_dump() for item in valid_intelligence], indent=2))
+        print(f"[{'='*50}]\n")
+
         return valid_intelligence
 
     @staticmethod
@@ -189,7 +179,13 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
         # Attempt 1: Groq (Llama-3)
         if groq_chain:
             try:
-                llm_result = await groq_chain.ainvoke(payload_vars)
+                from tenacity import retry, stop_after_attempt, wait_incrementing
+                
+                @retry(stop=stop_after_attempt(6), wait=wait_incrementing(start=15, increment=15, max=75), reraise=True)
+                async def _invoke_groq():
+                    return await groq_chain.ainvoke(payload_vars)
+                    
+                llm_result = await _invoke_groq()
             except Exception as e:
                 logger.error(f"[Experience Intelligence] Groq failed: {e}. Falling back to Gemini.")
                 

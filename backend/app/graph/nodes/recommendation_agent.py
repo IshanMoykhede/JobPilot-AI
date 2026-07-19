@@ -4,8 +4,8 @@ from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
+
 
 from app.core.config import settings
 from app.graph.state import IntelligenceGraphState
@@ -265,27 +265,12 @@ Each recommendation must name specific technologies, tools, and deployment targe
 
             llm_result = None
 
-            # Try Gemini first — better structured output quality for this task
-            if settings.GEMINI_API_KEY:
+            provider = getattr(settings, "LLM_PROVIDER", "gemini")
+            if provider in ("groq", "grok"):
                 try:
-                    llm = ChatGoogleGenerativeAI(
-                        api_key=settings.GEMINI_API_KEY,
-                        model="gemini-2.5-flash",
-                        temperature=0.2
-                    )
-                    structured_llm = llm.with_structured_output(RecommendationResult)
-                    chain = prompt | structured_llm
-                    llm_result = await chain.ainvoke(payload_vars)
-                    print(f"[Recommendation Agent] Gemini generation successful for {role}.")
-                except Exception as e:
-                    print(f"[Recommendation Agent] Gemini generation failed for {role}: {e}. Trying Groq...")
-
-            # Fallback to Groq
-            if not llm_result and settings.GROQ_API_KEY:
-                try:
-                    llm = ChatGroq(
-                        api_key=settings.GROQ_API_KEY,
-                        model_name="llama-3.3-70b-versatile",  # 70b for better structured output
+                    llm = get_llm(
+                        provider="groq",
+                        model="llama-3.3-70b-versatile",
                         temperature=0.2
                     )
                     structured_llm = llm.with_structured_output(RecommendationResult)
@@ -294,6 +279,35 @@ Each recommendation must name specific technologies, tools, and deployment targe
                     print(f"[Recommendation Agent] Groq generation successful for {role}.")
                 except Exception as e:
                     print(f"[Recommendation Agent] Groq generation failed for {role}: {e}")
+            else:
+                if settings.GEMINI_API_KEY:
+                    try:
+                        llm = get_llm(
+                            provider="gemini",
+                            model="gemini-2.5-flash",
+                            temperature=0.2
+                        )
+                        structured_llm = llm.with_structured_output(RecommendationResult)
+                        chain = prompt | structured_llm
+                        llm_result = await chain.ainvoke(payload_vars)
+                        print(f"[Recommendation Agent] Gemini generation successful for {role}.")
+                    except Exception as e:
+                        print(f"[Recommendation Agent] Gemini generation failed for {role}: {e}. Trying Groq...")
+
+                if not llm_result and settings.GROQ_API_KEY:
+                    try:
+                        llm = get_llm(
+                            provider="groq",
+                            model="llama-3.3-70b-versatile",  # 70b for better structured output
+                            temperature=0.2
+                        )
+                        structured_llm = llm.with_structured_output(RecommendationResult)
+                        chain = prompt | structured_llm
+                        llm_result = await chain.ainvoke(payload_vars)
+                        print(f"[Recommendation Agent] Groq generation successful for {role}.")
+                    except Exception as e:
+                        print(f"[Recommendation Agent] Groq generation failed for {role}: {e}")
+
 
             # Deterministic fallback if both LLMs fail
             if not llm_result:

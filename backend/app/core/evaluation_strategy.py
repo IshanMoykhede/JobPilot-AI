@@ -3,14 +3,14 @@ from typing import Dict, List, Tuple, Set
 from app.schemas.evidence import (
     EvidenceStatus, 
     EvidenceQuality, 
-    KnowledgeItem,
-    EvidenceReference
+    UnifiedKnowledgeItem,
+    SourceReference
 )
 from app.core import evidence_config
 
 class EvaluationStrategy(ABC):
     @abstractmethod
-    def evaluate_knowledge(self, item: KnowledgeItem) -> Tuple[int, int, int, int, int, EvidenceQuality, EvidenceStatus, str]:
+    def evaluate_knowledge(self, item: UnifiedKnowledgeItem) -> Tuple[int, int, int, int, int, EvidenceQuality, EvidenceStatus, str]:
         """
         Evaluate a single knowledge item and return intermediate and final scores.
         Returns:
@@ -27,14 +27,14 @@ class EvaluationStrategy(ABC):
 
 class DefaultEvaluationStrategy(EvaluationStrategy):
     
-    def evaluate_knowledge(self, item: KnowledgeItem) -> Tuple[int, int, int, int, int, EvidenceQuality, EvidenceStatus, str]:
-        if not item.evidence:
+    def evaluate_knowledge(self, item: UnifiedKnowledgeItem) -> Tuple[int, int, int, int, int, EvidenceQuality, EvidenceStatus, str]:
+        if not item.source_evidence:
             return 0, 0, 0, 0, 0, EvidenceQuality.LOW, EvidenceStatus.CLAIMED, "No evidence provided."
             
-        sources_seen, source_strength_sum, practical, academic = self._analyze_evidence_list(item.evidence)
+        sources_seen, source_strength_sum, practical, academic = self._analyze_evidence_list(item.source_evidence)
         
         diversity = self._compute_diversity(len(sources_seen))
-        source_strength = self._compute_source_strength(source_strength_sum, len(item.evidence))
+        source_strength = self._compute_source_strength(source_strength_sum, len(item.source_evidence))
         
         practical = min(100, practical)
         academic = min(100, academic)
@@ -47,7 +47,7 @@ class DefaultEvaluationStrategy(EvaluationStrategy):
             
         return (confidence, source_strength, diversity, practical, academic, quality, status, reasoning)
 
-    def _analyze_evidence_list(self, evidence: List[EvidenceReference]) -> Tuple[Set[str], int, int, int]:
+    def _analyze_evidence_list(self, evidence: List[SourceReference]) -> Tuple[Set[str], int, int, int]:
         sources_seen = set()
         source_strength_sum = 0
         practical = 0
@@ -104,10 +104,10 @@ class DefaultEvaluationStrategy(EvaluationStrategy):
         status = EvidenceStatus.CLAIMED if (len(sources_seen) == 1 and "SKILL" in sources_seen) else EvidenceStatus.WEAK_EVIDENCE
         return EvidenceQuality.LOW, status
 
-    def _build_reasoning(self, item: KnowledgeItem) -> str:
+    def _build_reasoning(self, item: UnifiedKnowledgeItem) -> str:
         reasoning_parts = []
         counts = {}
-        for ref in item.evidence:
+        for ref in item.source_evidence:
             counts[ref.source_type] = counts.get(ref.source_type, 0) + 1
             
         if counts.get("EXPERIENCE", 0) > 0:

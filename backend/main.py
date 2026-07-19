@@ -1,15 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# Pre-load all SQLAlchemy models for mapper resolution
+from app.models.user import User
+from app.models.candidate_profile import CandidateProfile
+from app.models.candidate_insights import CandidateInsights
+from app.conversation.models.conversation import Conversation
+from app.job_search.models.search_workspace import SearchWorkspace
+from app.job_search.models.job_search_result import JobSearchResult
+from app.job_search.models.job_knowledge import JobKnowledge
 from app.routes.auth import router as auth_router
 from app.routes.candidate_profile import router as profile_router
+from app.routes.jobs import router as jobs_router
+from app.routes.agent_routes import router as agent_router
 
 app = FastAPI(
-    title="JobPilot AI API",
-    description="Backend API for JobPilot AI - Authentication & Authorization Phase",
-    version="1.0.0"
+    title="JobPilot AI",
+    description="Backend services for JobPilot AI",
+    version="0.1.0"
 )
 
-# Configure CORS for communication with the React frontend
+# Allow CORS for local development
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,6 +32,8 @@ app.add_middleware(
 # Register routes
 app.include_router(auth_router)
 app.include_router(profile_router)
+app.include_router(jobs_router)
+app.include_router(agent_router)
 
 @app.get("/")
 def read_root():

@@ -1,17 +1,15 @@
 import logging
 import traceback
 from typing import cast, Optional
-from pydantic import SecretStr
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
 from langchain_core.prompts import ChatPromptTemplate
+
 
 from app.core.config import settings
 from app.schemas.evidence import (
     CandidateSynthesisInput, 
     CandidateIdentity,
-    EngineeringDomain,
-    EngineeringCapability
+    EngineeringDomain
 )
 
 logger = logging.getLogger(__name__)
@@ -28,34 +26,27 @@ class CandidateSynthesizerService:
     @classmethod
     def _get_chains(cls):
         if cls._groq_chain is None and cls._gemini_chain is None:
-            # Generate domain list and capability list dynamically for the prompt
+            # Generate domain list dynamically for the prompt
             domains_list = ", ".join([f'"{d.value}"' for d in EngineeringDomain])
-            caps_list = ", ".join([f'"{c.value}"' for c in EngineeringCapability])
 
-            system_prompt = f"""You are a Principal Engineering Recruiter.
-You are NOT extracting raw information or parsing resumes.
-You are NOT evaluating evidence quality or scoring skills.
+            system_prompt = f"""## ROLE
+You are the Candidate Identity Synthesis Engine.
 
-Your responsibility is to synthesize the supplied CandidateSynthesisInput (UnifiedKnowledge, Evidence Report, Project Intelligence, Experience Intelligence, Education, Certifications) into ONE holistic, high-level CandidateIdentity.
+Your responsibility is to synthesize a candidate's complete engineering identity from structured engineering intelligence.
+Choose from these engineering domains when applicable: {domains_list}
 
-## Grounding & Explainability Constraints:
-- Every single specialization, stack technology, domain, capability, and recruiter summary statement must be groundable in the supplied evidence. Do NOT invent/hallucinate capabilities or technologies.
-- Do NOT underestimate or overestimate the candidate. Use conservative conclusions based on facts.
-- Produce `knowledge_reasoning` (a list of strings) that explicitly explains why you categorized the candidate's specialization, domains, and capabilities the way you did.
+Identify:
+- `primary_specialization`: The core engineering role that best represents the candidate (e.g. "Backend Developer", "ML Engineer", "Mechanical Design Engineer").
+- `secondary_specializations`: List of supporting specializations (e.g. ["Cloud Engineer", "DevOps Engineer"]).
+- `engineering_domains`: List of matching engineering domains from {domains_list}.
+- `technology_stack`: Comprehensive, exhaustive list of ALL unique technologies, programming languages, databases, cloud providers, and frameworks the candidate knows, ensuring absolutely zero technical skills are dropped from their input projects and skills list.
+- `strongest_capabilities`: List of strongest engineering capabilities (e.g. Backend Development, REST API Design, CAD Modeling).
+- `experience_level`: The general seniority level (e.g., "Fresher", "Junior", "Mid-Level", "Senior").
+- `ideal_roles`: List of ideal standard job titles the candidate is qualified for.
 
-## Banned Content:
-- Do NOT invent or add any technologies that are not explicitly present in the input.
-- Do NOT calculate confidence scores or rank evidence.
-
-## Enum Constraints (CRITICAL):
-- You MUST populate `engineering_domains` ONLY with values from this exact list: [{domains_list}]
-- You MUST populate `strongest_capabilities` ONLY with values from this exact list: [{caps_list}]
-- If any domain or capability is not a 100% clean fit, leave it out. Never output a string that is not in the lists above.
-
-## Styling Rules:
-- The `recruiter_summary` must be written in professional, concise recruiter style.
-- State: What they built, How they built it, and Why it matters technically.
-- Maximum 2 sentences. No fluffy marketing words (e.g. "This project showcases...", "This candidate demonstrates...").
+## Strict Rules
+- Never invent information not present in the input.
+- Return ONLY the CandidateIdentity JSON object.
 """
 
             prompt = ChatPromptTemplate.from_messages([
@@ -64,17 +55,18 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
             ])
 
             if settings.GROQ_API_KEY:
-                llm = ChatGroq(
-                    api_key=SecretStr(settings.GROQ_API_KEY),
+                llm = get_llm(
+                    provider="groq",
                     model="llama-3.3-70b-versatile",
-                    temperature=0
+                    temperature=0,
+                    max_tokens=8192
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(CandidateIdentity)
 
             if settings.GEMINI_API_KEY:
-                gemini_llm = ChatGoogleGenerativeAI(
+                gemini_llm = get_llm(
+                    provider="gemini",
                     model="gemini-2.0-flash",
-                    api_key=SecretStr(settings.GEMINI_API_KEY),
                     temperature=0
                 )
                 cls._gemini_chain = prompt | gemini_llm.with_structured_output(CandidateIdentity)
@@ -83,6 +75,10 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
 
     async def synthesize(self, synthesis_input: CandidateSynthesisInput) -> CandidateIdentity:
         logger.info("Starting candidate identity synthesis...")
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: CANDIDATE IDENTITY SYNTHESIS")
+        print("--> Input Synthesis Data:")
+        print(synthesis_input.model_dump_json(indent=2))
         
         # Serialize the input to JSON for the LLM
         input_json = synthesis_input.model_dump_json(exclude_none=True, indent=2)
@@ -95,7 +91,13 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
         # Attempt 1: Groq
         if groq_chain:
             try:
-                llm_result = await groq_chain.ainvoke(payload_vars)
+                from tenacity import retry, stop_after_attempt, wait_incrementing
+                
+                @retry(stop=stop_after_attempt(6), wait=wait_incrementing(start=15, increment=15, max=75), reraise=True)
+                async def _invoke_groq():
+                    return await groq_chain.ainvoke(payload_vars)
+                    
+                llm_result = await _invoke_groq()
                 logger.info("Groq synthesis successful.")
             except Exception as e:
                 last_error = e
@@ -111,6 +113,9 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
                 logger.warning(f"Gemini synthesis failed: {e}.")
 
         if llm_result:
+            print("--> Output Synthesized Candidate Identity:")
+            print(llm_result.model_dump_json(indent=2))
+            print(f"[{'='*50}]\n")
             return cast(CandidateIdentity, llm_result)
 
         # Both failed: log complete traceback and raise/fallback
@@ -121,7 +126,7 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
 
         # Fallback to prevent crash, but strictly log that we hit it
         logger.error("Synthesizer falling back to default 'Unknown Engineer' profile.")
-        return CandidateIdentity(
+        fallback = CandidateIdentity(
             primary_specialization="Unknown Engineer",
             secondary_specializations=[],
             engineering_domains=[],
@@ -134,3 +139,7 @@ Your responsibility is to synthesize the supplied CandidateSynthesisInput (Unifi
             recruiter_summary="Synthesis failed due to an internal error.",
             knowledge_reasoning=["Synthesis failed. Check application logs for complete traceback."]
         )
+        print("--> Output Synthesized Candidate Identity (FALLBACK):")
+        print(fallback.model_dump_json(indent=2))
+        print(f"[{'='*50}]\n")
+        return fallback

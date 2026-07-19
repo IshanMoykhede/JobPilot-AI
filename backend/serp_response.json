@@ -1,0 +1,737 @@
+{
+  "search_metadata": {
+    "id": "6a5260de57c44bfdbd899c28",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/BdEUpOci3XEom4FPvswb2w/6a5260de57c44bfdbd899c28.json",
+    "created_at": "2026-07-11 15:27:26 UTC",
+    "processed_at": "2026-07-11 15:27:26 UTC",
+    "google_jobs_url": "https://www.google.com/search?q=software+engineering+jobs+in+pune&uule=w+CAIQICIWUHVuZSxNYWhhcmFzaHRyYSxJbmRpYQ&udm=8",
+    "raw_html_file": "https://serpapi.com/searches/BdEUpOci3XEom4FPvswb2w/6a5260de57c44bfdbd899c28.html",
+    "total_time_taken": 1.39
+  },
+  "search_parameters": {
+    "q": "software engineering jobs in pune",
+    "engine": "google_jobs",
+    "location_requested": "Pune, Maharashtra, India",
+    "location_used": "Pune,Maharashtra,India",
+    "google_domain": "google.com"
+  },
+  "filters": [
+    {
+      "name": "No degree",
+      "parameters": {
+        "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5",
+        "q": "software engineering jobs in pune no degree"
+      },
+      "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+no+degree&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQxKsJKAB6BAgWEAE&ictx=0",
+      "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+no+degree&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5"
+    },
+    {
+      "name": "Remote",
+      "parameters": {
+        "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t",
+        "q": "software engineering jobs in pune remote"
+      },
+      "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+remote&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQxKsJKAF6BAgTEAE&ictx=0",
+      "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+remote&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t"
+    },
+    {
+      "name": "Remote",
+      "parameters": {
+        "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t",
+        "q": "software engineering jobs in pune remote"
+      },
+      "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+remote&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQxKsJKAJ6BAgUEAE&ictx=0",
+      "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+remote&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rvMK4OwXsRyIhE7EdbHGMcFRbXlNZ0w8MoXcmq1KQCfOddybmQaj85JwOHc2UfEdAvmO0TDQmmQuZv0lNjFfrOwvSOR4f9YU7VakwZs7Sh9voaHJVfu8alLsf-foVnc3XsNa9kID8jjJ6fLdNOyJnVyyRT4RgnWHiTUJAL4WY-fTE7X5t"
+    },
+    {
+      "name": "No degree",
+      "parameters": {
+        "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5",
+        "q": "software engineering jobs in pune no degree"
+      },
+      "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+no+degree&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQxKsJKAN6BAgVEAE&ictx=0",
+      "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+no+degree&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4reooQRey3JP64vdGvFahdt3V9mJDhVBHOJeHKaBO2I-3Jf8enJlI0f-V32C3agP9lpG5rFlol8aeXtDx6aRCkD1V4sD71wkHk_r6FniI3Gn-Oy2PhjWe3acizqALbGxRjq2ajkAAcH22-SsxNZaySWfJiKl8JXpx2wD-XGCRlpdiGshr5"
+    },
+    {
+      "name": "Job type",
+      "options": [
+        {
+          "name": "Full time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY",
+            "q": "software engineering jobs in pune full time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAC",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY"
+        },
+        {
+          "name": "Part time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI",
+            "q": "software engineering jobs in pune part time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAD",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI"
+        },
+        {
+          "name": "Contract",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g",
+            "q": "software engineering jobs in pune contract"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAE",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g"
+        },
+        {
+          "name": "Internship",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw",
+            "q": "software engineering jobs in pune internship"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAF",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw"
+        }
+      ]
+    },
+    {
+      "name": "Job type",
+      "options": [
+        {
+          "name": "Full time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY",
+            "q": "software engineering jobs in pune full time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAC",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY"
+        },
+        {
+          "name": "Part time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI",
+            "q": "software engineering jobs in pune part time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAD",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI"
+        },
+        {
+          "name": "Contract",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g",
+            "q": "software engineering jobs in pune contract"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAE",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g"
+        },
+        {
+          "name": "Internship",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw",
+            "q": "software engineering jobs in pune internship"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIGBAF",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw"
+        }
+      ]
+    },
+    {
+      "name": "Date posted",
+      "options": [
+        {
+          "name": "Yesterday",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4",
+            "q": "software engineering jobs in pune since yesterday"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+since+yesterday&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIKxAC",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+since+yesterday&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4"
+        },
+        {
+          "name": "Last 3 days",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8",
+            "q": "software engineering jobs in pune in the last 3 days"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+3+days&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIKxAD",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+3+days&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8"
+        },
+        {
+          "name": "Last week",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww",
+            "q": "software engineering jobs in pune in the last week"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+week&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIKxAE",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+week&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww"
+        },
+        {
+          "name": "Last month",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs",
+            "q": "software engineering jobs in pune in the last month"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+month&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQIKxAF",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+month&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs"
+        }
+      ]
+    },
+    {
+      "name": "Job type",
+      "options": [
+        {
+          "name": "Full time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY",
+            "q": "software engineering jobs in pune full time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILhAC",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+full+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1V7ad17aOhjdogmgdkGLsai5pmtPdo1aPuPPEcwtloeo1jIuU0uFjyqGxkjk201fZxuRxZds5QyJEEw3-JJvKruLAuZQTkLXhPFZSzYvvfQQphRcHbwwJjH5rqEe2U-UjY5w4EZrDy0YJbNVl3JWqsqgUigRa2ypKKStSmdivUFUooZgzwuL7ug2EfxKqqoCd5vc0BLJ__OK0S8RnQ1X_BZytupjdhZfdhzauXABhuJhLj0iWikUsg44DMZME2Cti9LXBwK-hykSrXjU5vaniS9cfAVY"
+        },
+        {
+          "name": "Part time",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI",
+            "q": "software engineering jobs in pune part time"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILhAD",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+part+time&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rdf3hZ4zdlkAW_uEbRSgOysjxJhLLXWjOyyDuubR6oOk1hZS3eWW4_d5hgojbzwM1yQUuAGct_ROQc5AieYwFVcvGwH-uqN0wQmI_H09zMKalzIm-eEu7sF0Ckc4tk3Xc7XHtAB_k2vqCbNeAxcoF2vIAc9eXjazXTY-kb0gCyI_W_e8QZ60H3nCVkvF2FnO3lp39HZQT2oi9PjQEEWblQZ_oR1-aJOxmKddwefoi7tWdbLyV9gdqzegIOaZBQrQX2WZH9-gsHCrZFSJm9TL_MVLG93WKcVmpFugds32UKFtuF_AFWvOv27BkEWlHoUnPWTJJy67h8xaD9z_J5yB0Xsxq6WI"
+        },
+        {
+          "name": "Contract",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g",
+            "q": "software engineering jobs in pune contract"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILhAE",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+contract&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rprWL6OpWZoNRzUmdBA3qD0JKf-CsuhFiVK7QS-GROyYrQ-XbDsAB3v0NHF21bW9k74j98dM3d2SQ0ufhU8o07YVIuruHjjYpfQg9YgauTbhZXFVTgvEQkVzCfEUPCbGR7PGWlEVSn6sbdeyMH_AIuY_ZnlphlxcZ7e5I9AsARQS_o80RrP5ddRiPFpNL34Ut97VDhI_AhcRm6BifR7m-okj2kVseFj3TtfYS-1-6uvvDIcctvt0BGn3nkHVPFBmohTmEPKO3EhpdRsasbZEXY7DKTAwYAJg3uL6jdWNHvY7k-IIXry2bIXESgsJ6CItcfODF2g"
+        },
+        {
+          "name": "Internship",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw",
+            "q": "software engineering jobs in pune internship"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILhAF",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+internship&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rwYl1WYXOKT_MeaWcmB-dbHUIjRIZijGWbHI5cxI_wm7g5m5E4oQ9XwVu7pTykKd0BsGIMiLqTklIESv3gYDI-fAekwu1gXwGS-qiqlfOyIJMBGLDLE9mTQhvkRnsrhVXFo-vi8P2vy6yQdgI0aZHa7fmV5ju60Au-np6KmihmFeQa-iSS3ihQ7ZGTsGMZODcvxdblC2y76ViqTkaXBgcMg91a48UF7fQbxRPr2zS7CarklrovhaC0G8ve6PS-6N6_VM6UvJxzPvDLvxsA_YitziD9r5HsUjqXBCM8Omauro7-UeMMEj9Xd-M9A05cJQOP5V3Jw"
+        }
+      ]
+    },
+    {
+      "name": "Date posted",
+      "options": [
+        {
+          "name": "Yesterday",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4",
+            "q": "software engineering jobs in pune since yesterday"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+since+yesterday&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILxAC",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+since+yesterday&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rW8QTkHCKeThWmP9LncKQtLjebyUxdqGwKOamZMZEK2q9DmUAuax54j6w-fSRW16GX6XK_Po__PFREpbB2djzftETpO8t49vq6VWvBtx-8pgWsKknfm04KMnwDPklqIWBsyxPYHAQht3XIZXp4bb8vROR2lLSYK4joANshsTYAHUVCj0C4SO-9hrKqrUnAfuZOM2-Ajl9yH21baCk07IG9FpBRl3QTtm0kYtnXJ9ncMP6uKTSpGR7k7PRBnSy65WpFgqg8n1gUPMFniYMQ18544ucQvWcV_I37RGmHinzVRseKppb442GqWzfoZcm_mBeV7iui5PVs40iKGlw9C-5b9UYPb4"
+        },
+        {
+          "name": "Last 3 days",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8",
+            "q": "software engineering jobs in pune in the last 3 days"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+3+days&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILxAD",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+3+days&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rMJhA6O55EI6SJz3lnnOfc2LCJQQdN6vq52M3uwR05Oucil2KNL2GAAKs0Em1iS8TTmDAp_8queHPlGt4Dca1OMO3I2qc0reWqewypS3cDEAucTX0Io42-WZKJZPLs593ZRNILOX6FgKeftCUMMBfWfUtP5pXDofsjTNcvuzMXAE0Hz0T6EM7RwMM5JYKYJnwA-HZOqAP1x55Si5gPascFoUuZkHm2JGXsBXJNuNJ30EiwfZHQgkz6U7jAzN58E-nwlg1sglkrjlkmzAMtEK_XlCdbyTgxqZI8Lr7Z9lUUIttdsZFs_0YO-0USqKnHYpGKshGRUseA2_jOedIe_5l9Rfnz-8"
+        },
+        {
+          "name": "Last week",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww",
+            "q": "software engineering jobs in pune in the last week"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+week&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILxAE",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+week&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rOt1tzVzZOgs0nKDZVZKA1MrhlBTmayOprME5ut7gjqIrAsITnyYYyc_5yRwcXXWvlk4uMBXpuBQmm8K2O54kZsRRzXP_L1hDwCIM4_j1aJOrm4axAYcbjaCuQo3byor0O4kNqnAbSo1JydRE-Q0xRo2KFOUbz2qXwIBtcKkIhcQo9g3t3O6I1iuOT-yVAYqPKnsJx51MPuXeUIu5E0IV3_lTqkT7Wa9jzWoxavIGQWOVRMEPKQtky24DcnyAEsFzd-jIGjSB9zTglJNEqo4-cplWmOgWluTv7Bkd1YH7xWv6HZVNPptIkno6_FGbOor_OgQ7hiOeQhAX8W16zOtO97rD-Ww"
+        },
+        {
+          "name": "Last month",
+          "parameters": {
+            "uds": "AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs",
+            "q": "software engineering jobs in pune in the last month"
+          },
+          "link": "https://www.google.com/search?sca_esv=91e1fde4c7a953a8&q=software+engineering+jobs+in+pune+in+the+last+month&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs&udm=8&sa=X&ved=2ahUKEwifn4T198qVAxVUHIYAHYcuInEQkbEKegQILxAF",
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&q=software+engineering+jobs+in+pune+in+the+last+month&uds=AJ5uw1_a2D0D09lxm8gpKKOTUn4rl41Whd_mPMqBD_jt_X6x8lLjo0kqifjlWvy32mtBgQSULJjOXbAeGsiXWNQU3HUKTpCox5nT7I3h9yQKf9XfkZL5V15HeuQZhq5aemLyLd4q5-fgCR2KtyFbr4PpUoj7PFa3lByLlJ00offZHkpdypvb5S9-WJVJcNn4-Lr8l1k9KWmgRLKw1BzoXIsM8AJ7IWOlGYtrgJU_Qm9xqt8Mdn0QiO0nZ8qdshFGOUMjBGXiidwNpn9V6gdGbgjDLbWKaiEUl7JwxCNAD-OZ8g6gf1iaUr0Iwji6-IhnNpoI0AD0wMQhi6-ojiN2pgz9eAhScx3V1YXoj22cVOL_gjuBD_AXFYs"
+        }
+      ]
+    }
+  ],
+  "jobs_results": [
+    {
+      "title": "IT Software Engineering Expert - DIA R&D",
+      "company_name": "Roche",
+      "location": "Pune, Maharashtra, India",
+      "via": "Roche Careers",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=tlFX5MfT6GVgpGWYAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWNsQrCMBBAce0nOJ2Lg9RGBBcdRGiRCoJU95LGM4nUu5CL2N_xT63L4w0PXvadZPv6Bld-pI-OCBVZT4jRk4VqCBgTLKGsD9DMy9FO3IGgjsYBExyZbY_TnUspyFYpkb6wknTypjD8UkzY8aCe3MkfrbhxEXqdsF1vVkMRyC5mDRuH4Akub8IcznqMtLgUdQ413b3-AWoO1oikAAAA&shmds=v1_ARwrE21VOg61xRVC97H8rFbzK_oPGo7fgFZgQcwe4nA22ppoaw&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=tlFX5MfT6GVgpGWYAAAAAA%3D%3D",
+      "thumbnail": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAflBMVEX___-1wu0APM7M2PQACscAAMbm7PoAIMmxv-0ALsuVo-Tv8_ysu-yjrubq7_vBzfF6k-Hz9_0APs3X4Pfe5PcuW9RRctmnsudAZ9YANMyhs-r5_P8cTtEAGsilturJ0_OInuRffNsAQ847X9QAKctth90fU9MISdCCmeN0juBcdv62AAABeElEQVRIie1T25aCMAwMCxHKTaEtyE0QFOX_f3AD6DmgtPu6D8xDe8hkQjppAXbs2PFv4RjbOP6hO1U_28Bcq7vgQcGYWGt0RzSVnK-sCSDQ11R93iIF49mNRgdwbRVEe9XqAOR5M9x1tLjsljnLaLBMju9bjcTj6kozWLmwEnqV-6VzbW_aKK-qgfshfRydCIKEjx0cfDHSAo0PnYMCXkITPQd75HC3H3aRZq0toUaJ0935HJiJryvlMrQuwHw4JRHV6o20BI4gA_DLKSGvVuOU_bvjrmhKoLKppPz5jCHCo21bNmewtUHvUVCrtfUtjF3T5FNC9zGSt18kFFhkFxioVQ6xk05C6UL-HPnZ-yUETuNrJND_DMwsDoPFGASShBHHeHKhsb-vXY1jLyEdXRQQGmMCJ--9MUCbMU7LeHm_Ro7hRnQJ1dMaWKHVHZSPOSl1uuh2UnJlohHqyIINSu7cKylCiDTpTQyZ3gCB1jbmx7Njx47_iF-PJxTPaHsJGgAAAABJRU5ErkJggg.png",
+      "extensions": [
+        "15 hours ago",
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "posted_at": "15 hours ago",
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://careers.roche.com/global/en/job/ROCHGLOBAL202603107682EXTERNALENGLOBAL/IT-Software-Engineering-Expert-DIA-R-D",
+      "job_title": "IT Software Engineering Expert - DIA R&D",
+      "description": "At Roche you can show up as yourself, embraced for the unique qualities you bring. Our culture encourages personal expression, open dialogue, and genuine connections,  where you are valued, accepted and respected for who you are, allowing you to thrive both personally and professionally. This is how we aim to prevent, stop and cure diseases and ensure everyone has access to healthcare today and for generations to come. Join Roche, where every voice matters.\n\n\n\nThe PositionFullstack DeveloperWe are looking for a Fullstack Developer with strong hands-on experience in building scalable web applications and implementing reliable automation testing practices. The ideal candidate is comfortable working across both frontend and backend layers, understands modern software engineering principles, and can contribute to product quality through automated test coverage, CI/CD integration, and maintainable code.\n\nRole OverviewThe candidate will be responsible for designing, developing, testing, and maintaining web-based applications. They should be capable of working independently as well as collaboratively with product, design, QA, and engineering teams. A strong quality mindset is essential, with experience in creating automated tests for frontend, backend, and API layers.\n\nKey ResponsibilitiesDevelop and maintain fullstack web applications using modern frontend and backend technologies.Build responsive, reusable, and maintainable frontend components.Design, implement, and maintain backend services, APIs, and database integrations.Create and maintain automated test suites for UI, API, integration, and regression testing.Collaborate with QA and engineering teams to improve test coverage and release quality.Integrate automated tests into CI/CD pipelines.Participate in code reviews, technical discussions, and architecture decisions.Troubleshoot, debug, and resolve application issues across the stack.Ensure code quality, performance, security, and scalability best practices are followed.Contribute to documentation for technical designs, APIs, and testing processes.Required Skills and ExperienceStrong experience as a Fullstack Developer.Proficiency in frontend technologies such as JavaScript, TypeScript, React, Angular, or Vue.js.Backend development experience with technologies such as Node.js, Java, Python, .NET, or similar.Experience designing and consuming RESTful APIs or GraphQL services.Solid understanding of databases such as PostgreSQL, MySQL, MongoDB, or similar.Hands-on experience with automation testing tools such as Playwright, Cypress, Selenium, Jest, Mocha, JUnit, PyTest, or similar.Experience testing APIs using tools or frameworks such as Postman, REST Assured, Supertest, or similar.Familiarity with CI/CD tools such as GitHub Actions, GitLab CI, Jenkins, Azure DevOps, or similar.Good understanding of version control using Git.Ability to write clean, maintainable, and well-tested code.Strong analytical, debugging, and problem-solving skills.Nice to HaveExperience with cloud platforms such as AWS, Azure, or Google Cloud.Experience with containerization tools such as Docker or Kubernetes.Knowledge of performance testing, accessibility testing, or security testing.Experience working in Agile/Scrum environments.Familiarity with test strategy, test planning, and quality metrics.Experience with microservices-based architectures.Ideal Candidate ProfileThe ideal candidate is a proactive engineer who combines strong development skills with a quality-first mindset. They should be able to contribute to feature development while also ensuring that applications are reliable, testable, and maintainable. They are comfortable working across the full software development lifecycle, from requirements analysis and implementation to testing, deployment, and production support.\n\n----------\n\n \n\n \n\n\n\nWho we areA healthier future drives us to innovate. Together, more than 100’000 employees across the globe are dedicated to advance science, ensuring everyone has access to healthcare today and for generations to come. Our efforts result in more than 26 million people treated with our medicines and over 30 billion tests conducted using our Diagnostics products. We empower each other to explore new possibilities, foster creativity, and keep our ambitions high, so we can deliver life-changing healthcare solutions that make a global impact.\n\n\nLet’s build a healthier future, together.\n\n\n\nRoche is an Equal Opportunity Employer.",
+      "apply_options": [
+        {
+          "title": "Roche Careers",
+          "link": "https://careers.roche.com/global/en/job/ROCHGLOBAL202603107682EXTERNALENGLOBAL/IT-Software-Engineering-Expert-DIA-R-D?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/NGSqo5CXOtiXzgaRbTfSY16796RZ26BSlXLITChHqw3rH_AJLJPIVg?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Getmereferred.com",
+          "link": "https://getmereferred.com/job-listing/engineering-expert-ai-domain-61715-turing-pune-2-to-5-years-experience-1b0fdb56-5e16-4ecc-92dd-e9fe7f2e41d3?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Built In",
+          "link": "https://builtin.com/job/it-software-engineering-expert-dia-r-d/10132353?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Recruit.net",
+          "link": "https://www.recruit.net/job/software-engineering-expert-dia-jobs/40623ED98B9324D3?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJJVCBTb2Z0d2FyZSBFbmdpbmVlcmluZyBFeHBlcnQgLSBESUEgUlx1MDAyNkQiLCJjb21wYW55X25hbWUiOiJSb2NoZSIsImh0aWRvY2lkIjoidGxGWDVNZlQ2R1ZncEdXWUFBQUFBQT09IiwidXVsZSI6IncrQ0FJUUlDSVdVSFZ1WlN4TllXaGhjbUZ6YUhSeVlTeEpibVJwWVEiLCJmYyI6IkVzd0JDb3dCUVVwcFZEUjBTMXB4T0RsblNXZExOVGxSY0ZsbVpubDNObVpRTVVsQlVtUTROa1pCVVRWNmFYZHFSbXBvV0UxM1ZrOU9RM2hWUkMwMmJHdGZjRXhWWTBVeFgySklUWHBvWHpsWkxVSnRjRmRRVTJOVGJGSkxXRTEyTmpGaU1rRkJZbWhEWkRoRU4xaDRYMVZUYjFCTE1rNVhVa2hYYzNScVpuZDVhV3BJYTNCR1MxRlJUR0pmYjNWT2Nsb1NGek50UWxOaGNDMDBUblJUTkcxTVVWQm9PVEpKYVZGakdpSkJSSE55T1daVE1rWlpPVmczVUVORGF6WmhjR1J4TjJaSFZHcFVTekJXY1ZkUiIsImZjdiI6IjMiLCJmY19pZCI6InRsRlg1TWZUNkdWZ3BHV1lBQUFBQUE9PSJ9"
+    },
+    {
+      "title": "Software Engineer (Python, Django, ServiceNow) - 6 to 8 Yrs",
+      "company_name": "Cisco",
+      "location": "Pune, Maharashtra, India",
+      "via": "Cisco Careers",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=o01TVWvUtbPhi9BXAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWNwWrCQBBA6TWf4Gm8qcRECoq0RxVRUKSePMlkO91diTNhZzT6X36g6eXBgwcve31kP0f5sxYTwYp9ZKIEg8PTgnAOywuylxyOlO7R0V7aIYxhBiYwh1PSTrZSgRImF0AY1iK-pt53MGv0qyxV68KroUVXOLmWwlTJo7xIpf84a-jGTY1G58_p5FE07Ef9RVQnEBkON6YcdthFqMES5rDh34hvgKVovrcAAAA&shmds=v1_ARwrE22IMQqr5QPAM3VMSJyVzg9rx4RenB2CSXshCkX0ncS18Q&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=o01TVWvUtbPhi9BXAAAAAA%3D%3D",
+      "thumbnail": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAADgAAAAdCAMAAADIOV-pAAAAeFBMVEX___8AAADw8PEAAAMAAAv4-PgAABXV1dcAABP8_Pzt7e0AABkNGS0AAA_09PUAAAYAACCLjZK3uLuqq69fYmlydXtZXWUAAB2io6aXmZ2dnqOxsrSAgod6fYJnanFucHcaIjM5Pkjg4eLLzM0ACiMrMkBMUFpESVSn2pSWAAABk0lEQVQ4jdWU23KDIBCG3aiAEoxoPMVToiZ9_zcsrPEQpel0pr0oF4j_zrcs_IBl_VKTF7N-ke-5A4A5AOB_A9rmgP0HYB4tYFwuehkvYJSb5oIZdAG8SfcA3Bk0rfRwWsAAHHcGBQQLeHoBxyL3YFmawalgfyxyB3pYsAGcCvZt8jOQTyDO6MMahBlUG7UCsZ-tSSvdn-vFjibRfdvqPmkWO-qzHlep0RRvr35hxEu73sz67fqe-yfNpf1BfXwft6fr6XjsPNr708A1cTU4jrbSAaqS3AAAPam0rFNJPaj3XMr5cNfg0VFgRa4FviINy8K7BhvGs5CTnYU9EHV0A-8JpnzMTYEXKFOMxwz6DSj5ZCCCOWRHqbIU_D6qBcH4g2wfrYqna9DKQ6EZyT-eiQmetpZUGzAmwl-DqngCnRUxp8O_SDAVDziLN6DHhqGI02mNEe1KvD3hEEqUBxUvjkO2O8qUEYF2hNqOB4CNdnQZE2hHFzIhGOm2nJozThJtQCHVRFHVVs_9U3IxDWLz1flR-wTFgRZGPXvBDAAAAABJRU5ErkJggg.png",
+      "extensions": [
+        "5 days ago",
+        "Full-time"
+      ],
+      "detected_extensions": {
+        "posted_at": "5 days ago",
+        "schedule_type": "Full-time"
+      },
+      "source_link": "https://careers.cisco.com/global/en/job/CISCISGLOBAL2016676EXTERNALENGLOBAL/Software-Engineer-Python-Django-ServiceNow-6-to-8-Yrs",
+      "job_title": "Software Engineer (Python, Django, ServiceNow) - 6 to 8 Yrs",
+      "description": "Meet the TeamOur team is a dynamic group of innovators dedicated to building software that prioritizes simplification and an exceptional user experience. We operate at the intersection of Cisco’s Design Thinking Principles and industry-leading development standards, ensuring our solutions are both secure and user-centric. By collaborating closely with design and product management, we deliver high-impact results that shape the future of our customer solutions. We pride ourselves on a culture of continuous improvement, where we document our processes and challenge one another to refine our software development lifecycle. We are excited to welcome a new member who shares our passion for technical excellence and collaborative innovation.\n\nYour ImpactEngineer high-quality, functional code and comprehensive unit tests to ensure robust software performance and reliability throughout the development lifecycle.Lead small-to-medium technical features from initial design to final delivery to execute our strategic engineering roadmap effectively.Resolve complex production issues through proactive troubleshooting and root cause analysis to maintain seamless service for our users.Mentor colleagues and interns while fostering strong relationships across teams to elevate our collective technical knowledge and agile expertise.Apply secure coding practices and threat modeling to guarantee product scalability and protect user privacy in an evolving cybersecurity landscape.Minimum QualificationsBachelor’s degree with 5+ years of experience, Master’s degree with 3+ years of experience, or PhD with 0+ years of experience.Proven experience in software development and Layer 2 application support.Strong proficiency in Python and Django development.Demonstrated experience working with the ServiceNow codebase.Direct exposure to security applications and the cybersecurity domain.Preferred QualificationsAdvanced knowledge of modern software development lifecycles and agile methodologies.Experience in coaching and leading technical teams through complex project roadmaps.Proven ability to translate customer needs into actionable product features and adoption metrics.Expertise in technical documentation and knowledge sharing through internal platforms.Experience in managing on-call rotations and conducting post-incident postmortems.\n\nWhy Cisco? At Cisco, we’re revolutionizing how data and infrastructure connect and protect organizations in the AI era – and beyond. We’ve been innovating fearlessly for 40 years to create solutions that power how humans and technology work together across the physical and digital worlds. These solutions provide customers with unparalleled security, visibility, and insights across the entire digital footprint.\n\nFueled by the depth and breadth of our technology, we experiment and create meaningful solutions. Add to that our worldwide network of doers and experts, and you’ll see that the opportunities to grow and build are limitless. We work as a team, collaborating with empathy to make really big things happen on a global scale. Because our solutions are everywhere, our impact is everywhere. \n\nWe are Cisco, and our power starts with you.",
+      "apply_options": [
+        {
+          "title": "Cisco Careers",
+          "link": "https://careers.cisco.com/global/en/job/CISCISGLOBAL2016676EXTERNALENGLOBAL/Software-Engineer-Python-Django-ServiceNow-6-to-8-Yrs?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Built In",
+          "link": "https://builtin.com/job/software-engineer-python-django-servicenow-6-8-yrs/10079220?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Built In Pune",
+          "link": "https://builtinpune.in/job/software-engineer-python-django-servicenow-6-8-yrs/10079220?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "India Jobs Expertini",
+          "link": "https://in.expertini.com/job/software-engineer-python-django-servicenow-6-to-8-yrs-pune-cisco-461ac950730a4fe1ad5ab06f5a250ffb105/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Jobrapido.com",
+          "link": "https://in.jobrapido.com/jobpreview/7339779234732179456?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Kit Job",
+          "link": "https://www.kitjob.in/job/296588473/software-engineer-python-django-servicenow-pune?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Jobs",
+          "link": "https://softwarejobs4me.in/jobs/Info/cisco_2016676?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Recruit.net",
+          "link": "https://www.recruit.net/job/software-engineer-python-django-servicenow-jobs/BE2CCECC30772271?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTb2Z0d2FyZSBFbmdpbmVlciAoUHl0aG9uLCBEamFuZ28sIFNlcnZpY2VOb3cpIC0gNiB0byA4IFlycyIsImNvbXBhbnlfbmFtZSI6IkNpc2NvIiwiaHRpZG9jaWQiOiJvMDFUVld2VXRiUGhpOUJYQUFBQUFBPT0iLCJ1dWxlIjoidytDQUlRSUNJV1VIVnVaU3hOWVdoaGNtRnphSFJ5WVN4SmJtUnBZUSIsImZjIjoiRXN3QkNvd0JRVXBwVkRSMFREVkhhbkpHYzAxeWRscFVXVWxFVUdKeFVGODVYM3BvWW1sNE1GRkpVV2RrWlhkaldYaEJRMUpTZDBKaFNtZHBURGRYZGpoYWR6aHBSR2xCUldsUVJGQTBSVXBCV1RGcmVFUnRXbGxDY1ZkRFRsWk9NVzlIUVRsc1lYbDFVRWRaUVVkUlVuaHJhekJyWTJSTVR6TnlTMGRSZW1WSk5sVktZVGx6VW1oSlQwRkhTRU5wVVRjU0Z6TnRRbE5oY0MwMFRuUlRORzFNVVZCb09USkphVkZqR2lKQlJITnlPV1pVUmxBNWVtZGlOSFZ4ZEVWalVEUkVRVzluTkRoNFpETjBSblozIiwiZmN2IjoiMyIsImZjX2lkIjoibzAxVFZXdlV0YlBoaTlCWEFBQUFBQT09In0="
+    },
+    {
+      "title": "Senior Consultant - Software Engineering",
+      "company_name": "Principal Global Services",
+      "location": "Pune, Maharashtra, India",
+      "via": "Careers At Principal - Principal Financial",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=TvCFwOqB_PbJ6sytAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWMPQrCQBBGsfUIVlNLTESw0cJCJCgIQg4QJuu4u7LOhJ3x52Lez7V5Hzz43vQ7me464igZ9sL6TIZssIBObvbGTHBgH5koR_ZFn2QAJcwugDC0Ij7RbBvMRt00jWqqvRpadLWTRyNMg3yauwz6R6-hFMeERv1qvfzUI_v5-lLSLo6YoE0ylOkov6IjhchweTJVcMZyRA2WsYIjXyP-AJVTwSy4AAAA&shmds=v1_ARwrE207n1Jv0pWjcdbJYkrECwzcFD0jJmLRMfnhxiiWczAzbQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=TvCFwOqB_PbJ6sytAAAAAA%3D%3D",
+      "extensions": [
+        "3 days ago",
+        "Full-time"
+      ],
+      "detected_extensions": {
+        "posted_at": "3 days ago",
+        "schedule_type": "Full-time"
+      },
+      "source_link": "https://careers.principal.com/jobs/51780?lang=en-us",
+      "job_title": "Senior Consultant - Software Engineering",
+      "description": "Responsibilities\n\nAbout the Role\n\n \n\nAre you ready to take your career to the next level with a world-class organization? Principal is seeking a Senior Consultant - Software Engineering to join our team in Pune, Maharashtra, India. This is an outstanding opportunity to work in a dynamic and collaborative environment where your technical expertise and problem-solving skills will be highly valued. Our focus is on delivering outstanding IT operations management with a strong emphasis on Problem Management.\n\n \n\nKey Responsibilities\n\nProblem Management\n\nLead and coordinate the complete lifecycle of Problems, covering identification, prioritization, investigation, root cause analysis (RCA), and closure.Facilitate major problem lookbacks following Sev1 and Sev2 incidents to identify systemic issues and prevent recurrence.Partner with engineering and platform teams to drive permanent corrective actions and track remediation progress.Analyze incident and problem trends to identify patterns, risk areas, and improvement opportunities.Ensure Problem records meet enterprise quality standards, including documentation, RCA completeness, and action tracking.Assess the business impact and risk associated with different problems to prioritize efforts.Liaise with Incident coordinators during high severity incidents, providing leadership, structure, and coordination across technical and business partners.Ensure timely handling of critical issues, partner communication, and executive visibility during major incidents.Contribute to the continuous improvement of incident response models, severity definitions, and blocking issue processes.Availability Management\n\nTrack and maintain the availability of key applications and services, making sure they correspond with specified SLOs and availability benchmarks.Produce and review availability, outage, and MTTR metrics, translating operational data into meaningful insights for technology and business leaders.Drive improvements in monitoring, alerting, and observability to enable proactive detection of service degradation.Technical & Process Skills\n\nDeep working knowledge of Incident, Major Incident, Problem, Change, and Availability Management aligned to ITIL practices.Proven capability to lead Sev1 / Sev2 incidents end to end.Good understanding of severity definitions, blocking issue triggers, and IC engagement expectations.Familiarity with SLO concepts and service reliability expectations.Professional Proficiencies\n\nCommunicates complex technical issues in clear, business-relevant language.Maintains composure and clarity under pressure during high-impact incidents.Follows incidents and problems through to balanced resolution.Works effectively across global teams and time zones.Actively finds opportunities to improve. \nQualifications\n\nCertifications\n\n \n\n- ITIL - Preferred.\n\n \n\nQualifications\n\nOver 12 years of experience in IT operations management.Engineering graduate (B.E. / B.Tech / M.S. / M.Tech Degree in Computer Science, Technology, Engineering, Mathematics, or a related subject area). \nAdditional Information\n\nJoin Principal and take the next step in your career with a team that values your expertise and dedication to excellence. Be part of our journey to deliver flawless IT operations and make a significant impact!",
+      "apply_options": [
+        {
+          "title": "Careers At Principal - Principal Financial",
+          "link": "https://careers.principal.com/jobs/51780?lang=en-us&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Qualitician.com",
+          "link": "https://www.qualitician.com/job-view/senior-software-consultant-testing-parentpay-pune-6-years-51725?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Glassdoor",
+          "link": "https://www.glassdoor.co.in/job-listing/senior-consultant-software-engineering-principal-financial-group-JV_IC2856202_KO0,38_KE39,64.htm?jl=1010194465109&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/7LeH0J7YCykLOnA7RJlpqi_td-RQOvwQg1d8tp0_eIblTa-TvkyWwA?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Myjobb AI",
+          "link": "https://myjobb.ai/jobs/senior-consultant-software-engineering/5261849?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTZW5pb3IgQ29uc3VsdGFudCAtIFNvZnR3YXJlIEVuZ2luZWVyaW5nIiwiY29tcGFueV9uYW1lIjoiUHJpbmNpcGFsIEdsb2JhbCBTZXJ2aWNlcyIsImh0aWRvY2lkIjoiVHZDRndPcUJfUGJKNnN5dEFBQUFBQT09IiwidXVsZSI6IncrQ0FJUUlDSVdVSFZ1WlN4TllXaGhjbUZ6YUhSeVlTeEpibVJwWVEiLCJmYyI6IkVzd0JDb3dCUVVwcFZEUjBUREZQUVY5aWRUZFNhM1F0UjAxR1FWOVRNRTFXYXpGcFJGRnhOVjlmYjFGdWRsaGhZbTlPZEUxdlFYQk9ibkp1Y2kxVlkxUjNjWGh0V0V4RWNrcDRkV3BZVkhvdFFYVkZVSEpvV210eGFuUkZWRXBsZWtwbmNWVTJlbVZQWjBwd01qZzJOVFZ3UlY4MGRGWkpkbVZ4UTBNMlpUQlJXRk4wYkdKS01VTkpRazV6TVZGRWNHY1NGek50UWxOaGNDMDBUblJUTkcxTVVWQm9PVEpKYVZGakdpSkJSSE55T1daVFZtRndZbEJmUVhkU1pVWjZPWFoyT1VzNWFVNUpkWFZTUVZGbiIsImZjdiI6IjMiLCJmY19pZCI6IlR2Q0Z3T3FCX1BiSjZzeXRBQUFBQUE9PSJ9"
+    },
+    {
+      "title": "Senior Software Engineer - Java Backend",
+      "company_name": "Mastercard",
+      "location": "Pune, Maharashtra, India",
+      "via": "Mastercard",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=XabNDhUwZpHnksoDAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWMQQrCMBAA8doneNqTB6mNCF4UPAgiCgWhDyjbdE2idbdko_ZD_tP2MjAwTPabZYeKOEiESu7pi5HgxC4wUYQVXPGDcET7JG4nlQaUMFoPwnAWcR3N9z6lXnfGqHaF04Qp2MLKywhTI4N5SKMTavXjve8wUb3ZroeiZ7dclKiJosXYQmC4vZlyKHEsUX2KmMOF24B_avy1dKgAAAA&shmds=v1_ARwrE20Pqq2deROcW7wJAbXSaa_4U54k34OXnK633yFW-KWvQQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=XabNDhUwZpHnksoDAAAAAA%3D%3D",
+      "thumbnail": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAqFBMVEX_____AAD_mQD_TwD_lwD_kgD_lAD_mwD_SQD_UgD_TAD-__3_kAD-i5D_IwD_gAD-ABH_rUj95uj-8vT-ys_-urz-wMT-2d__79n_4L7_3Lj_6c7_-e3-3uL-hor-V1__oBv-yY3-8-L-X2b-FyP-1aj-vG79r7X-tFf_PgD9lZz_YgD-f4b_OEL-wHj_iAD_uGL-pqz_cgD_pS790Z3_MTj-R07_d3z_YQIzAAABaklEQVRIie2V3VaCQBSFgfmRgdFEBQEzRbSy0jAy3__NEljkzDlAV13FvmStb-2zZ58ZDKNXr_-mycz3g7nywQ2jOFrcd1PLh7FZaeVXVOwxyRiTcp1s2s1SU9H2iu4GjFqVKGePLbZPJlD6_IOV4nTRxA0hZ-4FtzRRtsPcC-Js4giqk5aMIDfDfoQQ-3UAPDk8IsSNBCnIO2BJvd8HLSUAaMlYA8fIsOKulnBYzTJoTFjIgSktpqZ8Q6BDasGD1So5IFDUnC3h8Rw7I97AzpC4DPLH4LYj4zvMmClg2gGCRbd4ooAnBNp1jwL1qN6tSWtI5wNGHLjq6qwQWYOwRm1Sw5gjcN-8cZSD96Nt6fDCua5OnlFKUXQBDHlmhOAqT1GXI1w-94BdSeJNB9efyqyBM9A7d1iGubxlpJx_NmJFnRcFK5_yOGeM06s4o0nXb2AaDNPz-etyWtZfNrujl-dZsmieslevXkjfEVAZQDMVRI8AAAAASUVORK5CYII.png",
+      "extensions": [
+        "5 days ago",
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "posted_at": "5 days ago",
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://careers.mastercard.com/us/en/job/R-282235/Senior-Software-Engineer-Java-Backend",
+      "job_title": "Senior Software Engineer - Java Backend",
+      "description": "Our Purpose\n\n\n\nMastercard powers economies and empowers people in 200+ countries and territories worldwide. Together with our customers, we’re helping build a sustainable economy where everyone can prosper. We support a wide range of digital payments choices, making transactions secure, simple, smart and accessible. Our technology and innovation, partnerships and networks combine to deliver a unique set of products and services that help people, businesses and governments realize their greatest potential.\n\n\n\nTitle and Summary\n\n\n\nSenior Software Engineer - Java Backend\n\nOverview \nBe part of the Operations & Technology Fraud Products team developing new capabilities for MasterCard's Decision Management Platform, which serves as the core for multiple business solutions to combat fraud and validate cardholder identity. Our patented Java-based platform processes billions of transactions per month in tens of milliseconds using a multi-tiered, message-oriented approach for high performance and availability. \n\t• Would you like to develop industry leading solutions for fighting fraud? \n\t• Are you motivated by speeding business solutions to market? \n\t• Do you want to innovate, using cutting edge technologies on challenging business problems? \n\nRequired Skills\n\t• Demonstrates strong ownership and the ability to learn and adapt quickly. Proven ability to lead through influence by aligning others, driving decisions, and unblocking delivery.\n\t• Solid understanding of service and platform level system design (e.g. distributed systems, event driven architectures), advanced design patterns (e.g. dependency injection, lazy loading) and experience with open frameworks (e.g. Spring Boot)\n• Overall approx. 6-9 years of career experience into Software Engineering\n\t• Strong software engineering fundamentals with hands on development experience designing, building and maintaining production grade systems. \n\t• Expertise in Java, Spring, gRPC and backend service development for high performance, scalable applications\n\t• Experience with CI/CD pipelines (Jenkins), Docker, Kubernetes, and container orchestration.\n\t• Familiarity with cloud platforms (AWS) and including cloud native architectures and migration strategies.\n\t• Experience with relational databases (Oracle) and NoSQL databases (e.g. Cassandra)\n\t• Experience with Business Rule Management System such as IBM ODM, Queuing technologies such as MQ and Kafka\n\t• Proven ability to lead design discussions, review code, and enforce engineering standards.\n\t• Experience with modern development practices (Agile, CI/CD, automated testing, code reviews).\nExperience with secure coding standards (e.g., OWASP, CWE, SEI CERT) and vulnerability management\n\nRole \n\t• Deliver solutions by providing direct development of software. \n\t• Work closely with technical leads for assigned projects to assist in design and implementation tasks. \n\t• Shape and drive the adoption of UI technologies and practices across our teams. \n\t• Assist with production support issues by acting as a subject matter expert in resolving incidents and problem tickets. \n\t• Plan, design and develop technical solutions and alternatives to meet business requirements in adherence with MasterCard standards, processes and best practices. \n\t• Lead day to day system development and maintenance activities of the team to meet service level agreements (SLAs) and create solutions with high level of innovation, cost effectiveness, high quality and faster time to market. Co-ordinate offshore development and manage day to day activities. \n\t• Accountable for full systems development life cycle including creating high quality requirements documents, use-cases, design and other technical artifacts including but not limited to performance benchmarking, release rollout and deployment plans, contingency/back-out plans, feasibility study, cost and time analysis and detailed estimates. \n\t• Participate in PoCs (Proof of Concept) and help the Department with selection of Vendor Solutions, Technologies, Methodologies and Frameworks. \n\t• Collaborate with vendor resources for support of products. \n\t• Conduct brownbag sessions on new and upcoming technologies, methodologies and application appropriate frameworks. \n\t• Ensure knowledge transfer of vendor technology to MasterCard staff. \n\t• Provide technical training to the other team members. \n\t• Actively look for opportunities to enhance standards and improve process efficiency. \n\t• Mentor and guide other team members during all phases of the SDLC. \n\t• Be an integral part of the Agile SAFe discover and elaboration sessions.  Perform requirements and design reviews, peer code reviews and PCI security reviews to ensure compliance with MasterCard standards.\n\n\n\nCorporate Security Responsibility\n\n\nAll activities involving access to Mastercard assets, information, and networks comes with an inherent risk to the organization and, therefore, it is expected that every person working for, or on behalf of, Mastercard is responsible for information security and must:\n\nAbide by Mastercard’s security policies and practices;\n\nEnsure the confidentiality and integrity of the information being accessed;\n\nReport any suspected information security violation or breach, and\n\nComplete all periodic mandatory security trainings in accordance with Mastercard’s guidelines.",
+      "apply_options": [
+        {
+          "title": "Mastercard",
+          "link": "https://careers.mastercard.com/us/en/job/R-282235/Senior-Software-Engineer-Java-Backend?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Workday",
+          "link": "https://sailpoint.wd1.myworkdayjobs.com/en-US/SailPoint/job/Senior-Staff-Software-Engineer---Java_R012500?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Smart Recruiters Jobs",
+          "link": "https://jobs.smartrecruiters.com/Xplor/744000120455858-senior-software-engineer-java?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Cutshort",
+          "link": "https://cutshort.io/job/Senior-Software-Engineer-Java-Pune-Aikon-Labs-Private-Limited-driBAuOY?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Citi Careers",
+          "link": "https://jobs.citi.com/job/pune/senior-java-engineer-modern-engineering-team/287/95080376816?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Startup Jobs",
+          "link": "https://startup.jobs/senior-staff-software-engineer-java-sailpoint-com-8562602?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/4AozjpzJgRUpjiQnnSRnB9yXd0XRquZfvlE5AZX4BBIF7QHPe0WAtg?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Platform.uplers.com",
+          "link": "https://platform.uplers.com/talent/all-opportunities/HR1177609659915172?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTZW5pb3IgU29mdHdhcmUgRW5naW5lZXIgLSBKYXZhIEJhY2tlbmQiLCJjb21wYW55X25hbWUiOiJNYXN0ZXJjYXJkIiwiaHRpZG9jaWQiOiJYYWJORGhVd1pwSG5rc29EQUFBQUFBPT0iLCJ1dWxlIjoidytDQUlRSUNJV1VIVnVaU3hOWVdoaGNtRnphSFJ5WVN4SmJtUnBZUSIsImZjIjoiRXN3QkNvd0JRVXBwVkRSMFN6ZFdWV1ZFVlhWcllsQTVjWFpDZEZWeFpqRlNNMW94TXpZeWQxZFdhSE01YkROM2FuUjFTVE5SY0ZjdGJtNXVlalpMWmxaWlNGZERZMU5uTFZWdmFtMXRaVmhtZUc4d1VWaGFSMFpOWWpSa1p6Vk5UMmxvTTB4WFVWaHBhR1EwVTBKTGIyOHdkamxuZEZNeVlsbFFSVVZmUkVaWU0wMTZZMlk0V2taeVgwTjFPVm96TlVnU0Z6TnRRbE5oY0MwMFRuUlRORzFNVVZCb09USkphVkZqR2lKQlJITnlPV1pVUms5cVZIY3hiVjlHWTFCS1VGOTZOMUpqT1Uwd1gyeGhWMWgzIiwiZmN2IjoiMyIsImZjX2lkIjoiWGFiTkRoVXdacEhua3NvREFBQUFBQT09In0="
+    },
+    {
+      "title": "AI Software Engineer (GenAI & Agentic Systems)",
+      "company_name": "Siemens",
+      "location": "Pune, Maharashtra, India",
+      "via": "Careers | Siemens Digital Industries Software - Siemens",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=hAnd-bz1HHrNHkbzAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWNMQrCQBBFsc0RrAYEUYmJCDZapQghgiDkADKJ4-5KMhN2VoxH8pauzW_ee_zkO0vKooZGHuGNnqBk45jIw6oijmAJhSEOroPmo4EGXcMWztKCEvrOgjBUIqan-cmGMOoxz1X7zGjAGGWdDLkwtTLlT2n1Pze18WjsMdBtf9hN2chms2gcDcQKjuH6YkrhglFDtcFjCjXfHf4A9X4DvqwAAAA&shmds=v1_ARwrE22m910j18a4yB9c0q-LhDqwdMfCqVEPcdNbz6lkxjx-_g&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=hAnd-bz1HHrNHkbzAAAAAA%3D%3D",
+      "extensions": [
+        "Full-time"
+      ],
+      "detected_extensions": {
+        "schedule_type": "Full-time"
+      },
+      "source_link": "https://jobs.sw.siemens.com/pune-ind/ai-software-engineer-genai-agentic-systems/F121B70FD3C3420A91F0633A454FE775/job/",
+      "job_title": "AI Software Engineer (GenAI & Agentic Systems)",
+      "description": "Job Family:  Software\n\n\n\nReq ID:  507518\n\n\n\nSiemens Digital Industries Software is a leading provider of solutions for the design, simulation, and manufacture of products across many different industries. Formula 1 cars, skyscrapers, ships, space exploration vehicles, and many of the objects we see in our daily lives are being conceived and manufactured using our Product Lifecycle Management (PLM) software.\n\n\n\nAre you passionate about AI and excited about taking Generative AI capabilities from prototype to production inside a real enterprise? We are looking for a dedicated AI Engineer to join the CApS AI Engineering team and help build and productionise embedded AI capabilities across CApS—delivering solutions that are secure, scalable, measurable, and operationally ready.\n\n\n\nRole Purpose-\n\n\n\n\nEmbedded AI delivery (copilots, assistants, agentic workflows, retrieval-augmented experiences),\n\n\nPlatform & tooling foundations (golden paths, reusable templates, reference integrations),\n\n\nGovernance-by-design (risk controls, auditability, privacy/security expectations),\n\n\nEnablement (helping other CApS teams adopt AI patterns confidently and safely).\n\n\n\n\nRole Clarification (Included and Excluded Responsibilities)\n\n\n\n\nA partner in designing, building, and operating AI-enabled capabilities that solve real operational and product problems.\n\n\nAn enabler of scale through reusable patterns, templates, and guidance.\n\n\n\n\nThis role is not intended to be:\n\n\n\n\nA helpdesk or on-demand support line for ad hoc experimentation.\n\n\nA centralized team that “does AI for everyone” end-to-end.\n\n\nA dumping ground for unfinished prototypes.\n\n\n\n\nKey Responsibilities-\n\n\n\n·       As an AI Engineer, you will design, build, and maintain AI-enabled capabilities powered by Large Language Models (LLMs), working closely with product and platform teams.\n\n\n\nYou’ll make a difference by:\n\n\n\nDesigning & delivering embedded AI capabilities (copilots, agents, workflows)\n\n\n\n\nDesigning and implementing AI features using validated patterns such as RAG, tool calling, agents, and multi-step workflows.\n\n\nIntegrating AI capabilities into existing services and applications via APIs and well-structured backend components.\n\n\nEnsuring AI features are scalable, high-performance, and aligned with enterprise expectations.\n\n\n\n\nProductionising AI (from intake to operation)\n\n\n\n\nMoving AI use cases through a practical lifecycle: intake → risk classification → gated approvals → build → test → deployment → operation.\n\n\nDefining operational readiness (runbooks, monitoring, rollout strategies) and supporting production incidents and solving when needed.\n\n\n\n\nQuality, evaluation, and continuous improvement\n\n\n\n\nDeveloping and delivering evaluation plans and test harnesses for AI systems (offline tests, regression checks, retrieval scoring, and reliability checks).\n\n\nDefining what “good” looks like using clear metrics (e.g., success rate, latency, cost, failure modes) and using those metrics to drive iteration.\n\n\nImplementing fallback, recovery, and human-escalation mechanisms for failure scenarios where appropriate.\n\n\n\n\nObservability and measurable operations\n\n\n\n\nInstrumenting AI services for tracing, logging, cost signals, and feedback loops to improve quality and reliability over time.\n\n\nContributing to operational dashboards and alerting patterns to support debugging and production learning cycles.\n\n\n\n\nPlatform & tooling (“golden paths”)\n\n\n\n\nContributing to reusable foundations: templates, CI/CD hooks, reference implementations, and integration patterns that make safe AI delivery repeatable.\n\n\nPartnering with platform and security collaborators to embed security, access control, and compliance requirements into paved paths.\n\n\nBuilding and integrating cloud-native AI components on major platforms (AWS and Azure), including handled agent/runtime and retrieval services (e.g., Amazon Bedrock AgentCore and Knowledge Bases; Microsoft Foundry and Foundry Tools) where appropriate for the workload and compliance context.\n\n\n\n\nEnablement & adoption across CApS\n\n\n\n\nPairing with development teams to onboard them to approved AI patterns; supporting adoption through workshops, office hours, and documentation.\n\n\nHelping accelerate the organization’s shift toward AI-assisted products and AI-assisted engineering through practical guidance and shared standards.\n\n\n\n\nAI-assisted engineering (policy-aligned, high-cadence)\n\n\n\n\nUsing Siemens-approved AI-assisted engineering tools as part of day-to-day work (coding, refactoring, debugging, spec authoring, review, and analysis).\n\n\nWorking in a way where AI-assisted development is the default: keeping work small, well-scoped, and documented so progress is fast and reviewable.\n\n\nFollowing mandatory legal and compliance guidance for AI-assisted software engineering, including human verification and secure coding practices.\n\n\n\n\nSkills & Qualifications –\n\n\n\n\nBachelor’s or master’s degree in computer science, AI, Software Engineering, or a related technical field (or equivalent practical experience).\n\n\nStrong software engineering skills in Python, including clean code practices, testing field, and refactoring.\n\n\nHands-on experience building LLM-enabled systems (beyond prototypes) and understanding model behavior, failure modes, and structured outputs.\n\n\nPractical experience with RAG (retrieval, chunking/context strategies, and retrieval quality evaluation).\n\n\nPractical experience with agents/tool calling and multi-step orchestration.\n\n\nStrong fundamentals in Git and modern collaboration workflows (branching strategies, merge requests, code reviews, conflict resolution) and comfort working in CI/CD-driven delivery.\n\n\nExperience working in an Agile or otherwise well-defined engineering workflow (e.g., Scrum/Kanban) with clear backlog field, incremental delivery, and strong engineering hygiene.\n\n\nExcellent documentation skills: ability to produce clear, durable engineering documentation (design notes, ADRs, runbooks, onboarding docs) as a normal part of delivery.\n\n\nExperience working with at least one major cloud platform (AWS or Azure) in a production engineering context, including deploying and operating AI-enabled services.\n\n\n\n\nPreferred/Good to Have-\n\n\n\n\nProven, day-to-day use of Claude Code (or equivalent agentic AI-assisted coding workflows) to ship faster while maintaining quality. If you are not currently using AI-assisted coding daily, you should expect a steep ramp-up and be ready to adopt Claude Code immediately as part of how the team operates.\n\n\nHands-on experience with handled GenAI/agent and retrieval services on cloud platforms, such as: Amazon Bedrock AgentCore (agent runtime / deployment and operations at scale) Amazon Bedrock Knowledge Bases (led RAG/retrieval) Microsoft Foundry (enterprise AI platform for models/agents/tools) Foundry Tools (prebuilt AI tools/APIs used in AI applications)\n\n\nExperience with orchestration frameworks (e.g., LangChain, Semantic Kernel, PydanticAI, or similar).\n\n\nExperience with vector stores / semantic retrieval systems and embedding strategies.\n\n\nExperience with observability stacks and distributed tracing for AI services.\n\n\nExperience operating services in a production environment with performance, reliability, and security expectations.\n\n\nExperience working in supervised enterprise environments and applying privacy/security controls by design.\n\n\n\n\nWhy us?\n\n\n\nWorking at Siemens Software means flexibility - Choosing between working at home and the office at other times is the norm here. We offer great benefits and rewards, as you'd expect from a world leader in industrial software.\n\n\n\nA collection of over 377,000 minds building the future, one day at a time in over 200 countries. We're dedicated to equality, and we welcome applications that reflect the diversity of the communities we Work in. All employment decisions at Siemens are based on qualifications, merit, and business need. Bring your curiosity and creativity and help us shape tomorrow!\n\n\n\nSiemens Software. Transform the Everyday\n\n\n\n#LI-PLM\n\n\n\n#LI-REMOTE\n\n\n\n#SWSaaS\n\n\n\nOrganization:  Digital Industries\n\n\n\nJob Type:  Full-time\n\n\n\nCategory:  Customer Services",
+      "apply_options": [
+        {
+          "title": "Careers | Siemens Digital Industries Software - Siemens",
+          "link": "https://jobs.sw.siemens.com/pune-ind/ai-software-engineer-genai-agentic-systems/F121B70FD3C3420A91F0633A454FE775/job/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Hirist",
+          "link": "https://www.hirist.tech/j/ai-infrastructure-engineer-1637203?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "BeBee",
+          "link": "https://bebee.com/in/jobs/ai-engineer-genai-gcp-specialist-cgi-pune-maharashtra--theirstack-683813987?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Grapevine",
+          "link": "https://www.grapevine.in/tal/jobs/ed5f3632-ced9-4452-9d93-c7ebcdaa8f93?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Talent.com",
+          "link": "https://in.talent.com/view?id=620215124506778826&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Gen AI & Agentic AI Jobs",
+          "link": "https://topgenaijobs.com/jobs/ai-software-engineer-genai-agentic-syste-at-siemens-industry-software-indi-in-pune-5v6kal?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJBSSBTb2Z0d2FyZSBFbmdpbmVlciAoR2VuQUkgXHUwMDI2IEFnZW50aWMgU3lzdGVtcykiLCJjb21wYW55X25hbWUiOiJTaWVtZW5zIiwiaHRpZG9jaWQiOiJoQW5kLWJ6MUhIck5Ia2J6QUFBQUFBPT0iLCJ1dWxlIjoidytDQUlRSUNJV1VIVnVaU3hOWVdoaGNtRnphSFJ5WVN4SmJtUnBZUSIsImZjIjoiRXN3QkNvd0JRVXBwVkRSMFNsQXhkV05pZGt0cFZIWnFWSGhRU1U5SVFXNHdkbE5yZDFSMlJDMWhjMWx4ZFUxeGFsZFdTRGw0UW1seUxUUm5VMmR0ZG5KQmFtcFdWbXRrUXpKbGNWRkJaM2hpYm1GR05DMHdUM1U1UjFVeWVUaDBjRkY0YVZnMVgyMUdVVVJxVFdWT0xWOHRhRTlwV0VwZmJrczNPSGcwYkVwSFVYUnFhelJXVmxOM2FEazJNRmxaY1hRU0Z6TnRRbE5oY0MwMFRuUlRORzFNVVZCb09USkphVkZqR2lKQlJITnlPV1pUWTFCd2ExVTNSR0ZhUjFwSmRGSnZZVXc0UzNKSFRVdGxUV2huIiwiZmN2IjoiMyIsImZjX2lkIjoiaEFuZC1iejFISHJOSGtiekFBQUFBQT09In0="
+    },
+    {
+      "title": "Software Engineer II",
+      "company_name": "Mastercard",
+      "location": "Pune, Maharashtra, India",
+      "via": "Mastercard",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=LxUyuxN4HsbMHd-3AAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xXMMQrCQBBAUWxzBKupLDRmRbDRWiRCQPAAYbIZd1fiTNgZMefwxMbmV49ffBfF5i4P-2AmOHNITJShrmELV-lACbOPIAwXkTDQ8hTNRj06pzpUQQ0t-crLywlTJ5N7Sqf_tBrn4zigUbs_7KZq5LBeNahG2WPuITHc3kwlNDhL1GgZS6i5T_gDSm7P2ZUAAAA&shmds=v1_ARwrE20C0Glkf2Qqlq6uExeyU8dpjTaTTpxv4BgG6M5B6k-7MA&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=LxUyuxN4HsbMHd-3AAAAAA%3D%3D",
+      "thumbnail": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAqFBMVEX_____AAD_mQD_TwD_lwD_kgD_lAD_mwD_SQD_UgD_TAD-__3_kAD-i5D_IwD_gAD-ABH_rUj95uj-8vT-ys_-urz-wMT-2d__79n_4L7_3Lj_6c7_-e3-3uL-hor-V1__oBv-yY3-8-L-X2b-FyP-1aj-vG79r7X-tFf_PgD9lZz_YgD-f4b_OEL-wHj_iAD_uGL-pqz_cgD_pS790Z3_MTj-R07_d3z_YQIzAAABaklEQVRIie2V3VaCQBSFgfmRgdFEBQEzRbSy0jAy3__NEljkzDlAV13FvmStb-2zZ58ZDKNXr_-mycz3g7nywQ2jOFrcd1PLh7FZaeVXVOwxyRiTcp1s2s1SU9H2iu4GjFqVKGePLbZPJlD6_IOV4nTRxA0hZ-4FtzRRtsPcC-Js4giqk5aMIDfDfoQQ-3UAPDk8IsSNBCnIO2BJvd8HLSUAaMlYA8fIsOKulnBYzTJoTFjIgSktpqZ8Q6BDasGD1So5IFDUnC3h8Rw7I97AzpC4DPLH4LYj4zvMmClg2gGCRbd4ooAnBNp1jwL1qN6tSWtI5wNGHLjq6qwQWYOwRm1Sw5gjcN-8cZSD96Nt6fDCua5OnlFKUXQBDHlmhOAqT1GXI1w-94BdSeJNB9efyqyBM9A7d1iGubxlpJx_NmJFnRcFK5_yOGeM06s4o0nXb2AaDNPz-etyWtZfNrujl-dZsmieslevXkjfEVAZQDMVRI8AAAAASUVORK5CYII.png",
+      "extensions": [
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://careers.mastercard.com/us/en/job/R-208485/Software-Engineer-II",
+      "job_title": "Software Engineer II",
+      "description": "Job Title:\n\n\n\n\n\n\n\n\n\nSoftware Engineer II\n\n\tOverview:\n\n\n\nWho is Mastercard?\nMastercard is a global technology company in the payments industry. Our mission is to connect and power an inclusive, digital economy that benefits everyone, everywhere by making transactions safe, simple, smart, and accessible. Using secure data and networks, partnerships and passion, our innovations and solutions help individuals, financial institutions, governments, and businesses realize their greatest potential.\nOur decency quotient, or DQ, drives our culture and everything we do inside and outside of our company. With connections across more than 210 countries and territories, we are building a sustainable world that unlocks priceless possibilities for all.\n\nOverview\nThe Mastercard Payment Networks team is looking for a talented Developer to drive our customer experience strategy forward by consistently innovating and problem-solving. Our solutions are built on the Digital Network Architecture, around Cloud Native principles and in a Scaled Agile Framework. The ideal candidate is passionate about the customer experience journey, highly motivated, intellectually curious, analytical, and possesses an entrepreneurial mindset. \nThe Role\n•\tA talented software developer with adequate skills in delivering Object Oriented code of high quality.\n•\tDrive development in Java 8 and above using Object Oriented SOLID principles and patterns towards creating reusable and scalable microservices leveraging technologies such as Spring Boot Framework, Event Driven Architecture etc.\n•\tDevelop in a CICD environment leveraging a Cloud Environment\n•\tLeverage the appropriate persistence mechanisms such as RDBMS, No SQL etc based on needs\n•\tImplement Coding Best Practices. Implement Code Quality gates as per the program norms.\n•\tPerform various Proofs-of-concept depending on the business needs\n•\tCoordinate with various groups in MasterCard to ensure success of the projects\n•\tExhibit teamwork aligned completely with the Agile environment\n\nAll About You\n•\tPassionate about technology, with strong Object-Oriented Programming Skills\n• \tGood knowledge of product development\n• \tStrong expertise in Java and Spring Boot. Experience working on Event Driven Architecture would be an added advantage.\n•\tExperience in Online / Real Time Systems development\n•\tExperience in CI and CD. Experience in Cloud based development is desirable\n•\tStrong Communicator\n•\tQuick grasping and learning abilities\n \nCorporate Security Responsibility\nEvery person working for, or on behalf of, Mastercard is responsible for information security. All activities involving access to Mastercard assets, information, and networks comes with an inherent risk to the organization and therefore, it is expected that the successful candidate for this position must:\n•\tAbide by Mastercard’s security policies and practices.\n•\tEnsure the confidentiality and integrity of the information being accessed\n•\tReport any suspected information security violation or breach, and \n•\tComplete all periodic mandatory security trainings in accordance with Mastercard’s guidelines.\n\n\n\nTo find US Salary Ranges, visit People Place. Under the Compensation tab, select \"Salary Structures.\"  Within the text of \"Salary Structures,\" click on the link \"salary structures 2025,\" through which you will be able to access the salary ranges for each Mastercard job family. For more information regarding US benefits, visit People Place and review the Benefits tab and the Time Off & Leave tab.",
+      "apply_options": [
+        {
+          "title": "Mastercard",
+          "link": "https://careers.mastercard.com/us/en/job/R-208485/Software-Engineer-II?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Keywords Studios",
+          "link": "https://www.keywordsstudios.com/en/careers/browse-careers/iiK-software-engineer-ii/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Bayt.com",
+          "link": "https://www.bayt.com/ar/india/jobs/software-engineer-ii-74793425/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Workday",
+          "link": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Software-Engineer-II_R-276237?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Smart Recruiters Jobs",
+          "link": "https://jobs.smartrecruiters.com/AristaNetworks/744000121126778-software-test-engineer-cloud-?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Foundit",
+          "link": "https://www.foundit.in/job/software-engineer-ii-opengov-inc-pune-36329945?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Glassdoor",
+          "link": "https://www.glassdoor.co.in/job-listing/software-engineer-i-ii-smartcloud-infofusion-pvt-ltd-JV_IC2856202_KO0,22_KE23,52.htm?jl=1008075846348&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/tDCzXdZsCCsgvSDg2OuvtOB3sFoxgVZLoUd4ASa3BIJcwjRoBGgWqg?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTb2Z0d2FyZSBFbmdpbmVlciBJSSIsImNvbXBhbnlfbmFtZSI6Ik1hc3RlcmNhcmQiLCJodGlkb2NpZCI6Ikx4VXl1eE40SHNiTUhkLTNBQUFBQUE9PSIsInV1bGUiOiJ3K0NBSVFJQ0lXVUhWdVpTeE5ZV2hoY21GemFIUnlZU3hKYm1ScFlRIiwiZmMiOiJFc3dCQ293QlFVcHBWRFIwVEdGRmVYVmZZMGQzYjB0bGJFTjJNV1ZXU1ZaSmR6WlBUbnBYVkd0TVpHODJRa2RWYkdneVVXNHRUVnBvYVdsWExWSmpjalJyVWtGS09EZE5iM3BPYm5VMFJrazBhSGszYWxkRmJYVlVNRTAxTVV0TVpscGtTa3cxY1dwTlJUWndiSFZyYlVkWmRFOVBZM2RsVG01U1ZGaEdXbUZmVTBST1QwdFRlV2ROYUVSbFMwdFNNREVTRnpOdFFsTmhjQzAwVG5SVE5HMU1VVkJvT1RKSmFWRmpHaUpCUkhOeU9XWlRVVEJ0Y1RsSGJrWmhlVEF4TW1ORmRHUTBaWFkwV1docE9VNTMiLCJmY3YiOiIzIiwiZmNfaWQiOiJMeFV5dXhONEhzYk1IZC0zQUFBQUFBPT0ifQ=="
+    },
+    {
+      "title": "Software Engineer 2 - Java and SQL(BYDS)",
+      "company_name": "Blue Yonder",
+      "location": "Pune, Maharashtra, India",
+      "via": "Careers At Blue Yonder",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=Qk6SGJJj5vyswsS8AAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWNywqCUBBAaesntJpdD0xDaFOLQIooCgpXrmTUyXvDZsS5ln_Ub6abszgcON5v4u0TebovtgRHriwTtRDBCi74QUAuIXlc53F6SBajlByUsC0MCMNJpKppujPONboNQ9U6qNShs0VQyDsUplz68CW5jsjUDJemRkdZtFn3QcPVchbXHUEqXA5fy3DvmHy44ZCiGteiD2cuLf4BDNJ_hKoAAAA&shmds=v1_ARwrE21iZgSOcWvts5wvcto6W5_1-IV4XAA_5SMrHO0BiAErlQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=Qk6SGJJj5vyswsS8AAAAAA%3D%3D",
+      "extensions": [
+        "2 days ago",
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "posted_at": "2 days ago",
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://careers.blueyonder.com/us/en/job/261538/Software-Engineer-2-Java-and-SQL-BYDS",
+      "job_title": "Software Engineer 2 - Java and SQL(BYDS)",
+      "description": "Scope:\n\nBYDS is seeking a detail-oriented Java Developer to join our Test Automation Engineering team to improve product quality and test automation. You will design, build, and maintain robust automated test frameworks to streamline testing processes, ensuring high-quality, reliable software solutions utilizing Java and related technologies. You will be responsible for designing, developing, and maintaining Java-based applications. You will work closely with senior developers, product managers, and QA engineers to deliver robust software solutions that meet business needs. In this role, you will be expected to write functional and integration test cases to increase test automation coverage and to participate in all phases of the software development lifecycle, including analysis, design, implementation, testing, and deployment. You should be comfortable working in an Agile environment and be able to contribute to sprint planning, daily stand-ups, and retrospectives. The ideal candidate will have a solid understanding of object-oriented programming, design patterns, behavior-driven-development (BDD) and software engineering principles. Familiarity with cloud platforms and CI/CD pipelines is a plus.\n\n\n\nWhat you will do:\n\nDesign, develop, and maintain Enterprise Java-based applications\n\nDevelop unit tests, functional tests, and integration tests using tools such as Junit\n\nUnderstand and build functional tests using the Behavior Driven Development (BDD) processes\n\nCollaborate with cross-functional teams to define and implement new features\n\nParticipate in code reviews and provide constructive feedback\n\nTroubleshoot and debug applications to resolve issues\n\nContribute to all phases of the software development lifecycle\n\nEnsure application performance, quality, and responsiveness\n\n\n\nWhat we are looking for:\n\nEducation: BE/ME or B Tech/M Tech in Computer Science, MCS or MCA in Computer Science, Supply Chain\n\n3+ - max 6 years years of experience in Java development\n\nOnly for Pune location\n\nStrong knowledge of Java, JavaScript and Python\n\nFamiliarity with relational databases such as Oracle\n\nFamiliarity with Behavior Driven Development (BDD) concepts\n\nUnderstanding of object-oriented programming and design patterns\n\nExperience with version control systems like Git\n\nGood problem-solving and analytical skills\n\nAbility to work independently and in a team environment\n\nExcellent communication and interpersonal skills\n\n\n\n\n\n\n\nOur Values\n\n\nIf you want to know the heart of a company, take a look at their values. Ours unite us. They are what drive our success – and the success of our customers. Does your heart beat like ours? Find out here: Core Values\n\n\n\nAll qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability or protected veteran status.",
+      "apply_options": [
+        {
+          "title": "Careers At Blue Yonder",
+          "link": "https://careers.blueyonder.com/us/en/job/261538/Software-Engineer-2-Java-and-SQL-BYDS?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Shine",
+          "link": "https://www.shine.com/jobs/software-engineer-java/williams-sonoma/19121969?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Apna",
+          "link": "https://apna.co/job/pune/software-engineer-java-aws-1036874677?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Foundit",
+          "link": "https://www.foundit.in/job/java-software-engineer-tata-consultancy-services-pune-55577076?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/LF8KWhZjumtAZyGcBXKuLKLUT9nrjq7IEJkdvMPZE0bwJZXrbf7SNg?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "BeBee",
+          "link": "https://bebee.com/in/jobs/java-software-engineer-nexgen-tech-solutions-pune-city-maharashtra--theirstack-718498395?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Jobaaj",
+          "link": "https://www.jobaaj.com/job/truelancer-com-java-software-engineer-pune-maharashtra-6-to-8-years-619776?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Jooble",
+          "link": "https://in.jooble.org/jdp/5944694538306450682?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTb2Z0d2FyZSBFbmdpbmVlciAyIC0gSmF2YSBhbmQgU1FMKEJZRFMpIiwiY29tcGFueV9uYW1lIjoiQmx1ZSBZb25kZXIiLCJodGlkb2NpZCI6IlFrNlNHSkpqNXZ5c3dzUzhBQUFBQUE9PSIsInV1bGUiOiJ3K0NBSVFJQ0lXVUhWdVpTeE5ZV2hoY21GemFIUnlZU3hKYm1ScFlRIiwiZmMiOiJFc3dCQ293QlFVcHBWRFIwVEVZd01uZDJRbUZCWmtWT1VUbDNXRXh0ZG1WNFoyVkRaV1pMV2tGb1NWb3hUblYyYmxoaFFVd3ljMTlSVEcxcFFWZGtaMEkyZDB0UWF6VnhhVFJPT1VocWNsRkNPUzFZYkZwYVVISjJYMHhpWVd3eFJHZDBUMWswUTNoa1YyMVhjM041Y2xSNFdEUllNVll3VkhwYVlUZHhWMHhFT0dSRlptVnRUV2d6V2toQlowdHNPVjhTRnpOdFFsTmhjQzAwVG5SVE5HMU1VVkJvT1RKSmFWRmpHaUpCUkhOeU9XWlRkUzFsU0daT1pHOVRabWRsV2twTFFraEVhR0p1Y2pSaFVWQkIiLCJmY3YiOiIzIiwiZmNfaWQiOiJRazZTR0pKajV2eXN3c1M4QUFBQUFBPT0ifQ=="
+    },
+    {
+      "title": "Software Engineer-C++",
+      "company_name": "Dassault Systèmes",
+      "location": "Pune, Maharashtra, India",
+      "via": "Dassault Systèmes",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=9_Epe3_0WObrB1s7AAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xXMPQrCQBBAYWxzBKupzZ8INlqqiIIg5ABhEsfsymYmZCYYz-IFvIcXMzav-170nkVJIXd7Yk9w4MYzUZ_u4hhSOEsFStjXDoThKNIEmm-dWaebPFcNWaOG5uusljYXpkrG_CGV_lOqm5ZdQKNytV6OWcfNItujKg7BoHipfT8tKXiG68CUwAUngeqsxwROfPP4A6Ba1IueAAAA&shmds=v1_ARwrE20tgwr6J6jU14WEgX4UyO8THpJPVLuIODH7ltFFWFmeHw&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=9_Epe3_0WObrB1s7AAAAAA%3D%3D",
+      "extensions": [
+        "4 days ago",
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "posted_at": "4 days ago",
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://www.3ds.com/careers/jobs/software-engineer-c-548703",
+      "job_title": "Software Engineer-C++",
+      "description": "C++ DeveloperUnlock your potential with Dassault Systèmes, a global leader in Scientific Software Engineering, as a Software Engineer Specialist in Pune, Maharashtra!Dassault Systèmes SOLIDWORKS develops and markets 3D CAD design software, anal",
+      "apply_options": [
+        {
+          "title": "Dassault Systèmes",
+          "link": "https://www.3ds.com/careers/jobs/software-engineer-c-548703?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/KdvraiXRWSQtUSs1qEoBMV5BEwQf2vwUZZdatzqvce--caUbiT3JYw?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "BeBee",
+          "link": "https://bebee.com/in/jobs/software-engineer-c-pratiti-technologies-pvt-ltd-pune-city--vonq-b8abe80b1d42b520?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTb2Z0d2FyZSBFbmdpbmVlci1DKysiLCJjb21wYW55X25hbWUiOiJEYXNzYXVsdCBTeXN0w6htZXMiLCJodGlkb2NpZCI6IjlfRXBlM18wV09ickIxczdBQUFBQUE9PSIsInV1bGUiOiJ3K0NBSVFJQ0lXVUhWdVpTeE5ZV2hoY21GemFIUnlZU3hKYm1ScFlRIiwiZmMiOiJFc3dCQ293QlFVcHBWRFIwU2t0V016RTJkbTFMUWt0eVRXcGFhVlpDYjNWVlRWcDJiMlJXUzB4dFdHMWxPSEJtTTI1ZmVteDZNWE56TkV0SVNWWnljR1J5TTNwU1owdFROR2RSTTJ0bFRHZDJWMjlxTmxKM1kya3hWRFU0YjJWWldUVXlSa1l4TWpKT1ozcFlPVlZsWDA5V1RtNWFWSEJ4VW1kb1VXNVhWMnREWW5GVGIyWnlTVFU0VTNCQ1YzTjJNbVlTRnpOdFFsTmhjQzAwVG5SVE5HMU1VVkJvT1RKSmFWRmpHaUpCUkhOeU9XWlRWbk4zWlZoaFdtTXhiazQ0VW5CTlYzZGFjM2RITlUwMFlqQjMiLCJmY3YiOiIzIiwiZmNfaWQiOiI5X0VwZTNfMFdPYnJCMXM3QUFBQUFBPT0ifQ=="
+    },
+    {
+      "title": "Senior Software Engineer, Software Engineering",
+      "company_name": "Whirlpool",
+      "location": "Pune, Maharashtra, India",
+      "via": "Whirlpool",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=WyWK0uYh2yrLfy-bAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_2WMsQrCMBBAce0nON3iIjURwUXnIgqC0MGxXOuZROJdyEXsP_mT1tnlDY_Hqz6zqmmJg2Ro5V7emAkadoGJcv2vAjtYwUl6UMI8eBCGg4iLNN_7UpLurFWNxmnBEgYzyNMKUy-jfUivP3Tqp2OKWKjbbNejSeyWi6sPOSaRCIHh8mKq4YxTiOpLxhqOfAv4BUivSs-uAAAA&shmds=v1_ARwrE20VsslaIUphxNr5QxZP2DwfZrBcF7DRw0MKHhevvcepWw&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=WyWK0uYh2yrLfy-bAAAAAA%3D%3D",
+      "extensions": [
+        "1 month ago",
+        "Full-time"
+      ],
+      "detected_extensions": {
+        "posted_at": "1 month ago",
+        "schedule_type": "Full-time"
+      },
+      "source_link": "https://jobs.whirlpool.com/careers/job/34401805481",
+      "job_title": "Senior Software Engineer, Software Engineering",
+      "description": "Requisition ID: 71710 \n\nAbout Whirlpool India\n\nWhirlpool of India Limited, headquartered in Gurugram, is a leading home appliances company dedicated to enhancing life at home and inspiring generations through its trusted brands. The company operates three state-of-the-art manufacturing facilities in Faridabad, Pune & Puducherry, each reflecting Whirlpool’s commitment to providing best-in-class consumer solutions. Further driving innovation, the company has a Technology & Engineering Center, where India's world-class talent architects the next generation of home innovation. In the 2024-25 fiscal year, Whirlpool of India reported approximately INR 8110 Cr in annual revenue and employed 2193 people. More information is available at www.india.whirlpool.in\n\n## The team you will be a part of\n\nThe Software Engineering team designs, develops or coordinates development/troubleshooting or debugging of moderately complex software programs for enhancements and new products. Performs high-level design/modeling to convert stakeholder needs into software solutions. Develops software and tools in support of design, infrastructure and technology platforms. Determines hardware compatibility and/or influences hardware design. Develops the architectural guidelines, specifications, and technical standards and communicates to stakeholders.\n\n## This role in summary\n\nIn this position you will be a partner with the SES Full stack software development team to deliver \"Product\" Leadership, with the best in class SW for Whirlpool consumers, ensuring flawless delivery of software (SW) which are verified and validated, that may be leveraged across multiple regions and project execution.\n\n## Your responsibilities will include\n\n  * 1 - 2 + years of experience in Embedded Software and system development for consumer appliance, Automotive, medical or industrial industries,\n\n  * Knowledge of Embedded C, C++ is mandatory, Good to have knowledge of Java and / or Android development. Cloud, IoT infrastructure and mobile app development. \n\n  * Experience with different test automation frameworks (not mandatory)\n\n  * Experience with SCRUM or Agile development concepts.\n\n  * Experience with software testing, debugging and project repository tools such as Selenium, Appium, Git, Jenkins, Jira, Rational\n\n  * Ability to debug complex issues, read and interpret logs.\n\n  * Understanding of Gen AI concepts and using it for day to day software development purpose\n\n  * Basic understanding of SW tooling and Test architecture.\n\n  * Basic understanding of Continuous Integration (CI)/Continuous Development (CD) principles\n\n  * Solid written and verbal communication skills.\n\n  * Ability to understand various types of tests such as - component level, interface, integration, regression, System level, subsystem level, white box, black box.\n\n  * Basic understanding of software security vulnerabilities for embedded software\n\n\n\n\n## Minimum requirements\n\nm Requirements \n\n  * Bachelor's Degree in Computer Engineering, or Computer Science or Information Technology\n\n  * Experience (inclusive of academic, co-op, or internship) in embedded software development , Zephyr OS, test automation scripts development, etc\n\n  * Experience (inclusive of academic, co-op, or internship) with GenAI based tooling\n\n  * Experience (inclusive of academic, co-op, or internship) with Microcontrollers, high end processors for graphical displays, Test automation scripts, Bluetooth\n\n  * Experience (inclusive of academic, co-op, or internship) with hardware programming and debugging tools\n\n\n\n\n## Preferred skills and experiences\n\n[ACTION REQUIRED - DO NOT POST AS IS]Describe the desirable background and experiences which will be a plus if the candidate possesses them. We recommend no more than 5 items, and suggest including:Years of experienceEducation (majors, minimum degree, etc.)Language skillsCertificationsSystems/Technical knowledgeWe strongly recommend NOT including behavioral traits in this section.\n\nConnect with us and learn more about Whirlpool India.\n\nSee what it's like to work at Whirlpool by visiting Whirlpool Careers. Additional information about the company can be found on Facebook, Twitter, LinkedIn,  Instagram and YouTube.\n\nAt Whirlpool India, we value and celebrate diversity. Whirlpool India is committed to equal employment opportunity and prohibits any discrimination on the basis of race or ethnicity, religion, sex, pregnancy, gender expression or identity, sexual orientation, age, physical or mental disability, veteran status, or any other category protected by applicable law.",
+      "apply_options": [
+        {
+          "title": "Whirlpool",
+          "link": "https://jobs.whirlpool.com/careers/job/34401805481?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Eightfold",
+          "link": "https://whirlpool.eightfold.ai/careers/job/34401805481?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "SimplyHired",
+          "link": "https://www.simplyhired.co.in/job/5xYrzk7pDwsWPNIJKt63qk-fNyRZOzqYgEYVXDdJjIh3ryCmEbap3Q?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Foundit",
+          "link": "https://www.foundit.in/job/senior-software-engineer-software-engineering-whirlpool-india-pune-55659540?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "BeBee",
+          "link": "https://bebee.com/in/jobs/senior-software-engineer-software-engineering-whirlpool-pune--techmap_in_whirlpool_34401805481?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Jobaaj",
+          "link": "https://www.jobaaj.com/job/whirlpool-india-senior-software-test-engineer-test-engineering-pune-maharashtra-3-to-5-years-1367984?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Expertini",
+          "link": "https://pune.in.expertini.com/job/senior-software-engineer-software-engineering-pune-whirlpool-corporation-617979832308926919/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Trabajo.org",
+          "link": "https://in.trabajo.org/job-4056-e0c5d4959d7c357dca5707810670cdda?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTZW5pb3IgU29mdHdhcmUgRW5naW5lZXIsIFNvZnR3YXJlIEVuZ2luZWVyaW5nIiwiY29tcGFueV9uYW1lIjoiV2hpcmxwb29sIiwiaHRpZG9jaWQiOiJXeVdLMHVZaDJ5ckxmeS1iQUFBQUFBPT0iLCJ1dWxlIjoidytDQUlRSUNJV1VIVnVaU3hOWVdoaGNtRnphSFJ5WVN4SmJtUnBZUSIsImZjIjoiRXN3QkNvd0JRVXBwVkRSMFN6RnNSR3h2VG04MmN6RndZMUIxTFZoRGNtMW9XVnBFUkVST1RsOWFiVE53YzJOalEyUlVlbWhxYzJGTmVVdzNjemg1Vm1rd1FUWmZNbEpGWjFkWU4yMVZkRGN3YjI1VFdtMU9PRFpmWjJGWU5WQTNUMGgxT0RCM2VrUXRUMk01TFhReGJGbDZjVEp0UTNKQlZreHBkakpwTmxCTGNXSm5NekI0VTFkc1pXUnpNSEJKZG1JU0Z6TnRRbE5oY0MwMFRuUlRORzFNVVZCb09USkphVkZqR2lKQlJITnlPV1pSTW14WVZtTlZPVlZWY25aMVVWVXdNRkZNWXpKalRtVkNiV0pCIiwiZmN2IjoiMyIsImZjX2lkIjoiV3lXSzB1WWgyeXJMZnktYkFBQUFBQT09In0="
+    },
+    {
+      "title": "Senior Software Engineer (Java, Azure, Microservices)",
+      "company_name": "Luxoft",
+      "location": "Pune, Maharashtra, India",
+      "via": "Careers With Luxoft",
+      "share_link": "https://www.google.com/search?ibp=htl;jobs&q=software+engineering+jobs+in+pune&htidocid=LgROt72ekHF73GdTAAAAAA%3D%3D&hl=en-US&shem=epsd1,rimspwouoe&shndl=37&shmd=H4sIAAAAAAAA_xWOwQqCQBBA6eondBo6VZhG0KVOHSISg8APkHGb3A2bkZ3VpJ_qF9PLOz14L_rNorwgduKhkGf4oCc4c-2YyMMywx5jOH07TzHcnPGi5HtnSFewgUwqUEJvLAjDRaRuaH60IbR6SFPVJqk1YHAmMfJOhamSIX1JpRNKtWOrbTBQudtvh6Tler3Iu2G8AMdw73hq4mih2uDHjys_HP4BO_RuHbIAAAA&shmds=v1_ARwrE22K0PPHyE1s2-U1vk9ENnro72dzSiqsPAtQKg-mLONPrQ&source=sh/x/job/li/m1/1#fpstate=tldetail&htivrt=jobs&htiq=software+engineering+jobs+in+pune&htidocid=LgROt72ekHF73GdTAAAAAA%3D%3D",
+      "thumbnail": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAADgAAAAXCAMAAABponzPAAAAA1BMVEX___-nxBvIAAAAFElEQVQ4jWNgGAWjYBSMglGABQAABR8AAS7g7mIAAAAASUVORK5CYII.png",
+      "extensions": [
+        "Full-time",
+        "No degree mentioned"
+      ],
+      "detected_extensions": {
+        "schedule_type": "Full-time",
+        "qualifications": "No degree mentioned"
+      },
+      "source_link": "https://career.luxoft.com/jobs/senior-software-engineer-java-azure-microservices-25674",
+      "job_title": "Senior Software Engineer (Java, Azure, Microservices)",
+      "description": "Project description\n\nWe are seeking a highly skilled Senior Software Engineer with expertise in Java, Azure SQL, Azure Kubernetes Service (AKS), REST API development, microservices architecture, Docker, and NGINX. Preference will be given with experience in investment banking and regulatory reporting environments. You will play a key role in designing, developing, and deploying scalable, cloud-native applications that support critical financial and compliance functions.\n\nResponsibilities\n\n Design, develop, and maintain backend services and microservices using Java.\n Build and manage RESTful APIs for integration with internal and external systems.\n Architect and implement microservices-based solutions, ensuring scalability and reliability.\n Manage and optimize Azure SQL databases, including schema design and performance tuning.\n Deploy, orchestrate, and monitor applications using Azure Kubernetes Service (AKS).\n Containerize applications using Docker and manage container lifecycles.\n Configure and maintain NGINX as a reverse proxy and load balancer.\n Collaborate with cross-functional teams, including business analysts and compliance teams, to deliver high-quality software solutions.\n Ensure application security, performance, and scalability.\n Participate in code reviews, mentor junior engineers, and contribute to best practices.\n Support and enhance solutions for investment banking operations and regulatory reporting requirements.\nSKILLS\n\nMust have\n\n A minimum of 8 years of experience is required, with at least 7.5 years as a Senior Software Engineer.\n Strong proficiency in Java (Spring Boot or similar frameworks).\n Hands-on experience with Azure SQL and cloud database management.\n Proficient in designing and developing RESTful APIs.\n Deep understanding of microservices architecture and best practices.\n Experience with Docker for containerization and deployment.\n Practical knowledge of Azure Kubernetes Service (AKS) for orchestration.\n Experience configuring and managing NGINX in production environments.\n Familiarity with CI/CD pipelines and version control systems (e.g., Git).\n Excellent problem-solving, communication, and teamwork skills.\nNice to have\n\n• Experience in investment banking technology or regulatory reporting projects.\n• Knowledge of financial products, trade lifecycle, and compliance requirements.\n• Experience with monitoring and logging tools in cloud environments.\n• Knowledge of security best practices for cloud-native applications.\n• Exposure to other Azure services (e.g., Azure DevOps, Azure Functions).\n• Prior experience in Agile/Scrum development environments.",
+      "apply_options": [
+        {
+          "title": "Careers With Luxoft",
+          "link": "https://career.luxoft.com/jobs/senior-software-engineer-java-azure-microservices-25674?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "JobzMall",
+          "link": "https://www.jobzmall.com/mastercard/job/senior-software-engineer-java-springboot-microservices-1?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        },
+        {
+          "title": "Bayt.com",
+          "link": "https://www.bayt.com/en/india/jobs/senior-software-engineer-java-azure-microservices-74833452/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+        }
+      ],
+      "job_id": "eyJqb2JfdGl0bGUiOiJTZW5pb3IgU29mdHdhcmUgRW5naW5lZXIgKEphdmEsIEF6dXJlLCBNaWNyb3NlcnZpY2VzKSIsImNvbXBhbnlfbmFtZSI6Ikx1eG9mdCIsImh0aWRvY2lkIjoiTGdST3Q3MmVrSEY3M0dkVEFBQUFBQT09IiwidXVsZSI6IncrQ0FJUUlDSVdVSFZ1WlN4TllXaGhjbUZ6YUhSeVlTeEpibVJwWVEiLCJmYyI6IkVzd0JDb3dCUVVwcFZEUjBTVTUwVFU4M05YWkVlRWR5WkdsWldEVlJPRU5UT0U1R1ZtcFdTVkJJYWtKRWJtb3haRW80VTJwSGVrNU9ValZNZFc1MVJXSXljblZFYUhsNE1EQjJjR3RITWxKZk5VNW5TMGd6U0VOUGNFSnRXREpHYURKT1ZVWlJjV3RDTmpjelVsRnZXa3R4Y1drNWEyNTVlVmwzWlZCaGVVeHFUMnhwUTFKdFlsaE1ZMUY0ZFZoMFJYRVNGek50UWxOaGNDMDBUblJUTkcxTVVWQm9PVEpKYVZGakdpSkJSSE55T1daU1ZYWXliMUZpU25oQ1VsZEhOMHBqVTB0NE0xUmtkbk5DYTJOMyIsImZjdiI6IjMiLCJmY19pZCI6IkxnUk90NzJla0hGNzNHZFRBQUFBQUE9PSJ9"
+    }
+  ],
+  "serpapi_pagination": {
+    "next_page_token": "eyJmYyI6IkV2Y0RDcmNEUVVwcFZEUjBTMDUwY1RCM01TMUliR2RDYUhNM2NrTk9aVkozTFdKVk9FTkNkamgzZDJGeGNsTlVaa3haY2tsR1gxaGhURGxmUVVWRFZuQnNXV1pMWmxBd1NtaDRlVFo1WHpZMmEyaHdNMWhOWkRNeVJqbG9PRVk0TTB3emJEUnZaMlZtU1ZCVmRWWjJaRnBUYjJock5UVTNXa05YTFRsdmJ6Z3RkVUpFTVRCbk1YRnVhMlEyTVRsU1NrRjFUREZzWW1oS09XTkpSVkpLZWsxVFRUQlhRV2hCWmtSWlNEWnphMlpxYlcxTFIzYzBORGhUVkVacFUzbHRORTFIVmtsNFRFNURVM0UxYzNrME5UYzBSbWs0WWtGWmVIbDJlVzlyYkU5aU1FaHBTRjlaUVhOa1lsRnlPVTFvTm1GRFZHMVlTMGswVjBWNlFsTTRkbGxOWVRoVU9FVnhkRWRUYUUxd1NXSlpPVUpOTVVNNWQxSXplakZWY2toR1p6VkJSM2Q2WlZSSU5VOTNOblZLZEdOamJHVk9OazF4VEc0d2FFVXdNWEZwUTBwWldrcFBMV0ZPY0RCSGEwbENiWFpEYlhSM2EwSnVXVGN0WjFGWGFGSkNVRmhyYmtocU1TMDNlbU54YTJ4clNYbDJTbXgyUkRKTWMyUTBiekpxWjBObk1Hc3daamQ0TFZSYVNGVkJjMWh6UkZsNmJtb3pWRk5TUjFaRU9VZ3dTelpOY0haWFdYRnhSVTVTWmxGbmNsbEtMVTloVlVoaGJVNU5TUklYTTIxQ1UyRndMVFJPZEZNMGJVeFJVR2c1TWtscFVXTWFJa0ZFYzNJNVpsTm9VRnAxY1hveGVqWnZWakpIUTBOMlpFZHVaRkpOVDA1aVJrRSIsImZjdiI6IjMifQ==",
+    "next": "https://serpapi.com/search.json?engine=google_jobs&google_domain=google.com&location=Pune%2C+Maharashtra%2C+India&next_page_token=eyJmYyI6IkV2Y0RDcmNEUVVwcFZEUjBTMDUwY1RCM01TMUliR2RDYUhNM2NrTk9aVkozTFdKVk9FTkNkamgzZDJGeGNsTlVaa3haY2tsR1gxaGhURGxmUVVWRFZuQnNXV1pMWmxBd1NtaDRlVFo1WHpZMmEyaHdNMWhOWkRNeVJqbG9PRVk0TTB3emJEUnZaMlZtU1ZCVmRWWjJaRnBUYjJock5UVTNXa05YTFRsdmJ6Z3RkVUpFTVRCbk1YRnVhMlEyTVRsU1NrRjFUREZzWW1oS09XTkpSVkpLZWsxVFRUQlhRV2hCWmtSWlNEWnphMlpxYlcxTFIzYzBORGhUVkVacFUzbHRORTFIVmtsNFRFNURVM0UxYzNrME5UYzBSbWs0WWtGWmVIbDJlVzlyYkU5aU1FaHBTRjlaUVhOa1lsRnlPVTFvTm1GRFZHMVlTMGswVjBWNlFsTTRkbGxOWVRoVU9FVnhkRWRUYUUxd1NXSlpPVUpOTVVNNWQxSXplakZWY2toR1p6VkJSM2Q2WlZSSU5VOTNOblZLZEdOamJHVk9OazF4VEc0d2FFVXdNWEZwUTBwWldrcFBMV0ZPY0RCSGEwbENiWFpEYlhSM2EwSnVXVGN0WjFGWGFGSkNVRmhyYmtocU1TMDNlbU54YTJ4clNYbDJTbXgyUkRKTWMyUTBiekpxWjBObk1Hc3daamQ0TFZSYVNGVkJjMWh6UkZsNmJtb3pWRk5TUjFaRU9VZ3dTelpOY0haWFdYRnhSVTVTWmxGbmNsbEtMVTloVlVoaGJVNU5TUklYTTIxQ1UyRndMVFJPZEZNMGJVeFJVR2c1TWtscFVXTWFJa0ZFYzNJNVpsTm9VRnAxY1hveGVqWnZWakpIUTBOMlpFZHVaRkpOVDA1aVJrRSIsImZjdiI6IjMifQ%3D%3D&q=software+engineering+jobs+in+pune"
+  }
+}

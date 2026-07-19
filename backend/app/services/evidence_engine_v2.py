@@ -21,6 +21,10 @@ class EvidenceEngineV2:
     @staticmethod
     def evaluate(unified_knowledge: UnifiedKnowledge, strategy: EvaluationStrategy) -> CandidateEvidenceReport:
         logger.info("EvidenceEngineV2: Starting candidate reasoning phase.")
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: EVIDENCE EVALUATION V2")
+        print("--> Input Unified Knowledge Graph:")
+        print(unified_knowledge.model_dump_json(indent=2))
         
         evaluations: Dict[str, KnowledgeEvaluation] = {}
         
@@ -32,6 +36,7 @@ class EvidenceEngineV2:
                 name=tech.name,
                 category="TECHNOLOGY",
                 confidence_score=conf,
+                occurrences=len(tech.source_evidence),
                 source_strength=src_str,
                 evidence_diversity=div,
                 practical_demonstration=prac,
@@ -49,6 +54,7 @@ class EvidenceEngineV2:
                 name=cap.name,
                 category="CAPABILITY",
                 confidence_score=conf,
+                occurrences=len(cap.source_evidence),
                 source_strength=src_str,
                 evidence_diversity=div,
                 practical_demonstration=prac,
@@ -63,9 +69,15 @@ class EvidenceEngineV2:
         
         logger.info(f"EvidenceEngineV2: Evaluated {len(evaluations)} knowledge items.")
         
-        # 4. Construct Final Report
-        return CandidateEvidenceReport(
+        report = CandidateEvidenceReport(
             evaluations=evaluations,
             overall_strengths=strengths,
             overall_weaknesses=weaknesses
         )
+
+        print("--> Output Evidence Report:")
+        print(report.model_dump_json(indent=2))
+        print(f"[{'='*50}]\n")
+
+        # 4. Construct Final Report
+        return report

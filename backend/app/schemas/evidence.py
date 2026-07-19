@@ -110,76 +110,61 @@ class EngineeringCapability(str, Enum):
     PROJECT_MANAGEMENT = "Project Management"
     QUALITY_ASSURANCE = "Quality Assurance"
 
-class BaseIntelligence(BaseModel):
-    display_name: str
-    domain: KnowledgeDomain
-    summary: str
-    explicit_technologies: List[str] = Field(default_factory=list)
-    engineering_capabilities: List[EngineeringCapability] = Field(default_factory=list)
+class StructuredAchievement(BaseModel):
+    action: str                        # e.g., "Implemented", "Optimized"
+    technologies: List[str]            # e.g., ["Redis"]
+    problem: str                       # e.g., "Slow database queries"
+    solution: str                      # e.g., "Redis cache"
+    impact: Optional[str] = None       # e.g., "45% reduction"
 
-class BaseWorkIntelligence(BaseIntelligence):
-    work_type: WorkType
-    complexity: ComplexityLevel
-
-class ProjectIntelligence(BaseWorkIntelligence):
-    work_type: WorkType = Field(default=WorkType.PROJECT)
+class ProjectIntelligence(BaseModel):
     project_name: str
     project_type: str
+    complexity: ComplexityLevel
+    domains: List[EngineeringDomain]
+    technologies: List[str]
+    capabilities: List[str]
+    achievements: List[StructuredAchievement]
+    architecture_tags: List[str] = []
 
-class ExperienceIntelligence(BaseWorkIntelligence):
-    work_type: WorkType = Field(default=WorkType.EXPERIENCE)
-    company: str
+class ExperienceIntelligence(BaseModel):
     role: str
-    responsibilities_performed: List[str] = Field(default_factory=list)
+    company: str
+    duration: str
+    work_type: WorkType
+    domains: List[EngineeringDomain]
+    technologies: List[str]
+    capabilities: List[str]
+    achievements: List[StructuredAchievement]
 
-class AcademicType(str, Enum):
-    EDUCATION = "EDUCATION"
-    CERTIFICATION = "CERTIFICATION"
-    COURSE = "COURSE"
-    BOOTCAMP = "BOOTCAMP"
-
-class BaseAcademicIntelligence(BaseIntelligence):
-    academic_type: AcademicType
-
-class EducationIntelligence(BaseAcademicIntelligence):
-    academic_type: AcademicType = Field(default=AcademicType.EDUCATION)
+class EducationIntelligence(BaseModel):
     degree: str
-    specialization: str
     university: str
-    coursework: List[str] = Field(default_factory=list)
-    projects_completed: List[str] = Field(default_factory=list)
-    research_summary: Optional[str] = None
+    specialization: Optional[str] = None
+    cgpa: Optional[float] = None
+    graduation_year: Optional[int] = None
 
-class CertificationIntelligence(BaseAcademicIntelligence):
-    academic_type: AcademicType = Field(default=AcademicType.CERTIFICATION)
+class CertificationIntelligence(BaseModel):
     certification_name: str
     issuing_organization: str
     completion_date: Optional[str] = None
+    technologies: List[str] = []
+    capabilities: List[str] = []
 
-class EvidenceReference(BaseModel):
-    source_type: Literal[
-        "SKILL",
-        "PROJECT",
-        "EXPERIENCE",
-        "EDUCATION",
-        "CERTIFICATION"
-    ]
-    source_name: str
+class SourceReference(BaseModel):
+    source_type: str                   # "PROJECT", "EXPERIENCE", "EDUCATION", "CERTIFICATION"
+    source_name: str                   # e.g., "CampusConnect", "Software Engineer @ Google"
     explicit: bool
-    reasoning: Optional[str] = None
 
-class KnowledgeItem(BaseModel):
+class UnifiedKnowledgeItem(BaseModel):
     name: str
-    category: Literal[
-        "TECHNOLOGY",
-        "CAPABILITY"
-    ]
-    occurrences: int
-    evidence: List[EvidenceReference]
+    category: Literal["TECHNOLOGY", "CAPABILITY"]
+    evidence_status: EvidenceStatus
+    source_evidence: List[SourceReference]
 
 class UnifiedKnowledge(BaseModel):
-    technologies: List[KnowledgeItem]
-    capabilities: List[KnowledgeItem]
+    technologies: List[UnifiedKnowledgeItem]
+    capabilities: List[UnifiedKnowledgeItem]
 
 class EvidenceStatus(str, Enum):
     CLAIMED = "Claimed"
@@ -199,13 +184,11 @@ class KnowledgeEvaluation(BaseModel):
     name: str
     category: Literal["TECHNOLOGY", "CAPABILITY"]
     confidence_score: int = Field(ge=0, le=100)
-    
-    # Internal Intermediate Dimensions
+    occurrences: int = 1
     source_strength: int = Field(default=0, ge=0, le=100)
     evidence_diversity: int = Field(default=0, ge=0, le=100)
     practical_demonstration: int = Field(default=0, ge=0, le=100)
     academic_support: int = Field(default=0, ge=0, le=100)
-    
     evidence_quality: EvidenceQuality
     evidence_status: EvidenceStatus
     reasoning: str
@@ -215,66 +198,59 @@ class CandidateEvidenceReport(BaseModel):
     overall_strengths: List[str]
     overall_weaknesses: List[str]
 
+class DomainStrength(BaseModel):
+    domain: EngineeringDomain
+    score: int = Field(ge=0, le=100)
+    experience_months: int = 0
+    evidence_count: int = 0
+    supporting_projects: List[str] = Field(default_factory=list)
+    supporting_experience: List[str] = Field(default_factory=list)
+
+class EngineeringProfile(BaseModel):
+    domain_strengths: List[DomainStrength]
+
 class CandidateIdentity(BaseModel):
     primary_specialization: str
     secondary_specializations: List[str]
     engineering_domains: List[EngineeringDomain]
-    strongest_capabilities: List[EngineeringCapability]
-    primary_technology_stack: List[str]
-    supporting_technologies: List[str]
-    engineering_profile: str
+    technology_stack: List[str]
+    strongest_capabilities: List[str]
+    experience_level: str
     ideal_roles: List[str]
-    preferred_industries: List[str]
-    recruiter_summary: str
-    knowledge_reasoning: List[str] = Field(default_factory=list)
 
-    @field_validator("engineering_domains", mode="before")
-    @classmethod
-    def validate_domains(cls, v):
-        if not isinstance(v, list):
-            return []
-        valid_domains = []
-        for item in v:
-            matched = None
-            if isinstance(item, str):
-                cleaned = item.strip().lower()
-                for domain in EngineeringDomain:
-                    if domain.value.lower() == cleaned or domain.name.lower() == cleaned:
-                        matched = domain
-                        break
-            elif isinstance(item, EngineeringDomain):
-                matched = item
-            if matched:
-                valid_domains.append(matched)
-        return valid_domains
+class SynthesizedSkill(BaseModel):
+    name: str
+    category: str      # "TECHNOLOGY" or "CAPABILITY"
+    status: str        # "Demonstrated", "Claimed", "Academic", "Weak Evidence"
+    confidence_score: int
+    occurrences: int
 
-    @field_validator("strongest_capabilities", mode="before")
-    @classmethod
-    def validate_capabilities(cls, v):
-        if not isinstance(v, list):
-            return []
-        valid_caps = []
-        for item in v:
-            matched = None
-            if isinstance(item, str):
-                cleaned = item.strip().lower()
-                for cap in EngineeringCapability:
-                    if cap.value.lower() == cleaned or cap.name.lower() == cleaned:
-                        matched = cap
-                        break
-            elif isinstance(item, EngineeringCapability):
-                matched = item
-            if matched:
-                valid_caps.append(matched)
-        return valid_caps
+class ProjectSummary(BaseModel):
+    title: str
+    complexity: str    # "BEGINNER", "INTERMEDIATE", "ADVANCED", "PRODUCTION"
+    primary_domain: str
+    technologies: List[str]
+    capabilities: List[str]
+
+class ExperienceSummary(BaseModel):
+    role: str
+    company: str
+    work_type: str     # "EXPERIENCE" or "INTERNSHIP"
+    complexity: str
+    primary_domain: str
+    technologies: List[str]
+    capabilities: List[str]
+
+class AcademicSummary(BaseModel):
+    name: str          # Degree or certification name
+    issuer: str        # University or issuing organization
+    type: str          # "EDUCATION" or "CERTIFICATION"
 
 class CandidateSynthesisInput(BaseModel):
-    unified_knowledge: UnifiedKnowledge
-    evidence_report: CandidateEvidenceReport
-    project_intelligence: List[ProjectIntelligence]
-    experience_intelligence: List[ExperienceIntelligence]
-    education_intelligence: List[EducationIntelligence]
-    certification_intelligence: List[CertificationIntelligence]
+    skills: List[SynthesizedSkill]
+    projects: List[ProjectSummary]
+    experiences: List[ExperienceSummary]
+    academics: List[AcademicSummary]
 
 class CandidateKnowledge(BaseModel):
     candidate_level: CandidateLevel
@@ -282,6 +258,7 @@ class CandidateKnowledge(BaseModel):
     unified_knowledge: UnifiedKnowledge
     evidence_report: CandidateEvidenceReport
     candidate_identity: CandidateIdentity
+    engineering_profile: EngineeringProfile
     project_intelligence: List[ProjectIntelligence] = Field(default_factory=list)
     experience_intelligence: List[ExperienceIntelligence] = Field(default_factory=list)
     education_intelligence: List[EducationIntelligence] = Field(default_factory=list)

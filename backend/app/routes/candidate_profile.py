@@ -76,6 +76,29 @@ async def parse_resume(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error during resume parsing: {str(e)}")
 
+@router.post("/parse-resume-stream")
+async def parse_resume_stream(
+    payload: ParseResumeRequest,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Stream real-time status of the AI parsing process.
+    """
+    async def event_generator():
+        try:
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'ai_parsing', 'message': 'Applying intelligence agents to extract semantics...'})}\n\n"
+            
+            parsed_data = await ResumeParserService.parse_resume_text(payload.resume_text)
+            
+            yield f"data: {json.dumps({'status': 'success', 'stage': 'complete', 'message': 'Semantic extraction completed!', 'resume_data': parsed_data.model_dump(mode='json')})}\n\n"
+        except ValueError as e:
+            yield f"data: {json.dumps({'status': 'error', 'message': str(e)})}\n\n"
+        except Exception as e:
+            logger.exception("Parse resume stream error")
+            yield f"data: {json.dumps({'status': 'error', 'message': f'Unexpected error: {str(e)}'})}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
 @router.post("/complete-onboarding", response_model=CompleteOnboardingResponse)
 async def complete_onboarding(
     payload: CompleteOnboardingRequest,
@@ -158,12 +181,10 @@ async def complete_onboarding_stream(
             education = payload.resume_data.education
             certifications = payload.resume_data.certifications
             
-            project_intel, exp_intel, edu_intel, cert_intel = await asyncio.gather(
-                ProjectIntelligenceService.analyze_projects(projects),
-                ExperienceIntelligenceService.analyze_experiences(experience),
-                AcademicIntelligenceService.analyze_education(education),
-                AcademicIntelligenceService.analyze_certifications(certifications)
-            )
+            project_intel = await ProjectIntelligenceService.analyze_projects(projects)
+            exp_intel = await ExperienceIntelligenceService.analyze_experiences(experience)
+            edu_intel = await AcademicIntelligenceService.analyze_education(education)
+            cert_intel = await AcademicIntelligenceService.analyze_certifications(certifications)
             
             # 3. Knowledge Fusion
             yield f"data: {json.dumps({'status': 'processing', 'stage': 'fusion', 'message': 'Fusing extracted intelligence into Unified Knowledge profile'})}\n\n"
@@ -186,17 +207,94 @@ async def complete_onboarding_stream(
             # 5. Candidate Synthesis (LLM)
             yield f"data: {json.dumps({'status': 'processing', 'stage': 'synthesis', 'message': 'Synthesizing final Candidate Engineering Identity'})}\n\n"
             
+            from app.schemas.evidence import SynthesizedSkill, ProjectSummary, ExperienceSummary, AcademicSummary, EngineeringDomain, DomainStrength, EngineeringProfile
+            
+            skills_input = []
+            for name, eval_obj in evidence_report.evaluations.items():
+                category = eval_obj.category.value if hasattr(eval_obj.category, 'value') else str(eval_obj.category)
+                status = eval_obj.evidence_status.value if hasattr(eval_obj.evidence_status, 'value') else str(eval_obj.evidence_status)
+                skills_input.append(SynthesizedSkill(
+                    name=name, category=category, status=status,
+                    confidence_score=eval_obj.confidence_score, occurrences=eval_obj.occurrences
+                ))
+
+            projects_input = []
+            for p in project_intel:
+                primary_domain = p.domains[0].value if p.domains and hasattr(p.domains[0], 'value') else (str(p.domains[0]) if p.domains else "Software Engineering")
+                complexity = p.complexity.value if hasattr(p.complexity, 'value') else str(p.complexity)
+                projects_input.append(ProjectSummary(
+                    title=p.project_name, complexity=complexity, primary_domain=primary_domain,
+                    technologies=p.technologies or [], capabilities=p.capabilities or []
+                ))
+
+            experiences_input = []
+            for e in exp_intel:
+                primary_domain = e.domains[0].value if e.domains and hasattr(e.domains[0], 'value') else (str(e.domains[0]) if e.domains else "Software Engineering")
+                work_type = e.work_type.value if hasattr(e.work_type, 'value') else str(e.work_type)
+                experiences_input.append(ExperienceSummary(
+                    role=e.role, company=e.company, work_type=work_type, complexity="INTERMEDIATE",
+                    primary_domain=primary_domain, technologies=e.technologies or [], capabilities=e.capabilities or []
+                ))
+
+            academics_input = []
+            for edu in edu_intel:
+                edu_name = f"{edu.degree} in {edu.specialization}" if edu.specialization else edu.degree
+                academics_input.append(AcademicSummary(name=edu_name, issuer=edu.university, type="EDUCATION"))
+            for cert in cert_intel:
+                academics_input.append(AcademicSummary(name=cert.certification_name, issuer=cert.issuing_organization, type="CERTIFICATION"))
+
             synthesis_input = CandidateSynthesisInput(
-                unified_knowledge=unified_knowledge,
-                evidence_report=evidence_report,
-                project_intelligence=project_intel,
-                experience_intelligence=exp_intel,
-                education_intelligence=edu_intel,
-                certification_intelligence=cert_intel
+                skills=skills_input,
+                projects=projects_input,
+                experiences=experiences_input,
+                academics=academics_input
             )
             synthesizer = CandidateSynthesizerService()
             candidate_identity = await synthesizer.synthesize(synthesis_input)
             
+            # 5b. Compute explainable EngineeringProfile
+            import re
+            from datetime import datetime
+
+            def parse_duration_months(duration_str: str) -> int:
+                try:
+                    months_map = {
+                        "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+                        "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+                        "january": 1, "february": 2, "march": 3, "april": 4, "june": 6,
+                        "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12
+                    }
+                    def parse_date(date_str: str):
+                        date_str = date_str.strip().lower()
+                        if not date_str or date_str in ["present", "current", "now"]: return datetime.now()
+                        match = re.search(r'([a-z]+)\s*(\d{4})', date_str)
+                        if match:
+                            m = months_map.get(match.group(1), 1)
+                            return datetime(int(match.group(2)), m, 1)
+                        match_yr = re.search(r'\d{4}', date_str)
+                        return datetime(int(match_yr.group()), 1, 1) if match_yr else datetime.now()
+                    parts = re.split(r'[-–to]', duration_str)
+                    if len(parts) == 2:
+                        start, end = parse_date(parts[0]), parse_date(parts[1])
+                        return max(1, (end.year - start.year) * 12 + (end.month - start.month))
+                except Exception:
+                    pass
+                return 6
+
+            domain_strengths = []
+            for domain in EngineeringDomain:
+                supporting_projects = [p.project_name for p in project_intel if domain in p.domains]
+                supporting_exp_titles = [f"{e.role} @ {e.company}" for e in exp_intel if domain in e.domains]
+                evidence_count = len(supporting_projects) + len(supporting_exp_titles)
+                if evidence_count == 0: continue
+                total_months = sum([parse_duration_months(e.duration) for e in exp_intel if domain in e.domains])
+                score = min(100, 40 + min(40, evidence_count * 15) + min(20, int(total_months * 1.5)))
+                domain_strengths.append(DomainStrength(
+                    domain=domain, score=score, experience_months=total_months, evidence_count=evidence_count,
+                    supporting_projects=supporting_projects, supporting_experience=supporting_exp_titles
+                ))
+            engineering_profile = EngineeringProfile(domain_strengths=domain_strengths)
+
             # 6. Assembly & DB Persistence
             yield f"data: {json.dumps({'status': 'processing', 'stage': 'persistence', 'message': 'Finalizing database transaction & committing insights'})}\n\n"
             
@@ -206,6 +304,7 @@ async def complete_onboarding_stream(
                 unified_knowledge=unified_knowledge,
                 evidence_report=evidence_report,
                 candidate_identity=candidate_identity,
+                engineering_profile=engineering_profile,
                 project_intelligence=project_intel,
                 experience_intelligence=exp_intel,
                 education_intelligence=edu_intel,
@@ -236,6 +335,13 @@ async def complete_onboarding_stream(
                 db.add(insight)
             
             db.flush()
+            
+            # 7. Candidate Embedding Generation
+            yield f"data: {json.dumps({'status': 'processing', 'stage': 'embedding', 'message': 'Generating candidate semantic embedding vector'})}\n\n"
+            from app.embedding.services.embedding_pipeline import EmbeddingGenerationPipeline
+            await EmbeddingGenerationPipeline.generate_candidate_embedding(db, insight.id)
+            
+            # Commit the entire transaction atomically ONLY if embedding succeeds
             db.commit()
             
             yield f"data: {json.dumps({'status': 'success', 'profile_id': str(db_profile.id), 'message': 'Onboarding completed successfully!'})}\n\n"

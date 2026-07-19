@@ -1,10 +1,10 @@
 import logging
 from pydantic import ValidationError
 
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.exceptions import OutputParserException
+
 
 from app.core.config import settings
 from app.schemas.candidate_profile import ResumeDataSchema
@@ -22,20 +22,41 @@ class ResumeParserService:
         """Initializes and caches LLM chains globally."""
         if cls._groq_chain is None and cls._gemini_chain is None:
             prompt = ChatPromptTemplate.from_messages([
-                ("system", """You are a structured document parser.
+                ("system", """## Role
+You are a high-fidelity, structured Resume Parser Engine.
 
-Your only responsibility is extracting information exactly as written.
-You are not a recruiter.
-You are not evaluating.
-You are not summarizing.
-You are not reasoning.
-You are not inferring engineering knowledge.
-You only normalize resume information into ResumeDataSchema.
+## Objective
+Convert raw, unstructured resume text into a structured JSON matching the `ResumeDataSchema` schema exactly. You are NOT evaluating the candidate, summarizing their history, or inferring any skills. You are a copy-paste router.
 
-Rules:
-1. Extract ONLY information that is present in the resume text. Do not hallucinate or invent information.
-2. If any field or array is missing in the text, return null or an empty array.
-3. Make sure LinkedIn/GitHub/Portfolio URLs are absolute URLs (start with https:// or http://).
+## Strict Parsing Rules
+
+### 1. Copy-Paste Verbatim (No Shortening or Rephrasing)
+- You must preserve the exact text, words, and structure of descriptions for projects (`projects.description`) and professional experiences (`experience.description`).
+- **NEVER** truncate, shorten, summarize, or omit bullet points. If a project has 3 detailed bullet points under it, copy all 3 bullet points verbatim into the description. 
+- You are a copy-paste extraction engine. You classify data, but you do not write, edit, correct grammar, or simplify anything.
+
+### 2. Lossless Extraction (Zero Omissions)
+- Every single piece of information, project details, job details, certifications, and skills in the raw resume must be routed to the correct field in the schema.
+- If a section exists in the raw resume, it must be fully extracted. Skipping or leaving out details is a failure.
+
+### 3. Skill Extraction and Compound Splitting
+- Extract all technical skills and tools listed.
+- When skills are listed as compound or combined strings (e.g., "HTML/CSS/JavaScript" or "FastAPI, Git, Docker"), split them into individual, separate strings in the array (e.g., `["HTML", "CSS", "JavaScript", "FastAPI", "Git", "Docker"]`).
+- Never infer skills that are not explicitly typed.
+
+### 4. Experience vs. Project Routing
+- **Experience:** If the candidate worked for a company, organization, or institution (including internships, traineeships, or freelance contracts), route it to the `experience` list. Keep the title/role exactly as written.
+- **Projects:** If the candidate built a specific tool, open-source project, or academic build (e.g., "CampusConnect", "VaultVani"), route it to the `projects` list. Ensure the title, full description (all bullet points), and technologies used are fully populated.
+
+### 5. Education & Certifications
+- Extract every single academic entry (degree, school, year) into `education`. Do not omit high school or previous degrees.
+- Extract every credential or course completed into `certifications`. Ensure you capture the full certification name, issuer, year, and URLs if present.
+
+### 6. Value Sanitization
+- Ensure contact URLs (GitHub, LinkedIn, Portfolios) are absolute URLs starting with `http://` or `https://`.
+- For dates, extract exactly as written (e.g., "Jan 2023", "2023", "Present"). Do not guess or invent months/days.
+- If any array or field is completely missing from the resume, leave it as an empty array or `null`.
+
 """),
                 ("user", """Raw Resume Text:
 {resume_text}
@@ -43,20 +64,22 @@ Rules:
             ])
 
             if settings.GROQ_API_KEY:
-                llm = ChatGroq(
-                    api_key=SecretStr(settings.GROQ_API_KEY),
+                llm = get_llm(
+                    provider="groq",
                     model="llama-3.3-70b-versatile",
-                    temperature=0
+                    temperature=0,
+                    max_tokens=8192
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(ResumeDataSchema)
 
             if settings.GEMINI_API_KEY:
-                gemini_llm = ChatGoogleGenerativeAI(
+                gemini_llm = get_llm(
+                    provider="gemini",
                     model="gemini-2.0-flash",
-                    api_key=SecretStr(settings.GEMINI_API_KEY),
                     temperature=0
                 )
                 cls._gemini_chain = prompt | gemini_llm.with_structured_output(ResumeDataSchema)
+
 
         return cls._groq_chain, cls._gemini_chain
 
@@ -65,6 +88,11 @@ Rules:
         """
         Parses raw resume text into structured Candidate Resume Schema using LLM.
         """
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: RESUME PARSING")
+        print("--> Input Raw Text:")
+        print(resume_text[:2000] + ("..." if len(resume_text) > 2000 else ""))
+
         if not settings.GROQ_API_KEY and not settings.GEMINI_API_KEY:
             raise RuntimeError("LLM unavailable: No AI API Keys configured in .env")
 
@@ -113,6 +141,10 @@ Rules:
 
         llm_result = cast(ResumeDataSchema, llm_result)
         ResumeParserService._sanitize_urls(llm_result)
+
+        print("--> Output Parse Result:")
+        print(llm_result.model_dump_json(indent=2))
+        print(f"[{'='*50}]\n")
 
         return llm_result
 

@@ -2,9 +2,9 @@ import logging
 import asyncio
 from typing import List
 
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm_factory import get_llm
 from langchain_core.prompts import ChatPromptTemplate
+
 
 from app.core.config import settings
 from app.schemas.candidate_profile import EducationSchema, CertificationSchema
@@ -31,65 +31,21 @@ class AcademicIntelligenceService:
         if cls._groq_chain_edu is None:
             # Education Prompt
             edu_prompt = ChatPromptTemplate.from_messages([
-                ("system", """## Role
-You are an expert Senior Engineering Recruiter.
-You recruit candidates across multiple engineering disciplines.
-Your job is to understand engineering education irrespective of engineering discipline.
+                ("system", """## ROLE
+You are a Senior Engineering Academic Intelligence Agent.
 
-## Objective
-You are reconstructing what academic foundation this degree provides. You must ONLY extract facts and observable academic exposure. You are NOT evaluating the candidate, nor are you scoring evidence.
+Your responsibility is to analyze ONE academic qualification and extract structured facts.
 
-## Technology vs. Capability Distinction (CRITICAL):
-- Classify Programming Languages, Frameworks, Libraries, Databases, Cloud Platforms, Infrastructure, and Developer Tools as TECHNOLOGIES (e.g. Python, React, FastAPI, Docker, PostgreSQL, Redis).
-- Classify Activities and Processes as CAPABILITIES (e.g. REST API Design, Authentication, Authorization, Database Design, Performance Optimization, System Architecture, Caching, Deployment).
-- NEVER classify architectural concepts or general engineering topics (such as "REST APIs", "JWT Authentication", "Computer Networks", or "Object Oriented Programming") as technologies. Treat them as capabilities (e.g. "REST API Design", "Authentication") or general topics, or exclude them if they do not fit the schema enums.
+Identify:
+- degree: The name of the degree (e.g., "B.Tech", "M.S.", "Bachelor of Engineering")
+- university: The name of the college, university, or institution
+- specialization: The major or field of study (e.g., "Computer Science", "Mechanical Engineering")
+- cgpa: Cumulative GPA or grade percentage if explicitly stated (as a float, e.g. 8.5 or 3.8). Return null if not stated.
+- graduation_year: The year of completion or graduation if explicitly stated (as an integer, e.g. 2025). Return null if not stated.
 
-## Domain Safety & Hallucination Reduction (CRITICAL):
-- Assign engineering domains ONLY when the candidate's primary engineering work clearly belongs to that domain.
-- Do NOT infer domains from adjectives such as "secure" (does NOT mean Cyber Security), "distributed" (does NOT mean Distributed Systems), "scalable" or "cloud-ready" (does NOT mean Cloud Computing), or "AI-powered" (does NOT mean AI/ML unless they built model architectures/agents directly).
-- Examples: Security features != Cyber Security; Cloud deployment != Cloud Computing; OpenAI API usage != AI Engineering; Redis != Distributed Systems.
-- Always prefer conservative domain classification. If unsure, use UNKNOWN_ENGINEERING_DOMAIN.
-
-## Recruiter Summary Styling (CRITICAL):
-- The summary MUST answer: What was built/studied? How was it built/studied? Why is it technically important?
-- Maximum 2 sentences.
-- Use professional recruiter language. Absolutely ban marketing or introduction phrases like "This project showcases...", "This degree demonstrates...", or "The candidate...".
-
-## Extraction Workflow
-Internal reasoning order:
-1. Understand the engineering discipline.
-2. Determine the academic specialization.
-3. Determine the theoretical foundations.
-4. Identify explicitly mentioned technologies only.
-5. Identify observable academic capabilities.
-6. Write a concise recruiter summary.
-
-Only after completing these internal steps populate the schema.
-
-## Education Extraction Philosophy
-- Never infer production experience.
-- Never infer internships.
-- Never infer practical mastery.
-- Never infer commercial exposure.
-- Never infer tools simply because they are commonly taught.
-- Never assume React, Docker, AWS, Python, etc. unless explicitly present.
-The output should describe academic exposure only.
-
-## Capability Mapping
-Engineering Capability represents an engineering activity, not a technology.
-Select ONLY from the provided EngineeringCapability enum based on explicitly described coursework/projects. Never invent capability names. If none accurately describe the academic exposure, return an empty capability list. Do not force mappings.
-
-## Sparse Input Handling
-If only Degree and University exist:
-- Return only what can genuinely be extracted (domain, display_name, university, conservative summary).
-- Leave capability lists empty.
-- Prefer under-classification over hallucination.
-
-## Conservative Philosophy
-Never invent. Never exaggerate. Never over-classify. Prefer returning less information over incorrect information.
-
-## Output Instructions
-Return ONLY the EducationIntelligence object JSON. No explanation. No markdown. No prose.
+## Strict Rules
+- Never invent information not present in the input.
+- Return ONLY the EducationIntelligence JSON object.
 """),
                 ("user", """Here is the structured education information:
 
@@ -100,62 +56,21 @@ Synthesize one complete EducationIntelligence object from the structured informa
 
             # Certification Prompt
             cert_prompt = ChatPromptTemplate.from_messages([
-                ("system", """## Role
-You are an expert Senior Engineering Recruiter.
-You recruit candidates across multiple engineering disciplines.
-Your job is to understand engineering certifications irrespective of engineering discipline.
+                ("system", """## ROLE
+You are a Senior Engineering Certification Intelligence Agent.
 
-## Objective
-You are reconstructing what knowledge this certification validates. You must ONLY extract facts. You are NOT evaluating the candidate.
+Your responsibility is to analyze ONE professional certification and extract structured facts.
 
-## Technology vs. Capability Distinction (CRITICAL):
-- Classify Programming Languages, Frameworks, Libraries, Databases, Cloud Platforms, Infrastructure, and Developer Tools as TECHNOLOGIES (e.g. Python, React, FastAPI, Docker, PostgreSQL, Redis).
-- Classify Activities and Processes as CAPABILITIES (e.g. REST API Design, Authentication, Authorization, Database Design, Performance Optimization, System Architecture, Caching, Deployment).
-- NEVER classify architectural concepts or general engineering topics (such as "REST APIs", "JWT Authentication", "Computer Networks", or "Object Oriented Programming") as technologies. Treat them as capabilities (e.g. "REST API Design", "Authentication") or general topics, or exclude them if they do not fit the schema enums.
+Identify:
+- certification_name: The name of the certification (e.g., "AWS Certified Developer – Associate")
+- issuing_organization: The organization that issued it (e.g., "Amazon Web Services")
+- completion_date: The date or year of completion if explicitly stated (as a string, e.g. "Oct 2025"). Return null if not stated.
+- technologies: List of exact technologies explicitly validated by the certification (e.g. `["AWS", "Docker"]`). Do not invent.
+- capabilities: List of exact capabilities explicitly validated by the certification (e.g. `["Cloud Architecture"]`). Do not invent.
 
-## Domain Safety & Hallucination Reduction (CRITICAL):
-- Assign engineering domains ONLY when the candidate's primary engineering work clearly belongs to that domain.
-- Do NOT infer domains from adjectives such as "secure" (does NOT mean Cyber Security), "distributed" (does NOT mean Distributed Systems), "scalable" or "cloud-ready" (does NOT mean Cloud Computing), or "AI-powered" (does NOT mean AI/ML unless they built model architectures/agents directly).
-- Examples: Security features != Cyber Security; Cloud deployment != Cloud Computing; OpenAI API usage != AI Engineering; Redis != Distributed Systems.
-- Always prefer conservative domain classification. If unsure, use UNKNOWN_ENGINEERING_DOMAIN.
-
-## Recruiter Summary Styling (CRITICAL):
-- The summary MUST answer: What was built/validated? How was it built/validated? Why is it technically important?
-- Maximum 2 sentences.
-- Use professional recruiter language. Absolutely ban marketing or introduction phrases like "This certification showcases...", "This credential demonstrates...", or "The candidate...".
-
-## Extraction Workflow
-Internal reasoning order:
-1. Understand certification ecosystem.
-2. Determine engineering discipline.
-3. Identify explicitly mentioned technologies.
-4. Determine validated engineering capabilities.
-5. Produce recruiter summary.
-
-Only after completing these internal steps populate the schema.
-
-## Certification Extraction Philosophy
-A certification validates learning.
-- It does NOT prove production experience.
-- It does NOT prove mastery.
-- It does NOT prove years of expertise.
-Avoid over-classification.
-
-## Capability Mapping
-Engineering Capability represents an engineering activity, not a technology.
-Select ONLY from the provided EngineeringCapability enum based on explicitly validated skills. Never invent capability names. If none accurately describe the validation, return an empty capability list. Do not force mappings.
-
-## Sparse Input Handling
-If only Name and Issuer exist:
-- Return only what can genuinely be extracted.
-- Leave capability lists empty.
-- Prefer under-classification over hallucination.
-
-## Conservative Philosophy
-Never invent. Never exaggerate. Never over-classify. Prefer returning less information over incorrect information.
-
-## Output Instructions
-Return ONLY the CertificationIntelligence object JSON. No explanation. No markdown. No prose.
+## Strict Rules
+- Never invent information not present in the input.
+- Return ONLY the CertificationIntelligence JSON object.
 """),
                 ("user", """Here is the structured certification information:
 
@@ -165,18 +80,19 @@ Synthesize one complete CertificationIntelligence object from the structured inf
             ])
 
             if settings.GROQ_API_KEY:
-                llm = ChatGroq(
-                    api_key=SecretStr(settings.GROQ_API_KEY),
+                llm = get_llm(
+                    provider="groq",
                     model="llama-3.3-70b-versatile",
-                    temperature=0
+                    temperature=0,
+                    max_tokens=8192
                 )
                 cls._groq_chain_edu = edu_prompt | llm.with_structured_output(EducationIntelligence)
                 cls._groq_chain_cert = cert_prompt | llm.with_structured_output(CertificationIntelligence)
                 
             if settings.GEMINI_API_KEY:
-                gemini_llm = ChatGoogleGenerativeAI(
+                gemini_llm = get_llm(
+                    provider="gemini",
                     model="gemini-2.0-flash",
-                    api_key=SecretStr(settings.GEMINI_API_KEY),
                     temperature=0
                 )
                 cls._gemini_chain_edu = edu_prompt | gemini_llm.with_structured_output(EducationIntelligence)
@@ -189,11 +105,24 @@ Synthesize one complete CertificationIntelligence object from the structured inf
     # ---------------------------------------------------------
     @staticmethod
     async def analyze_education(educations: List[EducationSchema]) -> List[EducationIntelligence]:
+        import json
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: ACADEMIC EDUCATION INTELLIGENCE EXTRACTION")
+        print("--> Input Educations:")
+        print(json.dumps([e.model_dump() for e in educations], indent=2))
+
         if not educations:
+            print("--> Output Education Intelligence: []")
+            print(f"[{'='*50}]\n")
             return []
             
-        tasks = [AcademicIntelligenceService.analyze_single_education(edu) for edu in educations]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        results = []
+        for edu in educations:
+            try:
+                res = await AcademicIntelligenceService.analyze_single_education(edu)
+                results.append(res)
+            except Exception as e:
+                results.append(e)
         
         valid_intelligence = []
         for res in results:
@@ -202,6 +131,10 @@ Synthesize one complete CertificationIntelligence object from the structured inf
             else:
                 logger.error(f"Failed to analyze education: {res}")
                 
+        print("--> Output Education Intelligence:")
+        print(json.dumps([item.model_dump() for item in valid_intelligence], indent=2))
+        print(f"[{'='*50}]\n")
+
         return valid_intelligence
 
     @staticmethod
@@ -221,7 +154,13 @@ Synthesize one complete CertificationIntelligence object from the structured inf
         
         if groq_chain:
             try:
-                llm_result = await groq_chain.ainvoke(payload_vars)
+                from tenacity import retry, stop_after_attempt, wait_incrementing
+                
+                @retry(stop=stop_after_attempt(6), wait=wait_incrementing(start=15, increment=15, max=75), reraise=True)
+                async def _invoke_groq():
+                    return await groq_chain.ainvoke(payload_vars)
+                    
+                llm_result = await _invoke_groq()
             except Exception as e:
                 logger.error(f"[Education Intelligence] Groq failed: {e}. Falling back to Gemini.")
                 
@@ -241,11 +180,24 @@ Synthesize one complete CertificationIntelligence object from the structured inf
     # ---------------------------------------------------------
     @staticmethod
     async def analyze_certifications(certifications: List[CertificationSchema]) -> List[CertificationIntelligence]:
+        import json
+        print(f"\n[{'='*50}]")
+        print("--> ENTERING STAGE: ACADEMIC CERTIFICATION INTELLIGENCE EXTRACTION")
+        print("--> Input Certifications:")
+        print(json.dumps([c.model_dump() for c in certifications], indent=2))
+
         if not certifications:
+            print("--> Output Certification Intelligence: []")
+            print(f"[{'='*50}]\n")
             return []
             
-        tasks = [AcademicIntelligenceService.analyze_single_certification(cert) for cert in certifications]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        results = []
+        for cert in certifications:
+            try:
+                res = await AcademicIntelligenceService.analyze_single_certification(cert)
+                results.append(res)
+            except Exception as e:
+                results.append(e)
         
         valid_intelligence = []
         for res in results:
@@ -254,6 +206,10 @@ Synthesize one complete CertificationIntelligence object from the structured inf
             else:
                 logger.error(f"Failed to analyze certification: {res}")
                 
+        print("--> Output Certification Intelligence:")
+        print(json.dumps([item.model_dump() for item in valid_intelligence], indent=2))
+        print(f"[{'='*50}]\n")
+
         return valid_intelligence
 
     @staticmethod
@@ -273,7 +229,13 @@ Synthesize one complete CertificationIntelligence object from the structured inf
         
         if groq_chain:
             try:
-                llm_result = await groq_chain.ainvoke(payload_vars)
+                from tenacity import retry, stop_after_attempt, wait_incrementing
+                
+                @retry(stop=stop_after_attempt(6), wait=wait_incrementing(start=15, increment=15, max=75), reraise=True)
+                async def _invoke_groq():
+                    return await groq_chain.ainvoke(payload_vars)
+                    
+                llm_result = await _invoke_groq()
             except Exception as e:
                 logger.error(f"[Certification Intelligence] Groq failed: {e}. Falling back to Gemini.")
                 

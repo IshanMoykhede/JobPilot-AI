@@ -1,0 +1,2 @@
+-- reserve.lua
+-- Lua script to atomically check bucket capacity and reserve tokens.

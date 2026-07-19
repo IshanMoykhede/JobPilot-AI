@@ -9,6 +9,12 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: Optional[str] = None
     GROQ_API_KEY: Optional[str] = None
     TAVILY_API_KEY: Optional[str] = None
+    SERPAPI_API_KEY: Optional[str] = None
+    QDRANT_URL: str = "http://localhost:6333"
+    QDRANT_API_KEY: Optional[str] = None
+    
+    # LLM Provider Configuration
+    LLM_PROVIDER: str = "gemini"
     
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587
@@ -21,3 +27,4 @@ class Settings(BaseSettings):
         extra = "ignore"
 
 settings = Settings()
+

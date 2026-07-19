@@ -15,8 +15,16 @@ from app.services.academic_intelligence import AcademicIntelligenceService
 from app.services.knowledge_fusion import KnowledgeFusionService
 from app.services.evidence_engine_v2 import EvidenceEngineV2
 from app.core.evaluation_strategy import DefaultEvaluationStrategy
+from app.schemas.evidence import (
+    CandidateKnowledge,
+    CandidateSynthesisInput,
+    SynthesizedSkill,
+    ProjectSummary,
+    ExperienceSummary,
+    AcademicSummary
+)
+
 from app.services.candidate_synthesizer import CandidateSynthesizerService
-from app.schemas.evidence import CandidateSynthesisInput
 
 logger = logging.getLogger(__name__)
 
@@ -83,12 +91,10 @@ class CandidateKnowledgeEngine:
         education = profile_req.resume_data.education
         certifications = profile_req.resume_data.certifications
         
-        project_intel, exp_intel, edu_intel, cert_intel = await asyncio.gather(
-            ProjectIntelligenceService.analyze_projects(projects),
-            ExperienceIntelligenceService.analyze_experiences(experience),
-            AcademicIntelligenceService.analyze_education(education),
-            AcademicIntelligenceService.analyze_certifications(certifications)
-        )
+        project_intel = await ProjectIntelligenceService.analyze_projects(projects)
+        exp_intel = await ExperienceIntelligenceService.analyze_experiences(experience)
+        edu_intel = await AcademicIntelligenceService.analyze_education(education)
+        cert_intel = await AcademicIntelligenceService.analyze_certifications(certifications)
 
         # 2. Extract Knowledge Fusion (LLM-powered semantic synthesis)
         unified_knowledge = await KnowledgeFusionService.fuse_knowledge(
@@ -108,18 +114,136 @@ class CandidateKnowledgeEngine:
         evidence_report = EvidenceEngineV2.evaluate(unified_knowledge, strategy)
         
         # 5. Synthesize Candidate Identity (Candidate Synthesizer)
+        skills_input = []
+        for name, eval_obj in evidence_report.evaluations.items():
+            category = eval_obj.category.value if hasattr(eval_obj.category, 'value') else str(eval_obj.category)
+            status = eval_obj.evidence_status.value if hasattr(eval_obj.evidence_status, 'value') else str(eval_obj.evidence_status)
+            skills_input.append(SynthesizedSkill(
+                name=name,
+                category=category,
+                status=status,
+                confidence_score=eval_obj.confidence_score,
+                occurrences=eval_obj.occurrences
+            ))
+
+        projects_input = []
+        for p in project_intel:
+            primary_domain = p.domains[0].value if p.domains and hasattr(p.domains[0], 'value') else (str(p.domains[0]) if p.domains else "Software Engineering")
+            complexity = p.complexity.value if hasattr(p.complexity, 'value') else str(p.complexity)
+            projects_input.append(ProjectSummary(
+                title=p.project_name,
+                complexity=complexity,
+                primary_domain=primary_domain,
+                technologies=p.technologies or [],
+                capabilities=p.capabilities or []
+            ))
+
+        experiences_input = []
+        for e in exp_intel:
+            primary_domain = e.domains[0].value if e.domains and hasattr(e.domains[0], 'value') else (str(e.domains[0]) if e.domains else "Software Engineering")
+            work_type = e.work_type.value if hasattr(e.work_type, 'value') else str(e.work_type)
+            experiences_input.append(ExperienceSummary(
+                role=e.role,
+                company=e.company,
+                work_type=work_type,
+                complexity="INTERMEDIATE",
+                primary_domain=primary_domain,
+                technologies=e.technologies or [],
+                capabilities=e.capabilities or []
+            ))
+
+        academics_input = []
+        for edu in edu_intel:
+            edu_name = f"{edu.degree} in {edu.specialization}" if edu.specialization else edu.degree
+            academics_input.append(AcademicSummary(
+                name=edu_name,
+                issuer=edu.university,
+                type="EDUCATION"
+            ))
+        for cert in cert_intel:
+            academics_input.append(AcademicSummary(
+                name=cert.certification_name,
+                issuer=cert.issuing_organization,
+                type="CERTIFICATION"
+            ))
+
         synthesis_input = CandidateSynthesisInput(
-            unified_knowledge=unified_knowledge,
-            evidence_report=evidence_report,
-            project_intelligence=project_intel,
-            experience_intelligence=exp_intel,
-            education_intelligence=edu_intel,
-            certification_intelligence=cert_intel
+            skills=skills_input,
+            projects=projects_input,
+            experiences=experiences_input,
+            academics=academics_input
         )
         
         synthesizer = CandidateSynthesizerService()
         candidate_identity = await synthesizer.synthesize(synthesis_input)
         
+        # 5b. Compute explainable EngineeringProfile
+        from app.schemas.evidence import EngineeringDomain, DomainStrength, EngineeringProfile
+        import re
+        from datetime import datetime
+
+        def parse_duration_months(duration_str: str) -> int:
+            try:
+                months_map = {
+                    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+                    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+                    "january": 1, "february": 2, "march": 3, "april": 4, "june": 6,
+                    "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12
+                }
+                
+                def parse_date(date_str: str):
+                    date_str = date_str.strip().lower()
+                    if not date_str or date_str in ["present", "current", "now"]:
+                        return datetime.now()
+                    match = re.search(r'([a-z]+)\s*(\d{4})', date_str)
+                    if match:
+                        m_str, y_str = match.groups()
+                        m = months_map.get(m_str, 1)
+                        y = int(y_str)
+                        return datetime(y, m, 1)
+                    match_yr = re.search(r'\d{4}', date_str)
+                    if match_yr:
+                        return datetime(int(match_yr.group()), 1, 1)
+                    return datetime.now()
+                    
+                parts = re.split(r'[-–to]', duration_str)
+                if len(parts) == 2:
+                    start = parse_date(parts[0])
+                    end = parse_date(parts[1])
+                    diff = (end.year - start.year) * 12 + (end.month - start.month)
+                    return max(1, diff)
+            except Exception as e:
+                logger.error(f"Error parsing duration '{duration_str}': {e}")
+            return 6
+
+        domain_strengths = []
+        for domain in EngineeringDomain:
+            supporting_projects = [p.project_name for p in project_intel if domain in p.domains]
+            supporting_exp_titles = [f"{e.role} @ {e.company}" for e in exp_intel if domain in e.domains]
+            evidence_count = len(supporting_projects) + len(supporting_exp_titles)
+            
+            if evidence_count == 0:
+                continue
+                
+            total_months = 0
+            for e in exp_intel:
+                if domain in e.domains:
+                    total_months += parse_duration_months(e.duration)
+                    
+            # Formula: base 40 + 15 points per evidence (cap 40) + 1.5 points per month (cap 20)
+            score = min(100, 40 + min(40, evidence_count * 15) + min(20, int(total_months * 1.5)))
+            
+            domain_strengths.append(DomainStrength(
+                domain=domain,
+                score=score,
+                experience_months=total_months,
+                evidence_count=evidence_count,
+                supporting_projects=supporting_projects,
+                supporting_experience=supporting_exp_titles
+            ))
+            
+        engineering_profile = EngineeringProfile(domain_strengths=domain_strengths)
+
         # 6. Assemble the top-level CandidateKnowledge artifact
         candidate_knowledge = CandidateKnowledge(
             candidate_level=evidence.candidate_level,
@@ -127,6 +251,7 @@ class CandidateKnowledgeEngine:
             unified_knowledge=unified_knowledge,
             evidence_report=evidence_report,
             candidate_identity=candidate_identity,
+            engineering_profile=engineering_profile,
             project_intelligence=project_intel,
             experience_intelligence=exp_intel,
             education_intelligence=edu_intel,
@@ -161,6 +286,10 @@ class CandidateKnowledgeEngine:
 
         db.flush()
         db.refresh(insight)
+
+        # Generate Candidate Embedding
+        from app.embedding.services.embedding_pipeline import EmbeddingGenerationPipeline
+        await EmbeddingGenerationPipeline.generate_candidate_embedding(db, insight.id)
 
         return insight
 

@@ -21,9 +21,7 @@ class AcademicIntelligenceService:
     """
 
     _groq_chain_edu = None
-    _gemini_chain_edu = None
     _groq_chain_cert = None
-    _gemini_chain_cert = None
 
     @classmethod
     def _get_chains(cls):
@@ -89,16 +87,7 @@ Synthesize one complete CertificationIntelligence object from the structured inf
                 cls._groq_chain_edu = edu_prompt | llm.with_structured_output(EducationIntelligence)
                 cls._groq_chain_cert = cert_prompt | llm.with_structured_output(CertificationIntelligence)
                 
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain_edu = edu_prompt | gemini_llm.with_structured_output(EducationIntelligence)
-                cls._gemini_chain_cert = cert_prompt | gemini_llm.with_structured_output(CertificationIntelligence)
-
-        return cls._groq_chain_edu, cls._gemini_chain_edu, cls._groq_chain_cert, cls._gemini_chain_cert
+        return cls._groq_chain_edu, cls._groq_chain_cert
 
     # ---------------------------------------------------------
     # EDUCATION INTELLIGENCE
@@ -139,7 +128,7 @@ Synthesize one complete CertificationIntelligence object from the structured inf
 
     @staticmethod
     async def analyze_single_education(education: EducationSchema) -> EducationIntelligence:
-        groq_chain, gemini_chain, _, _ = AcademicIntelligenceService._get_chains()
+        groq_chain, _ = AcademicIntelligenceService._get_chains()
         
         # Serialize entire schema
         education_context = education.model_dump_json(
@@ -162,13 +151,7 @@ Synthesize one complete CertificationIntelligence object from the structured inf
                     
                 llm_result = await _invoke_groq()
             except Exception as e:
-                logger.error(f"[Education Intelligence] Groq failed: {e}. Falling back to Gemini.")
-                
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except Exception as e:
-                logger.error(f"[Education Intelligence] Gemini failed: {e}.")
+                logger.error(f"[Education Intelligence] Groq failed: {e}.")
                 
         if not llm_result:
             raise RuntimeError("All LLMs failed to analyze education.")
@@ -214,7 +197,7 @@ Synthesize one complete CertificationIntelligence object from the structured inf
 
     @staticmethod
     async def analyze_single_certification(certification: CertificationSchema) -> CertificationIntelligence:
-        _, _, groq_chain, gemini_chain = AcademicIntelligenceService._get_chains()
+        _, groq_chain = AcademicIntelligenceService._get_chains()
         
         # Serialize entire schema
         certification_context = certification.model_dump_json(
@@ -237,13 +220,7 @@ Synthesize one complete CertificationIntelligence object from the structured inf
                     
                 llm_result = await _invoke_groq()
             except Exception as e:
-                logger.error(f"[Certification Intelligence] Groq failed: {e}. Falling back to Gemini.")
-                
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except Exception as e:
-                logger.error(f"[Certification Intelligence] Gemini failed: {e}.")
+                logger.error(f"[Certification Intelligence] Groq failed: {e}.")
                 
         if not llm_result:
             raise RuntimeError("All LLMs failed to analyze certification.")

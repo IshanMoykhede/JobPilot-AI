@@ -5,14 +5,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.models.user import User
 from app.models.candidate_profile import CandidateProfile
 from app.models.candidate_insights import CandidateInsights
-from app.conversation.models.conversation import Conversation
-from app.job_search.models.search_workspace import SearchWorkspace
-from app.job_search.models.job_search_result import JobSearchResult
-from app.job_search.models.job_knowledge import JobKnowledge
+# from app.conversation.models.conversation import Conversation
+# from app.job_search.models.search_workspace import SearchWorkspace
+# from app.job_search.models.job_search_result import JobSearchResult
+# from app.job_search.models.job_knowledge import JobKnowledge
 from app.routes.auth import router as auth_router
 from app.routes.candidate_profile import router as profile_router
-from app.routes.jobs import router as jobs_router
-from app.routes.agent_routes import router as agent_router
+from app.routes.job_search_routes import router as job_search_router
+# from app.routes.jobs import router as jobs_router
+# from app.routes.agent_routes import router as agent_router
 
 app = FastAPI(
     title="JobPilot AI",
@@ -32,8 +33,9 @@ app.add_middleware(
 # Register routes
 app.include_router(auth_router)
 app.include_router(profile_router)
-app.include_router(jobs_router)
-app.include_router(agent_router)
+app.include_router(job_search_router)
+# app.include_router(jobs_router)
+# app.include_router(agent_router)
 
 @app.get("/")
 def read_root():

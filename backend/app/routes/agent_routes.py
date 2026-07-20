@@ -174,38 +174,10 @@ async def delete_conversation(
     return {"status": "SUCCESS", "message": "Conversation deleted successfully."}
 
 
-@router.get("/test-serp", summary="Directly test the SerpService and QueryParser.")
-async def test_serp(
-    query: str,
-    location: Optional[str] = None
-) -> Any:
-    from app.job_search.services.serp_service import SerpService
-    from app.job_search.services.query_parser_service import QueryParserService
-    
-    try:
-        # Parse the query first
-        parsed = QueryParserService.parse(query)
-        final_location = parsed.location if parsed.location else location
-
-        # Fetch jobs using the parsed role and location
-        service = SerpService()
-        raw_jobs = service.search_jobs(query=parsed.role, location=final_location)
-        
-        return {
-            "status": "SUCCESS", 
-            "original_query": query, 
-            "parsed_role": parsed.role,
-            "parsed_location": parsed.location,
-            "serp_params": {
-                "q": parsed.role,
-                "location": final_location
-            },
-            "jobs_count": len(raw_jobs),
-            "jobs": raw_jobs
-        }
-    except Exception as e:
-        logger.error(f"Error in /agent/test-serp: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"An error occurred: {str(e)}"
-        )
+# @router.get("/test-serp", summary="Directly test the SerpService and QueryParser.")
+# async def test_serp(
+#     query: str,
+#     location: Optional[str] = None
+# ) -> Any:
+#     # DEPRECATED: Uses old app.job_search services which were replaced by LangGraph.
+#     raise HTTPException(status_code=501, detail="Deprecated. Use LangGraph job search agent.")

@@ -15,12 +15,11 @@ logger = logging.getLogger(__name__)
 
 class ResumeParserService:
     _groq_chain = None
-    _gemini_chain = None
 
     @classmethod
     def _get_chains(cls):
         """Initializes and caches LLM chains globally."""
-        if cls._groq_chain is None and cls._gemini_chain is None:
+        if cls._groq_chain is None:
             prompt = ChatPromptTemplate.from_messages([
                 ("system", """## Role
 You are a high-fidelity, structured Resume Parser Engine.
@@ -72,16 +71,7 @@ Convert raw, unstructured resume text into a structured JSON matching the `Resum
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(ResumeDataSchema)
 
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain = prompt | gemini_llm.with_structured_output(ResumeDataSchema)
-
-
-        return cls._groq_chain, cls._gemini_chain
+        return cls._groq_chain
 
     @staticmethod
     async def parse_resume_text(resume_text: str) -> ResumeDataSchema:
@@ -93,10 +83,10 @@ Convert raw, unstructured resume text into a structured JSON matching the `Resum
         print("--> Input Raw Text:")
         print(resume_text[:2000] + ("..." if len(resume_text) > 2000 else ""))
 
-        if not settings.GROQ_API_KEY and not settings.GEMINI_API_KEY:
+        if not settings.GROQ_API_KEY:
             raise RuntimeError("LLM unavailable: No AI API Keys configured in .env")
 
-        groq_chain, gemini_chain = ResumeParserService._get_chains()
+        groq_chain = ResumeParserService._get_chains()
         payload_vars = {"resume_text": resume_text}
 
         llm_result = None
@@ -117,23 +107,6 @@ Convert raw, unstructured resume text into a structured JSON matching the `Resum
                 logger.warning(last_error)
             except Exception as e:
                 last_error = f"Groq unavailable or failed: {str(e)}"
-                logger.warning(last_error)
-
-        # Attempt 2: Gemini
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except OutputParserException as e:
-                last_error = f"Invalid structured response from Gemini: {str(e)}"
-                logger.warning(last_error)
-            except ValidationError as e:
-                last_error = f"Validation failure from Gemini output: {str(e)}"
-                logger.warning(last_error)
-            except TimeoutError:
-                last_error = "Timeout while calling Gemini."
-                logger.warning(last_error)
-            except Exception as e:
-                last_error = f"Gemini unavailable or failed: {str(e)}"
                 logger.warning(last_error)
 
         if not llm_result:

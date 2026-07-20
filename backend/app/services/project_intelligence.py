@@ -22,12 +22,11 @@ class ProjectIntelligenceService:
     """
     
     _groq_chain = None
-    _gemini_chain = None
 
     @classmethod
     def _get_chains(cls):
         """Initializes and caches LLM chains globally to avoid redundant initialization overhead."""
-        if cls._groq_chain is None and cls._gemini_chain is None:
+        if cls._groq_chain is None:
             prompt = ChatPromptTemplate.from_messages([
                 ("system", """## Role
 You are a Senior Engineering Hiring Manager conducting a technical portfolio review.
@@ -117,15 +116,7 @@ Synthesize one complete ProjectIntelligence object from the structured project i
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(ProjectIntelligence)
 
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain = prompt | gemini_llm.with_structured_output(ProjectIntelligence)
-
-        return cls._groq_chain, cls._gemini_chain
+        return cls._groq_chain
     
     @staticmethod
     async def analyze_projects(projects: List[ProjectSchema]) -> List[ProjectIntelligence]:
@@ -169,7 +160,7 @@ Synthesize one complete ProjectIntelligence object from the structured project i
         """
         Executes the semantic extraction pipeline on a single project.
         """
-        groq_chain, gemini_chain = ProjectIntelligenceService._get_chains()
+        groq_chain = ProjectIntelligenceService._get_chains()
         
         # Serialize the project context safely excluding empty/default fields
         project_context_json = project.model_dump_json(
@@ -196,14 +187,7 @@ Synthesize one complete ProjectIntelligence object from the structured project i
                     
                 llm_result = await _invoke_groq()
             except Exception as e:
-                logger.error(f"[Project Intelligence] Groq failed: {e}. Falling back to Gemini.")
-                
-        # Attempt 2: Gemini Fallback
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except Exception as e:
-                logger.error(f"[Project Intelligence] Gemini failed: {e}.")
+                logger.error(f"[Project Intelligence] Groq failed: {e}.")
                 
         if not llm_result:
             raise RuntimeError(f"All LLMs failed to analyze project {project.title or 'Unknown'}")

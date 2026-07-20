@@ -16,9 +16,9 @@ from app.models.user import User  # import models to register them on Base.metad
 from app.models.candidate_profile import CandidateProfile
 from app.models.candidate_insights import CandidateInsights
 from app.models.market_intelligence import MarketIntelligenceCache
-from app.job_search.models.search_workspace import SearchWorkspace
-from app.job_search.models.job_knowledge import JobKnowledge
-from app.job_search.models.job_search_result import JobSearchResult
+from app.job_search_agent.models.job_searches import JobSearch
+from app.job_search_agent.models.job_knowledge import JobKnowledge
+from app.job_search_agent.models.job_match_scores import JobMatchScore
 from app.conversation.models.conversation import Conversation
 from app.conversation.models.conversation_message import ConversationMessage
 from app.models.otp import OTPVerification

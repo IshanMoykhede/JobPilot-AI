@@ -28,7 +28,7 @@ export default function AppShell({ children, breadcrumbs = [], topRight = null }
         onMobileClose={() => setMobileMenuOpen(false)}
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         <TopHeader
           onMenuClick={() => setMobileMenuOpen(true)}
           left={
@@ -43,8 +43,8 @@ export default function AppShell({ children, breadcrumbs = [], topRight = null }
           }
         />
 
-        <main className="flex-1 overflow-y-auto bg-jp-bg-surface">
-          <div className="jp-page-enter">
+        <main className="flex-1 overflow-y-auto bg-jp-bg-app text-jp-text-primary rounded-tl-2xl border-t border-l border-jp-border-subtle shadow-2xl relative z-10">
+          <div className="animate-fade-in h-full">
             {children}
           </div>
         </main>

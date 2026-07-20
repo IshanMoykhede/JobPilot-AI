@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
  */
 export default function TopHeader({ left = null, right = null, onMenuClick }) {
   return (
-    <header className="flex items-center justify-between h-14 w-full px-6 sticky top-0 z-30 bg-jp-bg-surface/80 backdrop-blur-md border-b border-jp-border-subtle">
+    <header className="flex items-center justify-between h-14 w-full px-6 sticky top-0 z-30 bg-transparent border-none">
       <div className="flex items-center gap-3">
         {/* Mobile menu trigger */}
         <button
           onClick={onMenuClick}
-          className="md:hidden jp-btn-icon jp-btn-ghost"
+          className="md:hidden p-2 text-jp-text-muted hover:text-jp-text-primary hover:bg-jp-bg-surface rounded-md transition-colors"
           aria-label="Open menu"
         >
           <Icon name="menu" className="text-[20px]" />

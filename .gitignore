@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+backend/.env
+
+# Logs
+backend/logs/
+*.log
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp/test scripts
+backend/check_imports.py
+backend/test_imports.py
+backend/drop_enums.py
+backend/e2e_validation_direct.py
+Pipeline_Validation_Report_Part_3.md

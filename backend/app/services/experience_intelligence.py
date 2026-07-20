@@ -22,12 +22,11 @@ class ExperienceIntelligenceService:
     """
     
     _groq_chain = None
-    _gemini_chain = None
 
     @classmethod
     def _get_chains(cls):
         """Initializes and caches LLM chains globally to avoid redundant initialization overhead."""
-        if cls._groq_chain is None and cls._gemini_chain is None:
+        if cls._groq_chain is None:
             prompt = ChatPromptTemplate.from_messages([
                 ("system", """## Role
 You are a Senior Engineering Hiring Manager conducting a work history review.
@@ -108,15 +107,7 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(ExperienceIntelligence)
 
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain = prompt | gemini_llm.with_structured_output(ExperienceIntelligence)
-
-        return cls._groq_chain, cls._gemini_chain
+        return cls._groq_chain
 
     @staticmethod
     async def analyze_experiences(experiences: List[ExperienceSchema]) -> List[ExperienceIntelligence]:
@@ -160,7 +151,7 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
         """
         Executes the semantic extraction pipeline on a single experience.
         """
-        groq_chain, gemini_chain = ExperienceIntelligenceService._get_chains()
+        groq_chain = ExperienceIntelligenceService._get_chains()
         
         # Serialize the entire experience context safely excluding missing/empty values
         experience_context_json = experience.model_dump_json(
@@ -187,14 +178,7 @@ Synthesize one complete ExperienceIntelligence object from the structured experi
                     
                 llm_result = await _invoke_groq()
             except Exception as e:
-                logger.error(f"[Experience Intelligence] Groq failed: {e}. Falling back to Gemini.")
-                
-        # Attempt 2: Gemini Fallback
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except Exception as e:
-                logger.error(f"[Experience Intelligence] Gemini failed: {e}.")
+                logger.error(f"[Experience Intelligence] Groq failed: {e}.")
                 
         if not llm_result:
             raise RuntimeError(f"All LLMs failed to analyze experience {experience.role or 'Unknown'}")

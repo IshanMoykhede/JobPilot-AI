@@ -7,20 +7,27 @@ function Header() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-jp-bg-surface/80 backdrop-blur-xl border-b border-jp-border-subtle h-16 flex justify-between items-center px-6">
-      <div className="flex items-center gap-2">
-        <Icon name="sparkles" fill className="text-jp-accent text-[24px]" />
+    <header className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 bg-jp-bg-surface/70 backdrop-blur-2xl border border-jp-border-subtle h-16 rounded-2xl md:rounded-full flex justify-between items-center px-4 md:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <div className="flex items-center gap-3">
+        <img src="/logo.png" alt="JobPilot Logo" className="w-8 h-8 rounded-lg shadow-[0_0_12px_var(--color-jp-accent-glow)]" />
         <Link to="/" className="text-[18px] font-bold text-jp-text-primary tracking-tight no-underline">
           JobPilot AI
         </Link>
       </div>
 
-      {user && (
+      {user ? (
         <nav className="hidden md:flex items-center gap-8">
           <Link className="text-[13px] font-medium text-jp-text-primary hover:text-jp-accent transition-colors no-underline" to="/dashboard">Dashboard</Link>
           <Link className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" to="/search">Jobs</Link>
           <Link className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" to="/resumes">Resumes</Link>
           <Link className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" to="/profile">Profile</Link>
+        </nav>
+      ) : (
+        <nav className="hidden md:flex items-center gap-8">
+          <a className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" href="#features">Features</a>
+          <a className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" href="#how-it-works">How It Works</a>
+          <a className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" href="#pricing">Pricing</a>
+          <a className="text-[13px] font-medium text-jp-text-secondary hover:text-jp-text-primary transition-colors no-underline" href="#testimonials">Testimonials</a>
         </nav>
       )}
 

@@ -26,12 +26,11 @@ class KnowledgeFusionService:
     """
 
     _groq_chain = None
-    _gemini_chain = None
 
     @classmethod
     def _get_chains(cls):
         """Initializes and caches LLM chains globally to avoid redundant initialization overhead."""
-        if cls._groq_chain is None and cls._gemini_chain is None:
+        if cls._groq_chain is None:
             prompt = ChatPromptTemplate.from_messages([
                 ("system", """## ROLE
 
@@ -534,15 +533,7 @@ Synthesize ONE coherent UnifiedKnowledge graph based on all the evidence provide
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(UnifiedKnowledge)
                 
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain = prompt | gemini_llm.with_structured_output(UnifiedKnowledge)
-
-        return cls._groq_chain, cls._gemini_chain
+        return cls._groq_chain
 
     @staticmethod
     async def fuse_knowledge(
@@ -555,7 +546,7 @@ Synthesize ONE coherent UnifiedKnowledge graph based on all the evidence provide
         """
         Takes raw skills and intelligence objects, serializes them, and calls the Fusion LLM.
         """
-        groq_chain, gemini_chain = KnowledgeFusionService._get_chains()
+        groq_chain = KnowledgeFusionService._get_chains()
         
         # Serialize payloads cleanly
         def serialize_list(intel_list):
@@ -584,13 +575,7 @@ Synthesize ONE coherent UnifiedKnowledge graph based on all the evidence provide
                     
                 llm_result = await _invoke_groq()
             except Exception as e:
-                logger.error(f"[Knowledge Fusion] Groq failed: {e}. Falling back to Gemini.")
-                
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-            except Exception as e:
-                logger.error(f"[Knowledge Fusion] Gemini failed: {e}.")
+                logger.error(f"[Knowledge Fusion] Groq failed: {e}.")
                 
         if not llm_result:
             raise RuntimeError("All LLMs failed to fuse knowledge.")

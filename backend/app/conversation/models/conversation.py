@@ -23,7 +23,6 @@ class Conversation(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     candidate_profile_id = Column(UUID(as_uuid=True), ForeignKey("candidate_profiles.id", ondelete="CASCADE"), nullable=False)
     title = Column(String, nullable=True)
-    active_workspace_id = Column(UUID(as_uuid=True), ForeignKey("search_workspaces.id", ondelete="SET NULL", use_alter=True, name="fk_active_workspace"), nullable=True)
     conversation_type = Column(SQLEnum(ConversationType), default=ConversationType.GENERAL_CHAT, nullable=False)
     status = Column(SQLEnum(ConversationStatus), default=ConversationStatus.ACTIVE, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
@@ -34,10 +33,4 @@ class Conversation(Base):
         "ConversationMessage",
         back_populates="conversation",
         cascade="all, delete-orphan"
-    )
-    search_workspaces = relationship(
-        "SearchWorkspace",
-        back_populates="conversation",
-        cascade="all, delete-orphan",
-        foreign_keys="[SearchWorkspace.conversation_id]"
     )

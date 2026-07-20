@@ -21,11 +21,11 @@ class CandidateSynthesizerService:
     """
     
     _groq_chain = None
-    _gemini_chain = None
+    _groq_chain = None
     
     @classmethod
     def _get_chains(cls):
-        if cls._groq_chain is None and cls._gemini_chain is None:
+        if cls._groq_chain is None:
             # Generate domain list dynamically for the prompt
             domains_list = ", ".join([f'"{d.value}"' for d in EngineeringDomain])
 
@@ -62,16 +62,8 @@ Identify:
                     max_tokens=8192
                 )
                 cls._groq_chain = prompt | llm.with_structured_output(CandidateIdentity)
-
-            if settings.GEMINI_API_KEY:
-                gemini_llm = get_llm(
-                    provider="gemini",
-                    model="gemini-2.0-flash",
-                    temperature=0
-                )
-                cls._gemini_chain = prompt | gemini_llm.with_structured_output(CandidateIdentity)
             
-        return cls._groq_chain, cls._gemini_chain
+        return cls._groq_chain
 
     async def synthesize(self, synthesis_input: CandidateSynthesisInput) -> CandidateIdentity:
         logger.info("Starting candidate identity synthesis...")
@@ -84,7 +76,7 @@ Identify:
         input_json = synthesis_input.model_dump_json(exclude_none=True, indent=2)
         payload_vars = {"input_json": input_json}
         
-        groq_chain, gemini_chain = self._get_chains()
+        groq_chain = self._get_chains()
         llm_result = None
         last_error = None
 
@@ -101,16 +93,7 @@ Identify:
                 logger.info("Groq synthesis successful.")
             except Exception as e:
                 last_error = e
-                logger.warning(f"Groq synthesis failed: {e}. Attempting Gemini fallback...")
-
-        # Attempt 2: Gemini
-        if not llm_result and gemini_chain:
-            try:
-                llm_result = await gemini_chain.ainvoke(payload_vars)
-                logger.info("Gemini synthesis successful.")
-            except Exception as e:
-                last_error = e
-                logger.warning(f"Gemini synthesis failed: {e}.")
+                logger.warning(f"Groq synthesis failed: {e}.")
 
         if llm_result:
             print("--> Output Synthesized Candidate Identity:")

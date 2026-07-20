@@ -8,43 +8,52 @@
 
 /* ── Tailwind v4 Theme ─────────────────────────────────────── */
 @theme {
-  /* Colors - Backgrounds */
-  --color-jp-bg-app: #09090b;
-  --color-jp-bg-surface: #0f0f11;
-  --color-jp-bg-raised: #18181b;
-  --color-jp-bg-overlay: #27272a;
-  --color-jp-bg-inset: #0c0c0e;
+  /* Colors - Backgrounds (Obsidian/Deep Dark) */
+  --color-jp-bg-app: #030305;
+  --color-jp-bg-surface: #0a0a0c;
+  --color-jp-bg-raised: #121214;
+  --color-jp-bg-overlay: #1a1a1e;
+  --color-jp-bg-inset: #000000;
 
   /* Colors - Borders */
-  --color-jp-border: #27272a;
-  --color-jp-border-subtle: #1e1e21;
-  --color-jp-border-active: #3f3f46;
+  --color-jp-border: rgba(255, 255, 255, 0.08);
+  --color-jp-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-jp-border-active: rgba(255, 255, 255, 0.15);
 
   /* Colors - Text */
-  --color-jp-text-primary: #fafafa;
+  --color-jp-text-primary: #ffffff;
   --color-jp-text-secondary: #a1a1aa;
   --color-jp-text-tertiary: #71717a;
   --color-jp-text-muted: #52525b;
 
-  /* Colors - Brand Accent (Indigo) */
+  /* Colors - Brand Accent (Neon Indigo/Cyan) */
   --color-jp-accent: #6366f1;
   --color-jp-accent-hover: #818cf8;
-  --color-jp-accent-muted: oklch(0.55 0.18 264 / 0.15);
+  --color-jp-accent-muted: rgba(99, 102, 241, 0.15);
   --color-jp-accent-text: #c7d2fe;
   --color-jp-accent-strong: #4f46e5;
+  --color-jp-accent-glow: rgba(99, 102, 241, 0.4);
 
   /* Colors - Semantic */
-  --color-jp-success: #22c55e;
-  --color-jp-success-muted: oklch(0.6 0.15 145 / 0.12);
-  --color-jp-success-text: #86efac;
+  --color-jp-success: #10b981;
+  --color-jp-success-muted: rgba(16, 185, 129, 0.15);
+  --color-jp-success-text: #6ee7b7;
+  --color-jp-success-glow: rgba(16, 185, 129, 0.3);
+
   --color-jp-warning: #f59e0b;
-  --color-jp-warning-muted: oklch(0.7 0.15 80 / 0.12);
+  --color-jp-warning-muted: rgba(245, 158, 11, 0.15);
   --color-jp-warning-text: #fcd34d;
-  --color-jp-error: #ef4444;
-  --color-jp-error-muted: oklch(0.55 0.2 25 / 0.12);
-  --color-jp-error-text: #fca5a5;
-  --color-jp-info: #3b82f6;
-  --color-jp-info-muted: oklch(0.55 0.18 260 / 0.12);
+  --color-jp-warning-glow: rgba(245, 158, 11, 0.3);
+
+  --color-jp-error: #f43f5e;
+  --color-jp-error-muted: rgba(244, 63, 94, 0.15);
+  --color-jp-error-text: #fda4af;
+  --color-jp-error-glow: rgba(244, 63, 94, 0.3);
+
+  --color-jp-info: #0ea5e9;
+  --color-jp-info-muted: rgba(14, 165, 233, 0.15);
+  --color-jp-info-text: #7dd3fc;
+  --color-jp-info-glow: rgba(14, 165, 233, 0.3);
 
   /* Font families */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -78,23 +87,26 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.35);
-  --shadow-xl: 0 16px 48px rgba(0,0,0,0.4);
-  --shadow-glow: 0 0 24px oklch(0.55 0.18 264 / 0.2);
-  --shadow-glow-sm: 0 0 12px oklch(0.55 0.18 264 / 0.15);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.6);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+  --shadow-xl: 0 24px 64px rgba(0,0,0,0.8);
+  
+  --shadow-glow: 0 0 24px var(--color-jp-accent-glow);
+  --shadow-glow-sm: 0 0 12px var(--color-jp-accent-glow);
+  --shadow-glow-success: 0 0 16px var(--color-jp-success-glow);
+  --shadow-glow-error: 0 0 16px var(--color-jp-error-glow);
 
   /* Transitions */
   --transition-fast: 100ms ease;
   --transition-base: 150ms ease;
-  --transition-slow: 250ms ease;
-  --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --sidebar-width: 240px;
-  --sidebar-collapsed: 64px;
-  --topbar-height: 56px;
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 72px;
+  --topbar-height: 64px;
   --container-max: 1200px;
 }
 
@@ -225,6 +237,15 @@ body {
 }
 
 /* ── Component Classes ─────────────────────────────────────── */
+
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
 
 /* Card */
 .jp-card {

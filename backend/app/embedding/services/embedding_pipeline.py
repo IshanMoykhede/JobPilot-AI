@@ -6,16 +6,16 @@ from sqlalchemy.orm import Session
 
 from app.embedding.core import embedding_config
 from app.embedding.services.candidate_document_builder import CandidateDocumentBuilder
-from app.embedding.services.job_document_builder import JobDocumentBuilder
+# from app.embedding.services.job_document_builder import JobDocumentBuilder
 from app.embedding.services.embedding_provider import FastEmbedEmbeddingProvider, MockEmbeddingProvider
 from app.vector_store.services.vector_store_service import VectorStoreService
 from app.vector_store.core import vector_store_config
 
 # Import PostgreSQL models to retrieve knowledge structures
 from app.models.candidate_insights import CandidateInsights
-from app.job_search.models.job_knowledge import JobKnowledge
-from app.job_search.models.job_search_result import JobSearchResult
-from app.job_search.core.job_enums import JobProcessingStatus
+# from app.job_search.models.job_knowledge import JobKnowledge
+# from app.job_search.models.job_search_result import JobSearchResult
+# from app.job_search.core.job_enums import JobProcessingStatus
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +30,10 @@ class EmbeddingGenerationPipeline:
             try:
                 return FastEmbedEmbeddingProvider(model_name=embedding_config.EMBEDDING_MODEL)
             except Exception as e:
-                if settings.ENABLE_EMBEDDINGS:
-                    logger.error(f"[EmbeddingPipeline] Failed to load FastEmbed provider: {e}.")
-                    raise RuntimeError(f"Embedding Provider Initialization Failed: {e}")
+                logger.error(f"[EmbeddingPipeline] Failed to load FastEmbed provider: {e}.")
+                raise RuntimeError(f"Embedding Provider Initialization Failed: {e}")
         
-        raise RuntimeError("Embedding provider could not be initialized. ENABLE_EMBEDDINGS is false or fastembed failed.")
+        raise RuntimeError("Embedding provider could not be initialized. Provider not recognized or fastembed failed.")
 
     @staticmethod
     async def generate_candidate_embedding(db: Session, candidate_knowledge_id: uuid.UUID) -> bool:
@@ -106,136 +105,6 @@ class EmbeddingGenerationPipeline:
             
         return True
 
-    @staticmethod
-    async def generate_job_embeddings_for_workspace(db: Session, workspace_id: uuid.UUID) -> None:
-        """
-        Builds, batches, and uploads Job Knowledge vectors for a workspace using strict pipeline rules.
-        """
-        import asyncio
-        logger.info(f"[EmbeddingPipeline] Starting job embeddings generation for workspace {workspace_id}")
-        
-        # 1. Load KNOWLEDGE_GENERATED Jobs
-        job_results = db.query(JobSearchResult).filter(
-            JobSearchResult.workspace_id == workspace_id,
-            JobSearchResult.processing_status == JobProcessingStatus.KNOWLEDGE_GENERATED
-        ).all()
-
-        if not job_results:
-            logger.info("[EmbeddingPipeline] No job results require embedding in this workspace.")
-            return
-
-        logger.info(f"[EmbeddingPipeline] Found {len(job_results)} jobs.")
-
-        collection = vector_store_config.JOB_COLLECTION
-        provider = EmbeddingGenerationPipeline._get_provider()
-        model_name = embedding_config.EMBEDDING_MODEL
-        schema_version = "v2-structured"
-
-        # 2. Serialize to Semantic Documents
-        valid_jobs = []
-        has_serialization_errors = False
-        for job_res in job_results:
-            jk = job_res.job_knowledge
-            if not jk:
-                logger.error(f"[EmbeddingPipeline] JobResult {job_res.id} missing JobKnowledge. Marking FAILED.")
-                job_res.processing_status = JobProcessingStatus.FAILED
-                has_serialization_errors = True
-                continue
-                
-            try:
-                doc = JobDocumentBuilder.build_document(jk)
-                valid_jobs.append({
-                    "job_res": job_res,
-                    "job_knowledge": jk,
-                    "semantic_document": doc
-                })
-            except Exception as e:
-                logger.error(f"[EmbeddingPipeline] Failed to serialize JobKnowledge for {jk.id}: {e}")
-                job_res.processing_status = JobProcessingStatus.FAILED
-                has_serialization_errors = True
-
-        if has_serialization_errors:
-            db.commit()
-
-        if not valid_jobs:
-            return
-
-        # 3. Batching
-        batch_size = embedding_config.EMBEDDING_BATCH_SIZE
-        semaphore = asyncio.Semaphore(5)
-
-        async def _process_embedding_batch(batch: List[Dict[str, Any]]):
-            async with semaphore:
-                documents = [item["semantic_document"] for item in batch]
-                
-                # 4. Vectorization (No silent mock fallback in production)
-                logger.info(f"[EmbeddingPipeline] Generating embeddings for batch of {len(batch)} jobs.")
-                try:
-                    vectors = provider.generate_embeddings_batch(documents)
-                except Exception as batch_err:
-                    logger.error(f"[EmbeddingPipeline] Critical Embedding Provider failure: {batch_err}")
-                    # Mark all jobs in this batch as FAILED, preserving diagnostic info
-                    for item in batch:
-                        item["job_res"].processing_status = JobProcessingStatus.FAILED
-                    db.commit()
-                    return
-
-                # 5. Prepare Qdrant Payload
-                points = []
-                for i, item in enumerate(batch):
-                    job_res = item["job_res"]
-                    jk = item["job_knowledge"]
-                    
-                    # Convert enums safely
-                    primary_domain_val = str(jk.primary_domain.value if hasattr(jk.primary_domain, "value") else jk.primary_domain)
-                    emp_level_val = str(jk.employment_level.value if hasattr(jk.employment_level, "value") else jk.employment_level) if jk.employment_level else None
-
-                    payload = {
-                        "job_hash": jk.job_hash,
-                        "embedding_version": schema_version,
-                        "embedding_model": model_name,
-                        "job_search_result_id": str(job_res.id),
-                        "job_knowledge_id": str(jk.id),
-                        "workspace_id": str(workspace_id),
-                        "created_at": datetime.now(timezone.utc).isoformat()
-                    }
-                    
-                    # Only add keys that contain truthy values (used for potential future filtering)
-                    if jk.job_title: payload["job_title"] = jk.job_title
-                    if jk.company_name: payload["company_name"] = jk.company_name
-                    if jk.location: payload["location"] = jk.location
-                    if jk.employment_type: payload["employment_type"] = jk.employment_type
-                    if jk.work_mode: payload["work_mode"] = jk.work_mode
-                    if jk.industry: payload["industry"] = jk.industry
-                    if emp_level_val: payload["employment_level"] = emp_level_val
-                    if primary_domain_val: payload["primary_domain"] = primary_domain_val
-                    if jk.secondary_domains: payload["secondary_domains"] = jk.secondary_domains
-
-                    points.append({
-                        "id": str(job_res.id),
-                        "vector": vectors[i],
-                        "payload": payload
-                    })
-
-                # 6. Qdrant Upsert and State Sync
-                try:
-                    VectorStoreService.upsert_batch(collection, points)
-                    for item in batch:
-                        item["job_res"].processing_status = JobProcessingStatus.EMBEDDED
-                        item["job_res"].embedding_generated_at = datetime.now(timezone.utc)
-                    db.commit()
-                    logger.info(f"[EmbeddingPipeline] Stored {len(points)} job vectors successfully.")
-                except Exception as upsert_err:
-                    db.rollback()
-                    logger.error(f"[EmbeddingPipeline] Failed to store batch vectors to Qdrant: {upsert_err}")
-                    for item in batch:
-                        item["job_res"].processing_status = JobProcessingStatus.FAILED
-                    db.commit()
-
-        # Group into chunks
-        tasks = []
-        for index in range(0, len(valid_jobs), batch_size):
-            batch = valid_jobs[index : index + batch_size]
-            tasks.append(_process_embedding_batch(batch))
-            
-        await asyncio.gather(*tasks)
+    # @staticmethod
+    # async def generate_job_embeddings_for_workspace(db: Session, workspace_id: uuid.UUID) -> None:
+    #     pass

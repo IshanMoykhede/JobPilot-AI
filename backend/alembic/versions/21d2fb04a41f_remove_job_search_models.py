@@ -32,16 +32,16 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_market_intelligence_cache_last_refreshed'), 'market_intelligence_cache', ['last_refreshed'], unique=False)
     op.create_index(op.f('ix_market_intelligence_cache_role_name'), 'market_intelligence_cache', ['role_name'], unique=True)
-    op.drop_index(op.f('ix_job_knowledge_job_hash'), table_name='job_knowledge')
-    op.drop_table('job_knowledge')
     op.drop_index(op.f('ix_job_search_results_job_knowledge_id'), table_name='job_search_results')
     op.drop_index(op.f('ix_job_search_results_workspace_id'), table_name='job_search_results')
     op.drop_table('job_search_results')
+    op.drop_index(op.f('ix_job_knowledge_job_hash'), table_name='job_knowledge')
+    op.drop_table('job_knowledge')
+    op.drop_constraint(op.f('fk_active_workspace'), 'conversations', type_='foreignkey')
+    op.drop_column('conversations', 'active_workspace_id')
     op.drop_index(op.f('ix_search_workspaces_candidate_profile_id'), table_name='search_workspaces')
     op.drop_index(op.f('ix_search_workspaces_conversation_id'), table_name='search_workspaces')
     op.drop_table('search_workspaces')
-    op.drop_constraint(op.f('fk_active_workspace'), 'conversations', type_='foreignkey')
-    op.drop_column('conversations', 'active_workspace_id')
     # ### end Alembic commands ###
 
 

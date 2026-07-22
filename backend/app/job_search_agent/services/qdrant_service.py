@@ -1,5 +1,5 @@
 from qdrant_client import QdrantClient
-from qdrant_client.models import PointStruct, Distance, VectorParams
+from qdrant_client.models import PointStruct, Distance, VectorParams, Filter, FieldCondition, MatchValue
 
 from app.job_search_agent.schemas.job_knowledge import JobKnowledge
 from app.core.config import settings
@@ -18,11 +18,14 @@ client = QdrantClient(
 # --------------------------------------------------------
 
 def store_jobs(
-    structured_jobs: list[JobKnowledge],
-    embeddings: list[list[float]]
+    structured_jobs: list[dict],
+    embeddings: list[list[float]],
+    conversation_id: str = None
 ) -> None:
     """
     Stores structured jobs and their embeddings into Qdrant.
+    Uses the Postgres UUID as the Qdrant Point ID.
+    Injects job_id and conversation_id into the payload.
     """
     collection_name = "job_embeddings_testing"
     
@@ -34,29 +37,34 @@ def store_jobs(
                 distance=Distance.COSINE 
             )
         )
+        
+    try:
+        # Idempotent operation to ensure the index exists for filtering
+        client.create_payload_index(
+            collection_name=collection_name,
+            field_name="conversation_id",
+            field_schema="keyword"
+        )
+    except Exception as e:
+        pass # Index likely already exists or client handles idempotency internally
 
     points = []
 
-    for index, (job, embedding) in enumerate(
+    for index, (job_dict, embedding) in enumerate(
         zip(structured_jobs, embeddings)
     ):
-        # We use a hash or UUID for the ID in production, but we can fall back to a random UUID if needed.
-        # For now we'll hash the job title and company name to get a consistent integer, 
-        # or just let Qdrant assign a UUID. Wait, Qdrant allows string UUIDs!
+        postgres_id = job_dict["id"]
+        job_knowledge = job_dict["job_knowledge"]
         
-        # We need a stable ID to avoid duplicates.
-        import hashlib
-        stable_id_str = f"{job.job_title}_{job.company_name}".lower().encode('utf-8')
-        stable_id = hashlib.md5(stable_id_str).hexdigest()
-        
-        # Convert MD5 to valid UUID format for Qdrant (8-4-4-4-12)
-        import uuid
-        stable_uuid = str(uuid.UUID(stable_id))
-
+        payload = job_knowledge.model_dump()
+        payload["job_id"] = postgres_id
+        if conversation_id:
+            payload["conversation_id"] = conversation_id
+            
         point = PointStruct(
-            id=stable_uuid,
+            id=postgres_id,
             vector=embedding,
-            payload=job.model_dump()
+            payload=payload
         )
         points.append(point)
 
@@ -117,15 +125,29 @@ def retrieve_candidate_embedding(candidate_id: str) -> list[float]:
 
 def search_similar_jobs(
     candidate_embedding: list[float],
+    conversation_id: str = None,
     limit: int = 10
-) -> list[JobKnowledge]:
+) -> list[dict]:
     """
     Searches the job embedding collection using the
     candidate embedding and returns the top matching jobs.
+    Optionally filters by conversation_id to only search within the current session.
     """
+    query_filter = None
+    if conversation_id:
+        query_filter = Filter(
+            must=[
+                FieldCondition(
+                    key="conversation_id",
+                    match=MatchValue(value=conversation_id)
+                )
+            ]
+        )
+        
     results = client.query_points(
         collection_name="job_embeddings_testing",
         query=candidate_embedding,
+        query_filter=query_filter,
         limit=limit,
         with_payload=True,
         with_vectors=False
@@ -136,7 +158,13 @@ def search_similar_jobs(
     for point in results.points:
         if point.payload:
             print(f"Match Score: {point.score:.4f} | Job: {point.payload.get('job_title')}")
+            # Ensure we don't pass the internal Qdrant-injected keys (like job_id) into JobKnowledge if it breaks validation
+            # JobKnowledge accepts the raw payload thanks to Extra.ignore or by simply dumping the fields it knows.
+            # Actually, `JobKnowledge(**point.payload)` works perfectly.
             job = JobKnowledge(**point.payload)
-            matched_jobs.append(job)
+            matched_jobs.append({
+                "id": point.payload.get("job_id"),
+                "job_knowledge": job
+            })
 
     return matched_jobs

@@ -26,6 +26,7 @@ def semantic_matching_node(state: JobSearchState):
         # Get top 50 matches to allow all retrieved jobs to be scored
         matched_jobs = search_similar_jobs(
             candidate_embedding=candidate_embedding,
+            conversation_id=state.get("job_search_id"),
             limit=50
         )
         
@@ -39,10 +40,4 @@ def semantic_matching_node(state: JobSearchState):
     except Exception as e:
         print(f"Failed to fetch candidate embeddings or perform search: {e}")
         agent_logger.error(f"Failed to fetch candidate embeddings or perform search: {e}", exc_info=True)
-        # Fallback to returning the top 10 from structured_jobs directly
-        structured_jobs = state.get("structured_jobs", [])
-        
-        agent_logger.info("=== [NODE 5] END: semantic_matching_node (Fallback) ===")
-        return {
-            "matched_jobs": structured_jobs[:10]
-        }
+        raise e

@@ -41,16 +41,8 @@ def create_token_batches(
 
     for job in jobs:
         
-        job_text = f"""
-        Title: {job.get("title", "")}
-
-        Company: {job.get("company_name", "")}
-
-        Location: {job.get("location", "")}
-
-        Description:
-        {job.get("description", "")}
-        """
+        import json
+        job_text = json.dumps(job)
 
         job_tokens = count_tokens(job_text)
 

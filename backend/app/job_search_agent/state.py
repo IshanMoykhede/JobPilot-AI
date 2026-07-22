@@ -18,13 +18,13 @@ class JobSearchState(TypedDict):
     raw_jobs: Optional[list[dict]]
 
     # Knowledge Extraction
-    structured_jobs: Optional[list[JobKnowledge]]
+    structured_jobs: Optional[list[dict]]
 
     # Candidate
     candidate_knowledge: Optional[str]
 
     # Matching
-    matched_jobs: Optional[list[JobKnowledge]]
+    matched_jobs: Optional[list[dict]]
 
     # Final Answer
     final_response: Optional[str]

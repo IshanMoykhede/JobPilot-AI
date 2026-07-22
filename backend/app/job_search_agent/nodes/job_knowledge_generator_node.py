@@ -74,7 +74,7 @@ def job_knowledge_generator_node(state: JobSearchState):
                         salary_information=None,
                         industry=None
                     )
-                structured_jobs.append(schema_obj)
+                structured_jobs.append({"id": str(existing_knowledge.id), "job_knowledge": schema_obj})
             else:
                 # Needs LLM processing
                 # Save the hash into the dict so we can use it later
@@ -100,10 +100,7 @@ def job_knowledge_generator_node(state: JobSearchState):
                 
                 agent_logger.debug(f"Batch {idx + 1} processed successfully. Received {len(response.jobs)} structured jobs.")
                 
-                # Append to our list of structured jobs
-                structured_jobs.extend(response.jobs)
-                
-                # Also save them to DB for future use
+                # Also save them to DB for future use and append to structured jobs
                 for idx_job, structured_job in enumerate(response.jobs):
                     if idx_job < len(batch):
                         job_hash = batch[idx_job]["_internal_hash"]
@@ -127,6 +124,9 @@ def job_knowledge_generator_node(state: JobSearchState):
                             processing_status=JobKnowledgeStatus.EXTRACTED
                         )
                         db.add(new_db_record)
+                        db.flush() # Get the UUID without committing the whole batch yet
+                        
+                        structured_jobs.append({"id": str(new_db_record.id), "job_knowledge": structured_job})
                 
                 # Commit after every batch
                 db.commit()
@@ -135,8 +135,13 @@ def job_knowledge_generator_node(state: JobSearchState):
         print(f"Error in knowledge generation node: {e}")
         agent_logger.error(f"Error in knowledge generation node: {e}", exc_info=True)
         db.rollback()
+        raise e
     finally:
         db.close()
+        
+    if not structured_jobs:
+        agent_logger.error("No jobs could be processed or found in cache.")
+        raise RuntimeError("Failed to generate or retrieve knowledge for any jobs in the batch.")
 
     agent_logger.info(f"=== [NODE 3] END: job_knowledge_generator_node (Total Output: {len(structured_jobs)} jobs) ===")
     return {

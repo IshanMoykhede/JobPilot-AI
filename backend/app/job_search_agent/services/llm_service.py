@@ -16,7 +16,7 @@ import groq
 
 llm = ChatGroq(
     api_key=settings.GROQ_API_KEY,
-    model="llama-3.1-8b-instant"
+    model="llama-3.3-70b-versatile"
 )
 
 structured_job_llm = llm.with_structured_output(JobKnowledgeBatch)

@@ -228,7 +228,8 @@ def get_search_results(thread_id: str, db: Session = Depends(get_db), current_us
                 "rank": rank,
                 "matching_skills": score.matching_skills or [],
                 "missing_skills": score.missing_skills or [],
-                "insight_text": score.ai_explanation.get("reasoning") if score.ai_explanation else None
+                "insight_text": score.ai_explanation.get("reasoning") if score.ai_explanation else None,
+                "job_knowledge": knowledge.raw_knowledge
             })
 
         return {

@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import JobSearch from './pages/JobSearch';
 import JobDetail from './pages/JobDetail';
 import Resumes from './pages/Resumes';
+import ResumeEditor from './pages/ResumeEditor';
 import Profile from './pages/Profile';
 import CareerInsights from './pages/CareerInsights';
 import EvidenceExplorer from './pages/EvidenceExplorer';
@@ -33,6 +34,7 @@ function App() {
             <Route path="/search" element={<ProtectedRoute><JobSearch /></ProtectedRoute>} />
             <Route path="/job-detail" element={<ProtectedRoute><JobDetail /></ProtectedRoute>} />
             <Route path="/resumes" element={<ProtectedRoute><Resumes /></ProtectedRoute>} />
+            <Route path="/resumes/edit/:id" element={<ProtectedRoute><ResumeEditor /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/insights" element={<ProtectedRoute><CareerInsights /></ProtectedRoute>} />
             <Route path="/evidence" element={<ProtectedRoute><EvidenceExplorer /></ProtectedRoute>} />

@@ -22,6 +22,7 @@ from app.job_search_agent.models.job_match_scores import JobMatchScore
 from app.conversation.models.conversation import Conversation
 from app.conversation.models.conversation_message import ConversationMessage
 from app.models.otp import OTPVerification
+from app.models.resume import Resume, ResumeMessageModel, ResumeContentModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

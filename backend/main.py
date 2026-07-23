@@ -12,6 +12,7 @@ from app.models.candidate_insights import CandidateInsights
 from app.routes.auth import router as auth_router
 from app.routes.candidate_profile import router as profile_router
 from app.routes.job_search_routes import router as job_search_router
+from app.routes.resume_agent_routes import router as resume_agent_router
 # from app.routes.jobs import router as jobs_router
 # from app.routes.agent_routes import router as agent_router
 
@@ -34,6 +35,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(profile_router)
 app.include_router(job_search_router)
+app.include_router(resume_agent_router)
 # app.include_router(jobs_router)
 # app.include_router(agent_router)
 

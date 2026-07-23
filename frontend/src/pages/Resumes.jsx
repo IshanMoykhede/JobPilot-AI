@@ -1,9 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import Icon from '../components/common/Icon';
 import CircularProgress from '../components/common/CircularProgress';
 
 function Resumes() {
+  const navigate = useNavigate();
+  const [resumes, setResumes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+
+  useEffect(() => {
+    const fetchResumes = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/resume`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setResumes(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch resumes:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchResumes();
+  }, []);
+
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
+    if (!window.confirm("Are you sure you want to delete this resume? All generated content will be permanently removed.")) {
+      return;
+    }
+    
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/resume/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      if (res.ok) {
+        setResumes(prev => prev.filter(r => r.id !== id));
+      } else {
+        alert("Failed to delete resume");
+      }
+    } catch (err) {
+      console.error("Error deleting resume:", err);
+      alert("Error deleting resume");
+    }
+  };
+
+  const handleRename = async (e, id) => {
+    e.stopPropagation();
+    if (!editTitle.trim()) {
+        setEditingId(null);
+        return;
+    }
+    
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/resume/${id}/title`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ title: editTitle })
+      });
+      if (res.ok) {
+        setResumes(prev => prev.map(r => r.id === id ? { ...r, title: editTitle } : r));
+        setEditingId(null);
+      } else {
+        alert("Failed to rename resume");
+      }
+    } catch (err) {
+      console.error("Error renaming resume:", err);
+      alert("Error renaming resume");
+    }
+  };
+
+  const getStatusDisplay = (status) => {
+    switch (status) {
+      case 'COMPLETED':
+        return { icon: 'check_circle', color: 'text-jp-success', text: 'Completed', pulse: false };
+      case 'FAILED':
+        return { icon: 'error', color: 'text-red-500', text: 'Failed', pulse: false };
+      case 'GENERATING':
+        return { icon: 'autorenew', color: 'text-jp-accent', text: 'Generating', pulse: true };
+      default:
+        return { icon: 'description', color: 'text-jp-text-tertiary', text: status, pulse: false };
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+
   return (
     <AppShell breadcrumbs={[
       { label: "Dashboard", href: "/dashboard" },
@@ -43,47 +142,105 @@ function Resumes() {
 
             {/* Resume Grid */}
             <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-              {[
-                { title: "Senior DevOps Engineer", company: "Infosys", version: "v1.2", date: "Generated Today", match: 89, icon: "terminal" },
-                { title: "Lead Backend Architect", company: "Google Cloud Platform", version: "v1.0", date: "2 days ago", match: 94, icon: "code" },
-                { title: "Senior UX Designer", company: "Stripe", version: "v2.1", date: "1 week ago", match: 82, icon: "brush" },
-              ].map((resume, idx) => (
-                <div key={idx} className="jp-card-interactive p-5 flex flex-col relative group">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-jp-bg-raised flex items-center justify-center shrink-0">
-                      <Icon name={resume.icon} className="text-[20px] text-jp-text-tertiary" />
-                    </div>
-                    <span className="jp-badge jp-badge-accent">{resume.version}</span>
-                  </div>
-                  
-                  <div className="flex-1 mb-5">
-                    <h3 className="text-[15px] font-semibold text-jp-text-primary mb-1 line-clamp-1">{resume.title}</h3>
-                    <p className="text-[13px] text-jp-text-secondary">{resume.company}</p>
-                    <p className="text-[12px] text-jp-text-muted mt-3 flex items-center gap-1.5">
-                      <Icon name="schedule" className="text-[14px]" />
-                      {resume.date}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-jp-border-subtle">
-                    <div className="flex items-center gap-3">
-                      <CircularProgress percentage={resume.match} size={36} strokeWidth={3} />
-                      <span className="text-[12px] font-medium text-jp-text-secondary">Match Score</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <button className="jp-btn-icon jp-btn-ghost hover:text-jp-accent" title="Download PDF">
-                        <Icon name="download" className="text-[18px]" />
-                      </button>
-                      <button className="jp-btn-icon jp-btn-ghost" title="More options">
-                        <Icon name="more_vert" className="text-[18px]" />
-                      </button>
-                    </div>
-                  </div>
+              {isLoading ? (
+                <div className="col-span-full flex justify-center py-12">
+                  <CircularProgress size={40} />
                 </div>
-              ))}
+              ) : (
+                resumes.map((resume) => {
+                  const statusInfo = getStatusDisplay(resume.status);
+                  
+                  return (
+                    <div 
+                      key={resume.id} 
+                      onClick={() => navigate(`/resumes/edit/${resume.id}`)}
+                      className="jp-card-interactive p-5 flex flex-col relative group cursor-pointer border hover:border-jp-accent transition-colors"
+                    >
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-jp-bg-raised flex items-center justify-center shrink-0">
+                          <Icon name="description" className="text-[20px] text-jp-text-tertiary" />
+                        </div>
+                        <span className={`jp-badge flex items-center gap-1 ${
+                          resume.status === 'COMPLETED' ? 'jp-badge-success' : 
+                          resume.status === 'FAILED' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 
+                          'jp-badge-accent'
+                        }`}>
+                          <Icon name={statusInfo.icon} className={`text-[12px] ${statusInfo.pulse ? 'animate-spin' : ''}`} />
+                          {statusInfo.text}
+                        </span>
+                      </div>
+                      
+                      <div className="flex-1 mb-5">
+                        {editingId === resume.id ? (
+                          <div 
+                            className="flex items-center gap-2 mb-1" 
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <input 
+                                type="text"
+                                value={editTitle}
+                                onChange={(e) => setEditTitle(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleRename(e, resume.id);
+                                    if (e.key === 'Escape') setEditingId(null);
+                                }}
+                                autoFocus
+                                className="flex-1 bg-jp-bg-app border border-jp-accent rounded-md px-2 py-1 text-[14px] text-jp-text-primary focus:outline-none"
+                            />
+                            <button 
+                                onClick={(e) => handleRename(e, resume.id)}
+                                className="text-jp-success hover:text-green-400 p-1 rounded-md bg-jp-bg-app border border-jp-border"
+                            >
+                                <Icon name="check" className="text-[16px]" />
+                            </button>
+                            <button 
+                                onClick={() => setEditingId(null)}
+                                className="text-jp-text-muted hover:text-white p-1 rounded-md bg-jp-bg-app border border-jp-border"
+                            >
+                                <Icon name="close" className="text-[16px]" />
+                            </button>
+                          </div>
+                        ) : (
+                          <h3 className="text-[15px] font-semibold text-jp-text-primary mb-1 line-clamp-1">{resume.title}</h3>
+                        )}
+                        <p className="text-[12px] text-jp-text-muted mt-3 flex items-center gap-1.5">
+                          <Icon name="schedule" className="text-[14px]" />
+                          Last updated: {formatDate(resume.updated_at)}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-jp-border-subtle">
+                        <div className="flex gap-1 ml-auto">
+                          <button 
+                            className="jp-btn-icon jp-btn-ghost hover:text-jp-accent" 
+                            title="Rename"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setEditTitle(resume.title);
+                                setEditingId(resume.id);
+                            }}
+                          >
+                            <Icon name="edit" className="text-[18px]" />
+                          </button>
+                          <button 
+                            className="jp-btn-icon jp-btn-ghost hover:text-red-500" 
+                            title="Delete"
+                            onClick={(e) => handleDelete(e, resume.id)}
+                          >
+                            <Icon name="delete" className="text-[18px]" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
 
               {/* Generate New Card */}
-              <button className="jp-card border-dashed border-2 border-jp-border-subtle hover:border-jp-accent hover:bg-jp-accent-muted/20 flex flex-col items-center justify-center min-h-[220px] group transition-all">
+              <button 
+                onClick={() => navigate('/resumes/edit/new')}
+                className="jp-card border-dashed border-2 border-jp-border-subtle hover:border-jp-accent hover:bg-jp-accent-muted/20 flex flex-col items-center justify-center min-h-[220px] group transition-all"
+              >
                 <div className="w-12 h-12 rounded-full bg-jp-bg-raised group-hover:bg-jp-accent flex items-center justify-center mb-3 transition-colors">
                   <Icon name="add" className="text-[24px] text-jp-text-muted group-hover:text-white transition-colors" />
                 </div>
@@ -105,7 +262,7 @@ function Resumes() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-[13px] text-jp-text-secondary">Total Resumes</span>
-                  <span className="text-[14px] font-semibold text-jp-text-primary">15</span>
+                  <span className="text-[14px] font-semibold text-jp-text-primary">{resumes.length}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-[13px] text-jp-text-secondary">Most Targeted</span>

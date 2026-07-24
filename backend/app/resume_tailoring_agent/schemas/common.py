@@ -23,6 +23,7 @@ from .training import TrainingEntry
 from .workshops import WorkshopEntry
 from .interests import InterestEntry
 from .references import ReferenceEntry
+from .co_curricular import CoCurricularActivity
 
 class ResumeSectionType(str, Enum):
     PERSONAL_INFORMATION = "PERSONAL_INFORMATION"
@@ -38,6 +39,7 @@ class ResumeSectionType(str, Enum):
     PUBLICATIONS = "PUBLICATIONS"
     RESEARCH = "RESEARCH"
     PATENTS = "PATENTS"
+    CO_CURRICULAR = "CO_CURRICULAR"
     OPEN_SOURCE = "OPEN_SOURCE"
     VOLUNTEER = "VOLUNTEER"
     LANGUAGES = "LANGUAGES"
@@ -84,6 +86,7 @@ class ResumeSection(BaseModel):
         list[WorkshopEntry],
         list[InterestEntry],
         list[ReferenceEntry],
+        list[CoCurricularActivity],
         GenericSection
     ]
 

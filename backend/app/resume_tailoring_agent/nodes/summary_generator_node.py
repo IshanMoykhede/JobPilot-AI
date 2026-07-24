@@ -1,3 +1,4 @@
+import json
 import uuid
 import logging
 from datetime import datetime, timezone
@@ -15,17 +16,18 @@ logger = logging.getLogger(__name__)
 
 SUMMARY_PROMPT = ChatPromptTemplate.from_messages([
     ("system", """You are an expert ATS-optimized resume writer.
-Your task is to generate a powerful, concise professional summary.
+Your task is to analyze the candidate's generated resume sections and target job description, identify the key strengths, and write a highly tailored, compelling professional summary.
 
 CRITICAL INSTRUCTIONS:
-- Write a single paragraph (3-4 sentences max).
-- Highlight key skills, years of experience, and a strong value proposition tailored to the target job.
-- Do not use first-person pronouns (I, me, my).
-- Output must exactly match the required JSON schema.
+1. HONOR USER REQUESTS FIRST: If the "User Request" asks to add, remove, or modify a specific tone, keyword, or detail, YOU MUST APPLY IT EXACTLY AS REQUESTED. Do NOT evaluate its relevance to the job. If the user wants it, you MUST include it in the output.
+2. EXTRACT EXISTING CONTEXT: After satisfying the user's explicit request, synthesize the candidate's fully generated resume sections (Projects, Experience, Skills, Education, etc.).
+3. ATS OPTIMIZATION: Write a highly tailored, compelling professional summary (3-4 sentences max). Highlight the target value proposition, key matching technologies, and professional level relevant to the target job description. Do not use first-person pronouns (I, me, my).
+4. DO NOT HALLUCINATE: Do not hallucinate experiences, companies, or technologies not present in the generated resume sections or requested by the user.
+5. JSON SCHEMA: Output must exactly match the required JSON schema.
 """),
     ("user", """
-Candidate Information:
-{candidate_info}
+Generated Resume Content (Sections Completed So Far):
+{generated_resume_content}
 
 Target Job Information:
 {job_info}
@@ -35,6 +37,9 @@ Existing Summary (if any):
 """)
 ])
 
+from .utils import safe_state_node
+
+@safe_state_node
 def summary_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     """Workflow node responsible for generating the Professional Summary."""
     
@@ -47,12 +52,26 @@ def summary_generator_node(state: ResumeAgentState) -> ResumeAgentState:
         return state
 
     # Step 2 – Gather Context
-    candidate_info = state.candidate_synthesis
+    try:
+        if state.resume_content and state.resume_content.sections:
+            # Filter out Personal Information from the prompt to save tokens (optional but good practice)
+            # Serialize the completed sections as the foundation for the summary
+            completed_sections = [
+                s.model_dump() for s in state.resume_content.sections 
+                if s.section_type != ResumeSectionType.PERSONAL_INFORMATION and s.section_type != ResumeSectionType.SUMMARY
+            ]
+            generated_resume_content = json.dumps(completed_sections, indent=2)
+        else:
+            generated_resume_content = "{}"
+    except Exception as e:
+        logger.error(f"Error extracting generated resume content: {e}")
+        generated_resume_content = "{}"
+        
     job_info = state.job_knowledge
     
-    # Human-In-The-Loop check: Need at least some candidate info to generate a summary
-    if not candidate_info or candidate_info.strip() == "" or candidate_info.strip() == "{}":
-        logger.info("[Summary Workflow] Candidate info missing. Requesting human input.")
+    # Human-In-The-Loop check: Need at least some generated info to write a summary
+    if not generated_resume_content or generated_resume_content.strip() == "{}" or generated_resume_content.strip() == "[]":
+        logger.info("[Summary Workflow] Resume content missing. Requesting human input.")
         new_msg = ResumeMessage(
             id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc).isoformat(),
@@ -80,7 +99,7 @@ def summary_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     chain = SUMMARY_PROMPT | llm
     
     payload = {
-        "candidate_info": candidate_info,
+        "generated_resume_content": generated_resume_content,
         "job_info": job_info or "General ATS optimized resume.",
         "existing_summary": existing_summary or "None."
     }

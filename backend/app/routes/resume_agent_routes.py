@@ -138,3 +138,13 @@ def retry_resume_stream(
         ),
         media_type="text/event-stream"
     )
+
+@router.post("/{resume_id}/cancel", summary="Cancel/Stop an ongoing generation")
+def cancel_resume_generation(
+    resume_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    from app.resume_tailoring_agent.services.resume_execution_manager import request_cancel_execution
+    request_cancel_execution(str(resume_id))
+    return {"status": "cancelled", "resume_id": resume_id}

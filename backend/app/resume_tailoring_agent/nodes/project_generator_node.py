@@ -20,10 +20,11 @@ PROJECT_PROMPT = ChatPromptTemplate.from_messages([
 Your task is to generate or modify the Projects section of the resume.
 
 CRITICAL INSTRUCTIONS:
-- Generate ATS-friendly software engineering projects that align with the target job.
-- Each project must contain appropriate technical details, measurable impact where possible, and concise bullet points (highlights).
-- If the User Request asks to add, remove, modify, or replace a specific project, strictly follow that request while keeping the rest of the existing projects intact.
-- Output must exactly match the required JSON schema, containing the complete list of projects.
+1. HONOR USER REQUESTS FIRST: If the "User Request" asks to add, remove, or modify a specific item (e.g., adding a project), YOU MUST APPLY IT EXACTLY AS REQUESTED. Do NOT evaluate its relevance to the job. If the user wants it, you MUST include it in the output.
+2. EXTRACT EXISTING CONTEXT: After satisfying the user's explicit request, extract and formalize any existing projects from the candidate's profile or existing sections.
+3. ATS OPTIMIZATION: For the remaining content, generate ATS-friendly details, measurable impact, and concise bullet points relevant to the target job description.
+4. DO NOT HALLUCINATE: Do not make up companies, metrics, or experiences that are not explicitly present in the provided context or requested by the user.
+5. JSON SCHEMA: Output must exactly match the required JSON schema, containing the complete list of projects.
 """),
     ("user", """
 Candidate Information:
@@ -40,6 +41,9 @@ User Request (What you need to do):
 """)
 ])
 
+from .utils import safe_state_node
+
+@safe_state_node
 def project_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     """Workflow node responsible for generating the Projects section."""
     
@@ -54,27 +58,67 @@ def project_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     # Step 2 – Gather Context
     try:
         candidate_data = json.loads(state.candidate_synthesis) if state.candidate_synthesis else {}
-        candidate_info = json.dumps(candidate_data.get("projects", candidate_data.get("Project Intelligence", [])), indent=2)
+        onboarding_insights = candidate_data.get("onboarding_insights", {})
+        onboarding_projects = onboarding_insights.get("project_intelligence", [])
+        candidate_info = json.dumps(onboarding_projects, indent=2)
     except Exception:
         candidate_info = state.candidate_synthesis
+        onboarding_projects = []
+        
     job_info = state.job_knowledge
     
     # Human-In-The-Loop check: Need at least some candidate info to generate projects
-    if not candidate_info or candidate_info.strip() in ["", "[]", "{}"]:
-        logger.info("[Project Workflow] Candidate info missing. Requesting human input.")
-        new_msg = ResumeMessage(
-            id=str(uuid.uuid4()),
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            role=MessageRole.SYSTEM,
-            message_type=MessageType.HUMAN_INPUT_REQUEST,
-            from_node=MessageSource.PROJECT_GENERATOR,
-            to_node=MessageSource.USER,
-            related_section=ResumeSectionType.PROJECTS,
-            content="I don't have enough background information to write your projects section. Could you please describe your key projects, technologies used, and your primary contributions?",
-            payload=None
-        )
-        state.messages.append(new_msg)
-        return state
+    if not onboarding_projects and (not candidate_info or candidate_info.strip() in ["", "[]", "{}"]):
+        # Check if the user already responded to our prompt
+        user_response = None
+        if len(state.messages) >= 2:
+            prev_msg = state.messages[-2]
+            if prev_msg.role == MessageRole.USER and prev_msg.message_type == MessageType.HUMAN_INPUT_RESPONSE:
+                user_response = prev_msg.content
+
+        # Check if the user requested to skip or remove this section in this turn
+        user_msg = None
+        for msg in reversed(state.messages):
+            if msg.role == MessageRole.USER:
+                user_msg = msg.content.lower()
+                break
+
+        if user_msg and (any(w in user_msg for w in ["remove all", "delete all", "clear all", "remove project", "delete project", "clear project", "skip", "ignore", "don't have", "none"]) or user_msg in ["remove", "delete", "clear"]):
+            logger.info("[Project Workflow] User requested to remove/skip projects section.")
+            if not state.resume_content:
+                state.resume_content = ResumeContent(sections=[])
+            state.resume_content.sections = [s for s in state.resume_content.sections if s.section_type != ResumeSectionType.PROJECTS]
+            
+            completion_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.ASSISTANT,
+                message_type=MessageType.WORKFLOW_RESPONSE,
+                from_node=MessageSource.PROJECT_GENERATOR,
+                to_node=MessageSource.INTENT_ROUTER,
+                related_section=ResumeSectionType.PROJECTS,
+                content="Removed the Projects section as requested.",
+                payload={"status": "COMPLETED"}
+            )
+            state.messages.append(completion_msg)
+            return state
+        elif user_response:
+            candidate_info = f"User provided projects details: {user_response}"
+        else:
+            logger.info("[Project Workflow] Candidate info missing. Requesting human input.")
+            new_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.SYSTEM,
+                message_type=MessageType.HUMAN_INPUT_REQUEST,
+                from_node=MessageSource.PROJECT_GENERATOR,
+                to_node=MessageSource.USER,
+                related_section=ResumeSectionType.PROJECTS,
+                content="I don't have enough background information to write your projects section. Could you please describe your key projects, technologies used, and your primary contributions?",
+                payload=None
+            )
+            state.messages.append(new_msg)
+            return state
 
     existing_projects = []
     if state.resume_content and state.resume_content.sections:

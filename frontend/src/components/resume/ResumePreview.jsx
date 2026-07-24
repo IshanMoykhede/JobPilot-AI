@@ -157,6 +157,21 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
     </div>
   );
 
+  const renderCoCurricular = (activities) => (
+    <div className="space-y-3">
+      {activities.map((act, idx) => (
+        <div key={idx}>
+          <div className="flex justify-between items-baseline">
+            <h3 className="text-[13px] font-bold text-gray-900">{act.title}</h3>
+            <div className="text-[12px] font-medium text-gray-700">{act.start_date && act.end_date ? `${act.start_date} - ${act.end_date}` : act.start_date || act.end_date || ''}</div>
+          </div>
+          <div className="text-[12px] font-medium text-jp-accent mb-1">{act.organization}</div>
+          {act.description && <p className="text-[12px] text-gray-700 mt-1">{act.description}</p>}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="bg-white shadow-sm border border-gray-200 min-h-[1056px] w-full p-10 font-sans">
       {/* Header Data from Personal Information section */}
@@ -220,7 +235,7 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
       )}
 
       {/* Render generated sections in standard order */}
-      {['SUMMARY', 'EXPERIENCE', 'PROJECTS', 'SKILLS', 'EDUCATION', 'CERTIFICATIONS'].map(sectionType => {
+      {['SUMMARY', 'EXPERIENCE', 'PROJECTS', 'SKILLS', 'EDUCATION', 'CERTIFICATIONS', 'CO_CURRICULAR'].map(sectionType => {
         const section = sections.find(s => s.section_type === sectionType);
         if (!section) return null;
 
@@ -233,6 +248,7 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
             {sectionType === 'SKILLS' && renderSkills(section.content)}
             {sectionType === 'EDUCATION' && renderEducation(section.content)}
             {sectionType === 'CERTIFICATIONS' && renderCertifications(section.content)}
+            {sectionType === 'CO_CURRICULAR' && renderCoCurricular(section.content)}
           </div>
         );
       })}

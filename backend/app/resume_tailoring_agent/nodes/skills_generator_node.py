@@ -20,10 +20,11 @@ SKILLS_PROMPT = ChatPromptTemplate.from_messages([
 Your task is to generate or modify the Skills section of the resume.
 
 CRITICAL INSTRUCTIONS:
-- Categorize skills logically (e.g., Languages, Frameworks, Tools, etc.)
-- Ensure the skills align closely with the target job requirements.
-- If the User Request asks to add, remove, modify, or replace a specific skill, strictly follow that request while keeping the rest of the existing skills intact.
-- Output must exactly match the required JSON schema, containing the complete list of skill categories.
+1. HONOR USER REQUESTS FIRST: If the "User Request" asks to add, remove, or modify a specific item (e.g., adding a skill or category), YOU MUST APPLY IT EXACTLY AS REQUESTED. Do NOT evaluate its relevance to the job. If the user wants it, you MUST include it in the output.
+2. EXTRACT EXISTING CONTEXT: After satisfying the user's explicit request, extract and formalize any existing skills from the candidate's profile or existing sections.
+3. ATS OPTIMIZATION: For the remaining content, categorize skills logically (e.g., Languages, Frameworks, Tools) and ensure they align closely with the target job requirements.
+4. DO NOT HALLUCINATE: Do not make up skills that are not explicitly present in the provided context or requested by the user.
+5. JSON SCHEMA: Output must exactly match the required JSON schema, containing the complete list of skill categories.
 """),
     ("user", """
 Candidate Information:
@@ -40,6 +41,9 @@ User Request (What you need to do):
 """)
 ])
 
+from .utils import safe_state_node
+
+@safe_state_node
 def skills_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     """Workflow node responsible for generating the Skills section."""
     
@@ -54,27 +58,81 @@ def skills_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     # Step 2 – Gather Context
     try:
         candidate_data = json.loads(state.candidate_synthesis) if state.candidate_synthesis else {}
-        candidate_info = json.dumps(candidate_data.get("skills", candidate_data.get("Skill Intelligence", [])), indent=2)
+        resume_data = candidate_data.get("resume_data", {})
+        unified_knowledge = candidate_data.get("unified_knowledge", {})
+        
+        original_skills = resume_data.get("skills", [])
+        original_co_curricular = resume_data.get("co_curricular_activities", [])
+        
+        technologies = [t.get("name") for t in unified_knowledge.get("technologies", []) if t.get("name")]
+        capabilities = [c.get("name") for c in unified_knowledge.get("capabilities", []) if c.get("name")]
+        
+        combined_raw_data = {
+            "resume_skills": original_skills,
+            "onboarding_technologies": technologies,
+            "onboarding_capabilities": capabilities,
+            "co_curricular_activities": original_co_curricular
+        }
+        candidate_info = json.dumps(combined_raw_data, indent=2)
     except Exception:
         candidate_info = state.candidate_synthesis
+        original_skills = []
+        original_co_curricular = []
+        
     job_info = state.job_knowledge
     
     # Human-In-The-Loop check
-    if not candidate_info or candidate_info.strip() in ["", "[]", "{}"]:
-        logger.info("[Skills Workflow] Candidate info missing. Requesting human input.")
-        new_msg = ResumeMessage(
-            id=str(uuid.uuid4()),
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            role=MessageRole.SYSTEM,
-            message_type=MessageType.HUMAN_INPUT_REQUEST,
-            from_node=MessageSource.SKILLS_GENERATOR,
-            to_node=MessageSource.USER,
-            related_section=ResumeSectionType.SKILLS,
-            content="I don't have enough background information to write your skills section. Could you please list your technical and professional skills?",
-            payload=None
-        )
-        state.messages.append(new_msg)
-        return state
+    if (not original_skills and not original_co_curricular) and (not candidate_info or candidate_info.strip() in ["", "[]", "{}"]):
+        # Check if the user already responded to our prompt
+        user_response = None
+        if len(state.messages) >= 2:
+            prev_msg = state.messages[-2]
+            if prev_msg.role == MessageRole.USER and prev_msg.message_type == MessageType.HUMAN_INPUT_RESPONSE:
+                user_response = prev_msg.content
+
+        # Check if the user requested to skip or remove this section in this turn
+        user_msg = None
+        for msg in reversed(state.messages):
+            if msg.role == MessageRole.USER:
+                user_msg = msg.content.lower()
+                break
+
+        if user_msg and (any(w in user_msg for w in ["remove all", "delete all", "clear all", "remove skill", "delete skill", "clear skill", "skip", "ignore", "don't have", "none"]) or user_msg in ["remove", "delete", "clear"]):
+            logger.info("[Skills Workflow] User requested to remove/skip skills section.")
+            if not state.resume_content:
+                state.resume_content = ResumeContent(sections=[])
+            state.resume_content.sections = [s for s in state.resume_content.sections if s.section_type != ResumeSectionType.SKILLS]
+            
+            completion_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.ASSISTANT,
+                message_type=MessageType.WORKFLOW_RESPONSE,
+                from_node=MessageSource.SKILLS_GENERATOR,
+                to_node=MessageSource.INTENT_ROUTER,
+                related_section=ResumeSectionType.SKILLS,
+                content="Removed the Skills section as requested.",
+                payload={"status": "COMPLETED"}
+            )
+            state.messages.append(completion_msg)
+            return state
+        elif user_response:
+            candidate_info = f"User provided skills details: {user_response}"
+        else:
+            logger.info("[Skills Workflow] Candidate info missing. Requesting human input.")
+            new_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.SYSTEM,
+                message_type=MessageType.HUMAN_INPUT_REQUEST,
+                from_node=MessageSource.SKILLS_GENERATOR,
+                to_node=MessageSource.USER,
+                related_section=ResumeSectionType.SKILLS,
+                content="I don't have enough background information to write your skills section. Could you please list your technical and professional skills?",
+                payload=None
+            )
+            state.messages.append(new_msg)
+            return state
 
     existing_skills = []
     if state.resume_content and state.resume_content.sections:

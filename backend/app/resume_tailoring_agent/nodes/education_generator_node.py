@@ -20,9 +20,11 @@ EDUCATION_PROMPT = ChatPromptTemplate.from_messages([
 Your task is to generate or modify the Education section of the resume.
 
 CRITICAL INSTRUCTIONS:
-- Extract and formalize the educational background.
-- If the User Request asks to add, remove, modify, or replace a specific degree/institution, strictly follow that request while keeping the rest of the existing education intact.
-- Output must exactly match the required JSON schema, containing the complete list of education entries.
+1. HONOR USER REQUESTS FIRST: If the "User Request" asks to add, remove, or modify a specific item (e.g., adding a degree or institution), YOU MUST APPLY IT EXACTLY AS REQUESTED. Do NOT evaluate its relevance to the job. If the user wants it, you MUST include it in the output.
+2. EXTRACT EXISTING CONTEXT: After satisfying the user's explicit request, extract and formalize any existing education from the candidate's profile or existing sections.
+3. ATS OPTIMIZATION: For the remaining content, ensure the education is formatted professionally and clearly highlights the degree, institution, and dates.
+4. DO NOT HALLUCINATE: Do not make up degrees or institutions that are not explicitly present in the provided context or requested by the user.
+5. JSON SCHEMA: Output must exactly match the required JSON schema, containing the complete list of education entries.
 """),
     ("user", """
 Candidate Information:
@@ -39,6 +41,9 @@ User Request (What you need to do):
 """)
 ])
 
+from .utils import safe_state_node
+
+@safe_state_node
 def education_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     """Workflow node responsible for generating the Education section."""
     
@@ -53,27 +58,67 @@ def education_generator_node(state: ResumeAgentState) -> ResumeAgentState:
     # Step 2 – Gather Context
     try:
         candidate_data = json.loads(state.candidate_synthesis) if state.candidate_synthesis else {}
-        candidate_info = json.dumps(candidate_data.get("education", candidate_data.get("Education Intelligence", [])), indent=2)
+        onboarding_insights = candidate_data.get("onboarding_insights", {})
+        onboarding_education = onboarding_insights.get("education_intelligence", [])
+        candidate_info = json.dumps(onboarding_education, indent=2)
     except Exception:
         candidate_info = state.candidate_synthesis
+        onboarding_education = []
+        
     job_info = state.job_knowledge
     
     # Human-In-The-Loop check
-    if not candidate_info or candidate_info.strip() in ["", "[]", "{}"]:
-        logger.info("[Education Workflow] Candidate info missing. Requesting human input.")
-        new_msg = ResumeMessage(
-            id=str(uuid.uuid4()),
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            role=MessageRole.SYSTEM,
-            message_type=MessageType.HUMAN_INPUT_REQUEST,
-            from_node=MessageSource.EDUCATION_GENERATOR,
-            to_node=MessageSource.USER,
-            related_section=ResumeSectionType.EDUCATION,
-            content="I don't have enough background information to write your education section. Could you please provide your educational background?",
-            payload=None
-        )
-        state.messages.append(new_msg)
-        return state
+    if not onboarding_education and (not candidate_info or candidate_info.strip() in ["", "[]", "{}"]):
+        # Check if the user already responded to our prompt
+        user_response = None
+        if len(state.messages) >= 2:
+            prev_msg = state.messages[-2]
+            if prev_msg.role == MessageRole.USER and prev_msg.message_type == MessageType.HUMAN_INPUT_RESPONSE:
+                user_response = prev_msg.content
+
+        # Check if the user requested to skip or remove this section in this turn
+        user_msg = None
+        for msg in reversed(state.messages):
+            if msg.role == MessageRole.USER:
+                user_msg = msg.content.lower()
+                break
+
+        if user_msg and (any(w in user_msg for w in ["remove all", "delete all", "clear all", "remove education", "delete education", "clear education", "skip", "ignore", "don't have", "none"]) or user_msg in ["remove", "delete", "clear"]):
+            logger.info("[Education Workflow] User requested to remove/skip education section.")
+            if not state.resume_content:
+                state.resume_content = ResumeContent(sections=[])
+            state.resume_content.sections = [s for s in state.resume_content.sections if s.section_type != ResumeSectionType.EDUCATION]
+            
+            completion_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.ASSISTANT,
+                message_type=MessageType.WORKFLOW_RESPONSE,
+                from_node=MessageSource.EDUCATION_GENERATOR,
+                to_node=MessageSource.INTENT_ROUTER,
+                related_section=ResumeSectionType.EDUCATION,
+                content="Removed the Education section as requested.",
+                payload={"status": "COMPLETED"}
+            )
+            state.messages.append(completion_msg)
+            return state
+        elif user_response:
+            candidate_info = f"User provided education details: {user_response}"
+        else:
+            logger.info("[Education Workflow] Candidate info missing. Requesting human input.")
+            new_msg = ResumeMessage(
+                id=str(uuid.uuid4()),
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                role=MessageRole.SYSTEM,
+                message_type=MessageType.HUMAN_INPUT_REQUEST,
+                from_node=MessageSource.EDUCATION_GENERATOR,
+                to_node=MessageSource.USER,
+                related_section=ResumeSectionType.EDUCATION,
+                content="I don't have enough background information to write your education section. Could you please provide your educational background?",
+                payload=None
+            )
+            state.messages.append(new_msg)
+            return state
 
     existing_education = []
     if state.resume_content and state.resume_content.sections:

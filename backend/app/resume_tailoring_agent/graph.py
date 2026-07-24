@@ -9,6 +9,7 @@ from app.resume_tailoring_agent.nodes.experience_generator_node import experienc
 from app.resume_tailoring_agent.nodes.skills_generator_node import skills_generator_node
 from app.resume_tailoring_agent.nodes.education_generator_node import education_generator_node
 from app.resume_tailoring_agent.nodes.certification_generator_node import certification_generator_node
+from app.resume_tailoring_agent.nodes.co_curricular_generator_node import co_curricular_generator_node
 from app.resume_tailoring_agent.nodes.pdf_generation_node import pdf_generation_node
 from app.resume_tailoring_agent.nodes.response_node import response_node
 from app.resume_tailoring_agent.schemas.messaging import MessageType, MessageSource
@@ -18,11 +19,12 @@ def route_from_intent_router(state: ResumeAgentState) -> str:
         return "response_node"
         
     latest_msg = state.messages[-1]
-    if latest_msg.message_type == MessageType.WORKFLOW_REQUEST:
-        to_node = latest_msg.to_node
-        if to_node == MessageSource.SUMMARY_GENERATOR:
-            return "summary_generator"
-        elif to_node == MessageSource.PROJECT_GENERATOR:
+    
+    msg_type = latest_msg.get("message_type") if isinstance(latest_msg, dict) else getattr(latest_msg, "message_type", None)
+    to_node = latest_msg.get("to_node") if isinstance(latest_msg, dict) else getattr(latest_msg, "to_node", None)
+    
+    if msg_type == MessageType.WORKFLOW_REQUEST:
+        if to_node == MessageSource.PROJECT_GENERATOR:
             return "project_generator"
         elif to_node == MessageSource.EXPERIENCE_GENERATOR:
             return "experience_generator"
@@ -32,6 +34,10 @@ def route_from_intent_router(state: ResumeAgentState) -> str:
             return "education_generator"
         elif to_node == MessageSource.CERTIFICATION_GENERATOR:
             return "certification_generator"
+        elif to_node == MessageSource.CO_CURRICULAR_GENERATOR:
+            return "co_curricular_generator"
+        elif to_node == MessageSource.SUMMARY_GENERATOR:
+            return "summary_generator"
         elif to_node == MessageSource.PDF_GENERATOR:
             return "pdf_generator"
             
@@ -69,12 +75,13 @@ def get_resume_agent_app():
         
         # Register all nodes
         workflow.add_node("intent_router", intent_router_node)
-        workflow.add_node("summary_generator", summary_generator_node)
         workflow.add_node("project_generator", project_generator_node)
         workflow.add_node("experience_generator", experience_generator_node)
         workflow.add_node("skills_generator", skills_generator_node)
         workflow.add_node("education_generator", education_generator_node)
         workflow.add_node("certification_generator", certification_generator_node)
+        workflow.add_node("co_curricular_generator", co_curricular_generator_node)
+        workflow.add_node("summary_generator", summary_generator_node)
         workflow.add_node("pdf_generator", pdf_generation_node)
         workflow.add_node("response_node", response_node)
         
@@ -88,12 +95,13 @@ def get_resume_agent_app():
         )
         
         # All workflows return control to the Intent Router
-        workflow.add_edge("summary_generator", "intent_router")
         workflow.add_edge("project_generator", "intent_router")
         workflow.add_edge("experience_generator", "intent_router")
         workflow.add_edge("skills_generator", "intent_router")
         workflow.add_edge("education_generator", "intent_router")
         workflow.add_edge("certification_generator", "intent_router")
+        workflow.add_edge("co_curricular_generator", "intent_router")
+        workflow.add_edge("summary_generator", "intent_router")
         workflow.add_edge("pdf_generator", "intent_router")
         
         # Response Node sends the final answer out

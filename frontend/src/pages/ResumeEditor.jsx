@@ -150,9 +150,25 @@ function ResumeEditor() {
     }
   };
 
+  const cancelGeneration = async () => {
+    if (!resumeState || !resumeState.resume_id) return;
+    try {
+      await fetch(`${API_BASE_URL}/api/resume/${resumeState.resume_id}/cancel`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      setIsGenerating(false);
+    } catch (err) {
+      console.error("Failed to cancel generation:", err);
+    }
+  };
+
   const readStream = async (reader) => {
     const decoder = new TextDecoder();
     let buffer = '';
+    let receivedClose = false;
 
     while (true) {
       const { done, value } = await reader.read();
@@ -164,6 +180,7 @@ function ResumeEditor() {
 
       for (const block of lines) {
         if (block.startsWith('event: close')) {
+          receivedClose = true;
           setIsGenerating(false);
           checkHitlStatus(resumeState);
           return;
@@ -189,7 +206,8 @@ function ResumeEditor() {
         if (block.startsWith('data: ')) {
           const dataStr = block.slice(6);
           try {
-            const data = JSON.parse(dataStr);
+            const parsed = JSON.parse(dataStr);
+            const data = parsed.state ? parsed.state : parsed;
             setResumeState(data);
             checkHitlStatus(data);
           } catch (e) {
@@ -197,6 +215,10 @@ function ResumeEditor() {
           }
         }
       }
+    }
+    
+    if (!receivedClose) {
+      setError("Connection lost unexpectedly. Please hit Retry Generation.");
     }
     
     setIsGenerating(false);
@@ -241,6 +263,7 @@ function ResumeEditor() {
             onSendMessage={sendMessage}
             onStartGeneration={startGeneration}
             onRetry={retryGeneration}
+            onCancel={cancelGeneration}
           />
         </div>
         

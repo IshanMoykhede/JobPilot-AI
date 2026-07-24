@@ -26,20 +26,24 @@ class ResumeStateService:
         if not profile:
             return ""
 
-        synthesis_parts = []
+        profile_data = profile.profile_json or {}
         
-        # 1. Base Intelligence (Skipped for V1 scope)
-        # We are intentionally ignoring the large CANDIDATE_KNOWLEDGE insight JSON for V1.
-        # It will be redesigned in V2.
-
-
-        # 2. Extract Data from Profile JSON
-        # For V1, we just return the entire profile_json as a string so that each
-        # generator node can parse it and extract only the section they need.
-        if profile.profile_json:
-            return json.dumps(profile.profile_json)
+        # Query CandidateInsights (CANDIDATE_KNOWLEDGE)
+        from app.models.candidate_insights import CandidateInsights, ArtifactType
+        insight = self.db.query(CandidateInsights).filter(
+            CandidateInsights.candidate_profile_id == profile.id,
+            CandidateInsights.artifact_type == ArtifactType.CANDIDATE_KNOWLEDGE
+        ).order_by(CandidateInsights.created_at.desc()).first()
         
-        return "{}"
+        insights_data = insight.artifact_json if (insight and insight.artifact_json) else {}
+        
+        # Merge them into a unified structure
+        synthesis = {
+            "resume_data": profile_data.get("resume_data", profile_data),
+            "onboarding_insights": insights_data
+        }
+        
+        return json.dumps(synthesis)
 
     def create_initial_state(self, user: User, resume_id: str, user_query: str, target_job_description: str) -> ResumeAgentState:
         """
@@ -86,17 +90,19 @@ class ResumeStateService:
             resume_id=resume_id,
             session_id=str(uuid.uuid4()),
             user_id=str(user.id),
-            messages=[initial_msg],
-            resume_content=ResumeContent(sections=[personal_info_section]),
+            messages=[initial_msg.model_dump(mode="json")],
+            resume_content=ResumeContent(sections=[personal_info_section]).model_dump(mode="json"),
             candidate_synthesis=candidate_synthesis,
+            user_profile_data=json.dumps(profile.profile_json) if profile and profile.profile_json else None,
             job_knowledge=target_job_description,
             pending_sections=[
-                ResumeSectionType.SUMMARY,
-                ResumeSectionType.PROJECTS,
-                ResumeSectionType.EXPERIENCE,
-                ResumeSectionType.SKILLS,
-                ResumeSectionType.EDUCATION,
-                ResumeSectionType.CERTIFICATIONS,
+                ResumeSectionType.PROJECTS.value,
+                ResumeSectionType.EXPERIENCE.value,
+                ResumeSectionType.SKILLS.value,
+                ResumeSectionType.EDUCATION.value,
+                ResumeSectionType.CERTIFICATIONS.value,
+                ResumeSectionType.CO_CURRICULAR.value,
+                ResumeSectionType.SUMMARY.value,
             ],
             current_section=None
         )

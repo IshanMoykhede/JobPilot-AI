@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Icon from '../common/Icon';
 
-function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSendMessage, onStartGeneration, onRetry }) {
+function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSendMessage, onStartGeneration, onRetry, onCancel }) {
   const [inputText, setInputText] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [userQuery, setUserQuery] = useState('');
@@ -173,16 +173,25 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
               </div>
             </div>
           )}
-          
+          {isGenerating && !waitingForUser && onCancel && (
+            <button 
+              type="button"
+              onClick={onCancel}
+              className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 text-[12px] font-medium py-2 rounded transition-colors flex items-center justify-center gap-2"
+            >
+              <Icon name="stop" className="text-[16px]" />
+              Stop Generation
+            </button>
+          )}
           <form onSubmit={handleSubmit} className="relative">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               disabled={isGenerating && !waitingForUser}
-              placeholder={waitingForUser ? "Reply to the AI..." : "Agent is working..."}
+              placeholder={waitingForUser ? "Reply to the AI..." : (isGenerating ? "Agent is working..." : "Message the AI...")}
               className={`w-full py-2.5 pl-4 pr-12 rounded-lg text-[13px] border focus:outline-none transition-colors ${
-                waitingForUser 
+                waitingForUser || !isGenerating
                   ? 'bg-jp-bg-raised border-jp-accent/50 text-jp-text-primary placeholder-jp-text-secondary'
                   : 'bg-jp-bg-app border-jp-border-subtle text-jp-text-muted cursor-not-allowed'
               }`}

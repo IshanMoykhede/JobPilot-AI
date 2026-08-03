@@ -1,0 +1,64 @@
+=== EXPERIENCE NODE TESTS ===
+
+Test 1 (Initial Generation):
+Draft Array (state.drafts): [
+  [
+    {
+      "role": "Software Engineering Intern",
+      "company": "Tech Innovations Inc.",
+      "dates": "May 2023 - August 2023",
+      "location": null,
+      "bullet_points": [
+        "Spearheaded the migration of the backend to a microservices architecture using Python and FastAPI, leveraging cloud computing principles",
+        "Engineered a data analytics pipeline for processing user logs, utilizing data analytics capabilities and Python",
+        "Collaborated closely with the AI team, gaining exposure to AI/ML concepts and technologies such as TensorFlow and PyTorch"
+      ]
+    }
+  ]
+]
+Assistant Message: The experience section has been tailored to highlight the candidate's experience in software engineering, data analytics, and collaboration with AI teams, while emphasizing the use of required technologies such as Python and cloud computing principles. However, the experience is limited, and the candidate may need to develop more skills in AI/ML to meet the job requirements.
+
+⚠️ Note: The candidate has limited experience in AI/ML, which is a critical requirement for the job. It is recommended that the candidate gains more experience or training in AI/ML to increase their chances of getting hired.
+
+Does this revised experience section meet your requirements, or would you like to make any further changes?
+
+Test 2 (Revision Request): 'Can you emphasize the soft skills I gained during the internship instead of just technical tools?'
+Draft Array (state.drafts): [
+  [
+    {
+      "role": "Software Engineering Intern",
+      "company": "Tech Innovations Inc.",
+      "dates": "May 2023 - August 2023",
+      "location": null,
+      "bullet_points": [
+        "Spearheaded the migration of the backend to a microservices architecture using Python and FastAPI, leveraging cloud computing principles",
+        "Engineered a data analytics pipeline for processing user logs, utilizing data analytics capabilities and Python",
+        "Collaborated closely with the AI team, gaining exposure to AI/ML concepts and technologies such as TensorFlow and PyTorch"
+      ]
+    }
+  ]
+]
+Assistant Message: I encountered an error while generating the experience section. Please try again.
+
+Test 3 (Edge Case): 'I have no actual work experience except working at a coffee shop, what should I put?'
+Draft Array (state.drafts): [
+  [
+    {
+      "role": "Software Engineering Intern",
+      "company": "Tech Innovations Inc.",
+      "dates": "May 2023 - August 2023",
+      "location": null,
+      "bullet_points": [
+        "Spearheaded the migration of the backend to a microservices architecture using Python and FastAPI, leveraging cloud computing principles",
+        "Engineered a data analytics pipeline for processing user logs, utilizing data analytics capabilities and Python",
+        "Collaborated closely with the AI team, gaining exposure to AI/ML concepts and technologies such as TensorFlow and PyTorch"
+      ]
+    }
+  ],
+  []
+]
+Assistant Message: Since the candidate has no relevant experience in the field of AI/ML or related technologies, and the provided Experience Intelligence is not applicable due to the user's feedback, it's essential to focus on transferable skills from other experiences or highlight the eagerness to learn and grow in the field.
+
+⚠️ Note: The candidate lacks direct experience in the required capabilities and technologies for the AI Engineer position. It is recommended to consider gaining relevant experience or highlighting transferable skills from other areas.
+
+Would you like to proceed with highlighting transferable skills from your coffee shop experience or focus on your eagerness to learn and grow in the AI/ML field?

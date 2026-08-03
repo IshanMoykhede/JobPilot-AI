@@ -5,8 +5,8 @@ from app.agent.schemas.agent_state import AgentState
 from app.job_search.services.retrieval_pipeline_service import RetrievalPipelineService
 from app.job_search.services.job_knowledge_engine import JobKnowledgeEngine
 from app.embedding.services.embedding_pipeline import EmbeddingGenerationPipeline
-from app.matching.services.matching_pipeline import MatchingPipeline
-from app.explanation.services.explanation_pipeline import ExplanationPipeline
+from app.job_search_agent.matching.services.matching_pipeline import MatchingPipeline
+from app.job_search_agent.explanation.services.explanation_pipeline import ExplanationPipeline
 
 logger = logging.getLogger(__name__)
 

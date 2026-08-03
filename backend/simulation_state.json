@@ -1,0 +1,2396 @@
+{
+  "session_id": "full_simulation",
+  "job_knowledge": {
+    "benefits": [],
+    "industry": "Finance",
+    "location": "Pune, Maharashtra",
+    "job_title": "AI Engineer",
+    "work_mode": "Onsite",
+    "company_name": "Mastercard",
+    "primary_domain": "AI/ML",
+    "employment_type": "Full Time",
+    "employment_level": "Lead",
+    "required_degrees": [
+      "Bachelor's degree in Computer Science, AI/ML, or Engineering"
+    ],
+    "responsibilities": [
+      "Design and develop AI/ML models",
+      "Collaborate with cross-functional teams"
+    ],
+    "preferred_degrees": [
+      "Master's or Bachelor's degree in Computer Science, AI/ML, or Engineering"
+    ],
+    "secondary_domains": [
+      "Data Science"
+    ],
+    "salary_information": null,
+    "required_capabilities": [
+      "AI/ML",
+      "Cloud Computing",
+      "Data Analytics"
+    ],
+    "required_technologies": [
+      "Python",
+      "TensorFlow",
+      "PyTorch"
+    ],
+    "preferred_capabilities": [
+      "AI/ML",
+      "Cloud Computing",
+      "Data Analytics"
+    ],
+    "preferred_technologies": [
+      "Python",
+      "TensorFlow",
+      "PyTorch"
+    ],
+    "required_certifications": [],
+    "minimum_experience_years": 5,
+    "preferred_certifications": [
+      "Master's or Bachelor's degree in Computer Science, AI/ML, or Engineering"
+    ],
+    "required_specializations": [
+      "AI/ML"
+    ],
+    "preferred_specializations": [
+      "AI/ML",
+      "Data Science"
+    ],
+    "preferred_experience_years": 10
+  },
+  "user_knowledge": {
+    "candidate_level": {
+      "title": "Fresher",
+      "total_months_experience": 0
+    },
+    "evidence_report": {
+      "evaluations": {
+        "AWS": {
+          "name": "AWS",
+          "category": "TECHNOLOGY",
+          "reasoning": "Validated by professional certification.",
+          "occurrences": 1,
+          "evidence_status": "Academic",
+          "source_strength": 60,
+          "academic_support": 50,
+          "confidence_score": 45,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "C++": {
+          "name": "C++",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "Git": {
+          "name": "Git",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "OTP": {
+          "name": "OTP",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "SQL": {
+          "name": "SQL",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "CSS3": {
+          "name": "CSS3",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "Java": {
+          "name": "Java",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "Axios": {
+          "name": "Axios",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "BIP39": {
+          "name": "BIP39",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "HTML5": {
+          "name": "HTML5",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "MySQL": {
+          "name": "MySQL",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "Redis": {
+          "name": "Redis",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Docker": {
+          "name": "Docker",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "GitHub": {
+          "name": "GitHub",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "PBKDF2": {
+          "name": "PBKDF2",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Python": {
+          "name": "Python",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "WebLLM": {
+          "name": "WebLLM",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "bcrypt": {
+          "name": "bcrypt",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "AES-GCM": {
+          "name": "AES-GCM",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Caching": {
+          "name": "Caching",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "EasyOCR": {
+          "name": "EasyOCR",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "FastAPI": {
+          "name": "FastAPI",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "MongoDB": {
+          "name": "MongoDB",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "Node.js": {
+          "name": "Node.js",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "PyMuPDF": {
+          "name": "PyMuPDF",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "SerpAPI": {
+          "name": "SerpAPI",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Groq API": {
+          "name": "Groq API",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Razorpay": {
+          "name": "Razorpay",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "React.js": {
+          "name": "React.js",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "Recharts": {
+          "name": "Recharts",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "LangGraph": {
+          "name": "LangGraph",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "REST APIs": {
+          "name": "REST APIs",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "API Design": {
+          "name": "API Design",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Cloudinary": {
+          "name": "Cloudinary",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Decryption": {
+          "name": "Decryption",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Encryption": {
+          "name": "Encryption",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Express.js": {
+          "name": "Express.js",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "JavaScript": {
+          "name": "JavaScript",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "OpenAI API": {
+          "name": "OpenAI API",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "PostgreSQL": {
+          "name": "PostgreSQL",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Tailwind CSS": {
+          "name": "Tailwind CSS",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Authorization": {
+          "name": "Authorization",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "Framer Motion": {
+          "name": "Framer Motion",
+          "category": "TECHNOLOGY",
+          "reasoning": "Appears only as a claimed skill with no supporting context.",
+          "occurrences": 1,
+          "evidence_status": "Claimed",
+          "source_strength": 30,
+          "academic_support": 0,
+          "confidence_score": 30,
+          "evidence_quality": "Low",
+          "evidence_diversity": 50,
+          "practical_demonstration": 0
+        },
+        "RAG Pipelines": {
+          "name": "RAG Pipelines",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "Authentication": {
+          "name": "Authentication",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "OCR Processing": {
+          "name": "OCR Processing",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Web Crypto API": {
+          "name": "Web Crypto API",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Database Design": {
+          "name": "Database Design",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 3 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "REST API Design": {
+          "name": "REST API Design",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "Transformers.js": {
+          "name": "Transformers.js",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Demonstrated",
+          "source_strength": 70,
+          "academic_support": 0,
+          "confidence_score": 73,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 75,
+          "practical_demonstration": 80
+        },
+        "AI API Integration": {
+          "name": "AI API Integration",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "JWT Authentication": {
+          "name": "JWT Authentication",
+          "category": "TECHNOLOGY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 87,
+          "evidence_quality": "High",
+          "evidence_diversity": 75,
+          "practical_demonstration": 100
+        },
+        "Backend Development": {
+          "name": "Backend Development",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 3 practical projects.",
+          "occurrences": 3,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "Local LLM Inference": {
+          "name": "Local LLM Inference",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Payment Integration": {
+          "name": "Payment Integration",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "System Architecture": {
+          "name": "System Architecture",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        },
+        "Frontend Development": {
+          "name": "Frontend Development",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "Full-Stack Development": {
+          "name": "Full-Stack Development",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 2 practical projects.",
+          "occurrences": 2,
+          "evidence_status": "Strongly Demonstrated",
+          "source_strength": 100,
+          "academic_support": 0,
+          "confidence_score": 85,
+          "evidence_quality": "High",
+          "evidence_diversity": 50,
+          "practical_demonstration": 100
+        },
+        "Notification Pipelines": {
+          "name": "Notification Pipelines",
+          "category": "CAPABILITY",
+          "reasoning": "Applied in 1 practical projects.",
+          "occurrences": 1,
+          "evidence_status": "Demonstrated",
+          "source_strength": 90,
+          "academic_support": 0,
+          "confidence_score": 76,
+          "evidence_quality": "Medium",
+          "evidence_diversity": 50,
+          "practical_demonstration": 80
+        }
+      },
+      "overall_strengths": [
+        "Strongly demonstrated expertise in 14 key areas, including JavaScript, Node.js.",
+        "Consistent track record of applying technologies in professional or project environments."
+      ],
+      "overall_weaknesses": [
+        "Several technologies are claimed without supporting evidence, such as Java, C++."
+      ]
+    },
+    "unified_knowledge": {
+      "capabilities": [
+        {
+          "name": "Backend Development",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Frontend Development",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Full-Stack Development",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "REST API Design",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Authentication",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Authorization",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Database Design",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Payment Integration",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Notification Pipelines",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Encryption",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Decryption",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Local LLM Inference",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "OCR Processing",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "API Design",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Caching",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "System Architecture",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "AI API Integration",
+          "category": "CAPABILITY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        }
+      ],
+      "technologies": [
+        {
+          "name": "Java",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "C++",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "JavaScript",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Python",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "SQL",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "Node.js",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Express.js",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "FastAPI",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "REST APIs",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "JWT Authentication",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "bcrypt",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "React.js",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Tailwind CSS",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Recharts",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Axios",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "Framer Motion",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "HTML5",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "CSS3",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "MongoDB",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "MySQL",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "PostgreSQL",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Redis",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "AWS",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Academic",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AWS Academy Graduate \u2014 Cloud Foundations",
+              "source_type": "CERTIFICATION"
+            }
+          ]
+        },
+        {
+          "name": "Git",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "GitHub",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "Docker",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Claimed",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            }
+          ]
+        },
+        {
+          "name": "Cloudinary",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Razorpay",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "LangGraph",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "RAG Pipelines",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Transformers.js",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "WebLLM",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Groq API",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "SerpAPI",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "Resume Skills",
+              "source_type": "SKILL"
+            },
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "OpenAI API",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "EasyOCR",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "Web Crypto API",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "AES-GCM",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "PBKDF2",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "BIP39",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "OTP",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        },
+        {
+          "name": "PyMuPDF",
+          "category": "TECHNOLOGY",
+          "evidence_status": "Demonstrated",
+          "source_evidence": [
+            {
+              "explicit": true,
+              "source_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+              "source_type": "PROJECT"
+            }
+          ]
+        }
+      ]
+    },
+    "candidate_identity": {
+      "ideal_roles": [
+        "Full-Stack Developer",
+        "Backend Developer",
+        "Frontend Developer",
+        "AI/ML Engineer"
+      ],
+      "experience_level": "Mid-Level",
+      "technology_stack": [
+        "Java",
+        "C++",
+        "JavaScript",
+        "Python",
+        "SQL",
+        "Node.js",
+        "Express.js",
+        "FastAPI",
+        "REST APIs",
+        "JWT Authentication",
+        "bcrypt",
+        "React.js",
+        "Tailwind CSS",
+        "Recharts",
+        "Axios",
+        "Framer Motion",
+        "HTML5",
+        "CSS3",
+        "MongoDB",
+        "MySQL",
+        "PostgreSQL",
+        "Redis",
+        "AWS",
+        "Git",
+        "GitHub",
+        "Docker",
+        "Cloudinary",
+        "Razorpay",
+        "LangGraph",
+        "RAG Pipelines",
+        "Transformers.js",
+        "WebLLM",
+        "Groq API",
+        "SerpAPI",
+        "OpenAI API",
+        "EasyOCR",
+        "Web Crypto API",
+        "AES-GCM",
+        "PBKDF2",
+        "BIP39",
+        "OTP",
+        "PyMuPDF"
+      ],
+      "engineering_domains": [
+        "Software Engineering",
+        "Artificial Intelligence / Machine Learning"
+      ],
+      "primary_specialization": "Full-Stack Developer",
+      "strongest_capabilities": [
+        "Backend Development",
+        "Frontend Development",
+        "Full-Stack Development",
+        "REST API Design",
+        "Authentication",
+        "Authorization",
+        "Database Design"
+      ],
+      "secondary_specializations": [
+        "Backend Developer",
+        "Frontend Developer",
+        "AI/ML Engineer"
+      ]
+    },
+    "candidate_maturity": {
+      "project_count": 3,
+      "internship_count": 0,
+      "certification_count": 3
+    },
+    "engineering_profile": {
+      "domain_strengths": [
+        {
+          "score": 80,
+          "domain": "Software Engineering",
+          "evidence_count": 3,
+          "experience_months": 0,
+          "supporting_projects": [
+            "CampusConnect \u2014 Full-Stack Event Management Platform",
+            "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+            "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow"
+          ],
+          "supporting_experience": []
+        },
+        {
+          "score": 70,
+          "domain": "Artificial Intelligence / Machine Learning",
+          "evidence_count": 2,
+          "experience_months": 0,
+          "supporting_projects": [
+            "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+            "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow"
+          ],
+          "supporting_experience": []
+        }
+      ]
+    },
+    "project_intelligence": [
+      {
+        "domains": [
+          "Software Engineering"
+        ],
+        "complexity": "ADVANCED",
+        "achievements": [
+          {
+            "action": "Architected",
+            "impact": "Secure authentication and authorization for users, organizers, and admins",
+            "problem": "Multi-role access control and authentication",
+            "solution": "REST API backend with role-based access control and JWT authentication",
+            "technologies": [
+              "Node.js",
+              "Express.js",
+              "JWT"
+            ]
+          },
+          {
+            "action": "Integrated",
+            "impact": "Enabled individual and group registrations with dynamic form schemas",
+            "problem": "Payment processing and document uploads",
+            "solution": "Razorpay payment gateway and Cloudinary-based document uploads",
+            "technologies": [
+              "Razorpay",
+              "Cloudinary"
+            ]
+          },
+          {
+            "action": "Built",
+            "impact": "Improved event management and organization",
+            "problem": "Organizer analytics and admin approval workflows",
+            "solution": "Admin approval workflows, organizer analytics dashboards, and notification pipelines",
+            "technologies": [
+              "Recharts",
+              "MongoDB"
+            ]
+          }
+        ],
+        "capabilities": [
+          "Backend Development",
+          "Frontend Development",
+          "Full-Stack Development",
+          "REST API Design",
+          "Authentication",
+          "Authorization",
+          "Database Design",
+          "Payment Integration",
+          "Notification Pipelines"
+        ],
+        "project_name": "CampusConnect \u2014 Full-Stack Event Management Platform",
+        "project_type": "Web Application",
+        "technologies": [
+          "React.js",
+          "Node.js",
+          "Express.js",
+          "MongoDB",
+          "JWT",
+          "Razorpay",
+          "Cloudinary",
+          "Tailwind CSS"
+        ],
+        "architecture_tags": [
+          "RESTful",
+          "Monolith"
+        ]
+      },
+      {
+        "domains": [
+          "Software Engineering",
+          "Artificial Intelligence / Machine Learning"
+        ],
+        "complexity": "ADVANCED",
+        "achievements": [
+          {
+            "action": "Implemented",
+            "impact": "Server never accesses plaintext data",
+            "problem": "Secure client-side data encryption",
+            "solution": "Client-side AES-GCM encryption with PBKDF2 key derivation and BIP39 recovery",
+            "technologies": [
+              "AES-GCM",
+              "PBKDF2",
+              "BIP39"
+            ]
+          },
+          {
+            "action": "Engineered",
+            "impact": "Zero-knowledge architecture",
+            "problem": "Local LLM inference without server access",
+            "solution": "Browser-side RAG pipeline using Transformers.js for vector embeddings and WebLLM (Qwen 0.5B) for local LLM inference",
+            "technologies": [
+              "Transformers.js",
+              "WebLLM (Qwen 0.5B)"
+            ]
+          },
+          {
+            "action": "Developed",
+            "impact": "Secure and efficient OCR processing",
+            "problem": "Scanned PDF processing with OCR",
+            "solution": "FastAPI OCR microservice (EasyOCR + PyMuPDF) for scanned PDFs with Groq LLaMA 3.1 post-processing",
+            "technologies": [
+              "FastAPI",
+              "EasyOCR",
+              "PyMuPDF",
+              "Groq LLaMA 3.1"
+            ]
+          }
+        ],
+        "capabilities": [
+          "Frontend Development",
+          "Backend Development",
+          "Full-Stack Development",
+          "REST API Design",
+          "Authentication",
+          "Authorization",
+          "Database Design",
+          "Encryption",
+          "Decryption",
+          "Local LLM Inference",
+          "OCR Processing"
+        ],
+        "project_name": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+        "project_type": "Web Application",
+        "technologies": [
+          "React.js",
+          "Node.js",
+          "FastAPI",
+          "MongoDB",
+          "WebLLM (Qwen 0.5B)",
+          "Transformers.js",
+          "Web Crypto API",
+          "EasyOCR",
+          "AES-GCM",
+          "PBKDF2",
+          "BIP39",
+          "bcrypt",
+          "JWT",
+          "Groq LLaMA 3.1",
+          "PyMuPDF",
+          "OTP"
+        ],
+        "architecture_tags": [
+          "Zero-Knowledge",
+          "Microservices"
+        ]
+      },
+      {
+        "domains": [
+          "Artificial Intelligence / Machine Learning",
+          "Software Engineering"
+        ],
+        "complexity": "ADVANCED",
+        "achievements": [
+          {
+            "action": "Architected",
+            "impact": "Automated tailored resume generation per job match",
+            "problem": "Job search and resume matching",
+            "solution": "Multi-agent pipeline with Intent Router and AI-driven feature extraction",
+            "technologies": [
+              "Python",
+              "LangGraph",
+              "OpenAI API",
+              "SerpAPI",
+              "FastAPI",
+              "Redis",
+              "PostgreSQL"
+            ]
+          },
+          {
+            "action": "Implemented",
+            "impact": "Multi-session state persistence",
+            "problem": "State persistence across sessions",
+            "solution": "Redis snapshots and PostgreSQL with SerpAPI system.result caching",
+            "technologies": [
+              "Redis",
+              "PostgreSQL"
+            ]
+          }
+        ],
+        "capabilities": [
+          "Backend Development",
+          "API Design",
+          "Database Design",
+          "Caching",
+          "System Architecture",
+          "AI API Integration"
+        ],
+        "project_name": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+        "project_type": "API Service",
+        "technologies": [
+          "Python",
+          "LangGraph",
+          "OpenAI API",
+          "SerpAPI",
+          "FastAPI",
+          "Redis",
+          "PostgreSQL"
+        ],
+        "architecture_tags": [
+          "Microservices",
+          "Event-Driven"
+        ]
+      }
+    ],
+    "education_intelligence": [
+      {
+        "cgpa": null,
+        "degree": "B.E. Computer Engineering",
+        "university": "KKWIEER (KK Wagh Institute of Engineering Education & Research)",
+        "specialization": "Computer Engineering",
+        "graduation_year": 2027
+      },
+      {
+        "cgpa": null,
+        "degree": "HSC (Class XII)",
+        "university": "KTHM College, Nashik",
+        "specialization": null,
+        "graduation_year": 2023
+      },
+      {
+        "cgpa": null,
+        "degree": "SSC (Class X)",
+        "university": "Adarsh English Medium School, Nashik",
+        "specialization": null,
+        "graduation_year": 2021
+      }
+    ],
+    "experience_intelligence": [],
+    "certification_intelligence": [
+      {
+        "capabilities": [],
+        "technologies": [
+          "AWS"
+        ],
+        "completion_date": "2026",
+        "certification_name": "AWS Academy Graduate \u2014 Cloud Foundations",
+        "issuing_organization": "AWS Academy"
+      },
+      {
+        "capabilities": [],
+        "technologies": [],
+        "completion_date": "2026",
+        "certification_name": "Complete Web Development Course",
+        "issuing_organization": "Udemy"
+      },
+      {
+        "capabilities": [],
+        "technologies": [],
+        "completion_date": "2026",
+        "certification_name": "Fundamentals of Agents \u2014 Foundations of Agents",
+        "issuing_organization": "Hugging Face"
+      }
+    ]
+  },
+  "pending_sections": [],
+  "current_section": null,
+  "active_section": "general",
+  "drafts": {
+    "projects": [
+      [
+        {
+          "title": "AI Job Search Agent \u2014 Multi-Agent LangGraph Workflow",
+          "description": "A multi-agent pipeline for automated tailored resume generation per job match",
+          "tech_stack": [
+            "Python",
+            "LangGraph",
+            "OpenAI API",
+            "SerpAPI",
+            "FastAPI",
+            "Redis",
+            "PostgreSQL"
+          ],
+          "role": "Architect",
+          "dates": "Ongoing",
+          "github": null,
+          "bullet_points": [
+            "Architected a multi-agent pipeline with Intent Router and AI-driven feature extraction to automate tailored resume generation per job match",
+            "Implemented multi-session state persistence using Redis snapshots and PostgreSQL with SerpAPI system.result caching"
+          ]
+        },
+        {
+          "title": "VaultVani \u2014 Zero-Knowledge AI Document Vault",
+          "description": "A zero-knowledge architecture for secure client-side data encryption and local LLM inference",
+          "tech_stack": [
+            "React.js",
+            "Node.js",
+            "FastAPI",
+            "MongoDB",
+            "WebLLM (Qwen 0.5B)",
+            "Transformers.js",
+            "Web Crypto API",
+            "EasyOCR",
+            "AES-GCM",
+            "PBKDF2",
+            "BIP39",
+            "bcrypt",
+            "JWT",
+            "Groq LLaMA 3.1",
+            "PyMuPDF",
+            "OTP"
+          ],
+          "role": "Engineer",
+          "dates": "Ongoing",
+          "github": null,
+          "bullet_points": [
+            "Engineered a zero-knowledge architecture for local LLM inference without server access using browser-side RAG pipeline with Transformers.js and WebLLM (Qwen 0.5B)",
+            "Developed a secure and efficient OCR processing microservice using FastAPI, EasyOCR, and PyMuPDF"
+          ]
+        }
+      ]
+    ],
+    "experience": [
+      [],
+      []
+    ],
+    "education": [
+      [
+        {
+          "degree": "B.E. Computer Engineering",
+          "university": "KKWIEER (KK Wagh Institute of Engineering Education & Research)",
+          "dates": "2027",
+          "location": null,
+          "gpa": null,
+          "details": null
+        },
+        {
+          "degree": "HSC (Class XII)",
+          "university": "KTHM College, Nashik",
+          "dates": "2023",
+          "location": null,
+          "gpa": null,
+          "details": null
+        },
+        {
+          "degree": "SSC (Class X)",
+          "university": "Adarsh English Medium School, Nashik",
+          "dates": "2021",
+          "location": null,
+          "gpa": null,
+          "details": null
+        }
+      ],
+      [
+        {
+          "degree": "B.E. Computer Engineering",
+          "university": "KKWIEER (KK Wagh Institute of Engineering Education & Research)",
+          "dates": "2027",
+          "location": null,
+          "gpa": "7.6",
+          "details": null
+        },
+        {
+          "degree": "HSC (Class XII)",
+          "university": "KTHM College, Nashik",
+          "dates": "2023",
+          "location": null,
+          "gpa": "72%",
+          "details": null
+        },
+        {
+          "degree": "SSC (Class X)",
+          "university": "Adarsh English Medium School, Nashik",
+          "dates": "2021",
+          "location": null,
+          "gpa": "87%",
+          "details": null
+        }
+      ]
+    ],
+    "summary": [
+      [
+        "As a driven Software Engineer with a strong foundation in AI/ML, I am excited to apply my skills in designing and developing innovative models and collaborating with cross-functional teams to drive business growth in the finance industry. With a solid educational background in Computer Science and a keen interest in Data Science, I am eager to learn and contribute to the development of cutting-edge AI/ML solutions. I am confident that my strong work ethic and passion for technology make me an ideal fit for a role at Mastercard."
+      ]
+    ],
+    "skills": [
+      [
+        {
+          "category_name": "Programming Languages",
+          "skills": [
+            "Java",
+            "C++",
+            "JavaScript",
+            "Python"
+          ]
+        },
+        {
+          "category_name": "Frameworks",
+          "skills": [
+            "Node.js",
+            "Express.js",
+            "FastAPI",
+            "React.js"
+          ]
+        },
+        {
+          "category_name": "Databases",
+          "skills": [
+            "SQL",
+            "MongoDB",
+            "MySQL",
+            "PostgreSQL",
+            "Redis"
+          ]
+        },
+        {
+          "category_name": "Cloud and DevOps",
+          "skills": [
+            "AWS",
+            "Git",
+            "GitHub",
+            "Docker",
+            "Cloudinary"
+          ]
+        },
+        {
+          "category_name": "AI and Machine Learning",
+          "skills": [
+            "LangGraph",
+            "RAG Pipelines",
+            "Transformers.js",
+            "WebLLM",
+            "Groq API",
+            "SerpAPI",
+            "OpenAI API"
+          ]
+        },
+        {
+          "category_name": "Security and Authentication",
+          "skills": [
+            "JWT Authentication",
+            "bcrypt",
+            "AES-GCM",
+            "PBKDF2",
+            "BIP39",
+            "OTP"
+          ]
+        },
+        {
+          "category_name": "Development Skills",
+          "skills": [
+            "Backend Development",
+            "Frontend Development",
+            "Full-Stack Development",
+            "REST API Design",
+            "API Design",
+            "Database Design",
+            "Payment Integration",
+            "Notification Pipelines",
+            "Encryption",
+            "Decryption",
+            "Local LLM Inference",
+            "OCR Processing",
+            "Caching",
+            "System Architecture",
+            "AI API Integration"
+          ]
+        }
+      ]
+    ],
+    "certifications": [
+      [
+        {
+          "name": "AWS Academy Graduate \u2014 Cloud Foundations",
+          "issuer": "AWS Academy",
+          "date": "2026",
+          "details": null
+        }
+      ]
+    ]
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Let's start with my projects section for the resume."
+    },
+    {
+      "role": "assistant",
+      "content": "The projects section is tailored to highlight the candidate's experience in AI/ML, Cloud Computing, and Data Analytics, which are the required capabilities for the AI Engineer role at Mastercard. The projects demonstrate the candidate's expertise in designing and developing AI/ML models, collaborating with cross-functional teams, and working with technologies such as Python, TensorFlow, and PyTorch.\n\nDoes this draft meet your expectations, or would you like me to make any changes?"
+    },
+    {
+      "role": "user",
+      "content": "No changes needed, looks good. Let's move to the experience section now."
+    },
+    {
+      "role": "assistant",
+      "content": "Since the candidate has no experience, we cannot generate any experience items. The experience section is crucial for showcasing relevant skills and achievements, but in this case, it will be left empty.\n\n\u26a0\ufe0f Note: The candidate lacks any form of experience, which may impact their chances of being selected for the AI Engineer position at Mastercard. It is recommended to highlight any relevant projects, education, or training in other sections of the resume to demonstrate potential.\n\nWould you like to proceed with the education section or add any relevant projects to enhance the resume?"
+    },
+    {
+      "role": "user",
+      "content": "Yes let's proceed with the education section now."
+    },
+    {
+      "role": "assistant",
+      "content": "The education section has been generated based on the provided Education Intelligence. The section includes all the degrees listed in the Education Intelligence. Since the candidate has a Bachelor's degree in Computer Engineering, which aligns with the job requirements, no gap warning is provided.\n\nDo you approve of this education section?"
+    },
+    {
+      "role": "user",
+      "content": "add my cgpa os kkw 7.6 and hsc percentage is 72 percent and then ssc percentage as 87 percent"
+    },
+    {
+      "role": "assistant",
+      "content": "The provided education section has been revised according to the user's feedback, adding CGPA and percentages for the respective degrees.\n\nIs this revised education section satisfactory?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that looks perfect. Let's move to the next section."
+    },
+    {
+      "role": "assistant",
+      "content": "The summary highlights the candidate's strengths in AI/ML, their educational background, and their enthusiasm for collaborating with teams to drive business growth, while also showcasing their passion for technology and eagerness to learn and contribute.\n\nDoes this professional summary meet your expectations?"
+    },
+    {
+      "role": "user",
+      "content": "Looks great, create the next section."
+    },
+    {
+      "role": "assistant",
+      "content": "Since the candidate has no experience, we cannot generate a tailored experience section. The experience section is critical in showcasing the candidate's skills and achievements, and without any experience, it's challenging to create a meaningful section.\n\n\u26a0\ufe0f Note: The candidate lacks any experience, which may impact their application. It's essential to highlight any relevant skills, education, or training in other sections of the resume to demonstrate their potential.\n\nWould you like to proceed with the next section or provide additional information to enhance the experience section?"
+    },
+    {
+      "role": "user",
+      "content": "Looks great, create the next section."
+    },
+    {
+      "role": "assistant",
+      "content": "The skills have been categorized based on their relevance to the AI Engineer role at Mastercard, with a focus on programming languages, frameworks, databases, cloud and DevOps, AI and machine learning, security and authentication, and development skills.\n\nAre these categorized skills acceptable for the AI Engineer role at Mastercard?"
+    },
+    {
+      "role": "user",
+      "content": "go the next create the next section please"
+    },
+    {
+      "role": "assistant",
+      "content": "Since there are no direct matches between the candidate's certifications and the job requirements, only the most relevant certification is highlighted. The AWS Academy Graduate \u2014 Cloud Foundations certification is included as it relates to Cloud Computing, which is a required capability for the AI Engineer role at Mastercard.\n\n\u26a0\ufe0f Note: The job requires certifications related to AI/ML, Cloud Computing, and Data Analytics, but the candidate's certifications do not fully align with these requirements.\n\nDo you approve of this certifications section?"
+    },
+    {
+      "role": "user",
+      "content": "What is remaining?"
+    },
+    {
+      "role": "assistant",
+      "content": "You're all done. There are no remaining sections to complete. You've finished drafting all the necessary parts of your resume, including projects, experience, education, summary, skills, and certifications. Congratulations on completing your resume!"
+    }
+  ]
+}

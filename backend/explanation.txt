@@ -1,7 +1,0 @@
-The issue was that `ExplanationGenerator` (which is the final AI step that writes the job insights) also calls the Gemini LLM and was also hitting the 429 Rate Limit. 
-
-While we correctly added the infinite exponential backoff to `JobKnowledgeEngine` (which successfully recovered from the 429 and extracted the data), the `ExplanationGenerator` was still using the old logic: it immediately retried 3 times without any `await asyncio.sleep(delay)`, instantly exhausted its retries, and returned empty fallback explanations.
-
-I have updated `ExplanationGenerator` to use the exact same robust `while True` exponential backoff loop. Now, if it encounters a `429` or `RESOURCE_EXHAUSTED` error, it will pause (10s, 20s, 40s, 80s, etc.) and keep retrying indefinitely until the API has capacity, guaranteeing the entire pipeline completes successfully without missing any data.
-
-The frontend displayed 0 jobs because the fallbacks failed to map correctly to the UI due to the rate limit failure cascading through the presentation builder. With the exponential backoff applied to the explanation pipeline, the AI will wait and generate the proper insights for all jobs.

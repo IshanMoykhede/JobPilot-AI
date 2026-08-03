@@ -48,7 +48,7 @@ async def chat_with_agent(
         # If the graph executed a job search, build the rich API payload
         workspace_id = final_state.get("workspace_id")
         if workspace_id:
-            from app.presentation.job_search_response_assembler import JobSearchResponseAssembler
+            from app.job_search_agent.presentation.job_search_response_assembler import JobSearchResponseAssembler
             response_dto = JobSearchResponseAssembler.build_response(
                 db=db,
                 workspace_id=workspace_id,
@@ -113,13 +113,13 @@ async def get_conversation_messages(
         # If this is a JOB_RESULTS message and there is an active workspace, reconstruct the payload
         if msg_type == "JOB_RESULTS" and conversation.active_workspace_id:
             try:
-                from app.presentation.job_search_response_assembler import JobSearchResponseAssembler
+                from app.job_search_agent.presentation.job_search_response_assembler import JobSearchResponseAssembler
                 
                 exps = []
                 is_explanations_msg = isinstance(content, dict) and content.get("type") == "job_explanations"
                 
                 if is_explanations_msg:
-                    from app.explanation.schemas.explanation import JobExplanation
+                    from app.job_search_agent.explanation.schemas.explanation import JobExplanation
                     exps = [JobExplanation(**exp) for exp in content.get("explanations", [])]
                 
                 # Only inject payload if it's the explanations message (which has the rich data)

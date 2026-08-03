@@ -1,0 +1,22 @@
+=== CERTIFICATION NODE TESTS ===
+
+Test 1 (Initial Generation):
+Draft Array (state.drafts): [
+  [
+    {
+      "name": "AWS Certified Machine Learning \u2013 Specialty",
+      "issuer": "Amazon Web Services",
+      "date": "2023",
+      "details": "Validated skills in machine learning on the AWS cloud platform"
+    },
+    {
+      "name": "Certified ScrumMaster",
+      "issuer": "Scrum Alliance",
+      "date": "2022",
+      "details": "Demonstrated understanding of Scrum framework and practices"
+    }
+  ]
+]
+Assistant Message: The provided certifications are relevant to the AI Engineer role at Mastercard, with a focus on AI/ML and cloud computing. The AWS Certified Machine Learning – Specialty certification is particularly noteworthy as it aligns with the required capabilities for the job.
+
+Do these certifications accurately represent your qualifications for the AI Engineer position?

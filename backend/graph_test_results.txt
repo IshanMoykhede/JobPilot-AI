@@ -1,0 +1,9 @@
+=== LANGGRAPH ORCHESTRATOR TESTS ===
+
+Node Executed: intent_router
+Node Executed: projects
+State active_section: projects
+Assistant Message: These projects were chosen to highlight the candidate's experience in AI/ML, Cloud Computing, and Data Analytics, which are required capabilities for the target role. The projects demonstrate the candidate's ability to design and develop AI/ML models, collaborate with cross-functional teams, and work with various technologies such as Python, TensorFlow, and PyTorch.
+
+Do you approve of this draft or would you like to make any changes?
+Drafts Keys: ['projects']

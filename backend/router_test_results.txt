@@ -1,0 +1,25 @@
+=== INTENT ROUTER TESTS ===
+
+Test 1 (Start Section): 'Let's start working on the projects section.'
+Result: {
+  "action": "start_section",
+  "section": "projects"
+}
+
+Test 2 (Revise Section): 'Can you make the AI job matcher bullet points a bit shorter?'
+Result: {
+  "action": "revise_section",
+  "section": "projects"
+}
+
+Test 3 (Approve and Next): 'This looks perfect. Let's move on.'
+Result: {
+  "action": "approve_and_next",
+  "section": "skills"
+}
+
+Test 4 (Finish): 'Actually I have to go, let's stop here for today.'
+Result: {
+  "action": "finish",
+  "section": null
+}

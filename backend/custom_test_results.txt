@@ -1,0 +1,64 @@
+=== CUSTOM SECTION NODE TESTS ===
+
+Test 1 Request: 'Add my 1st place win at the Smart India Hackathon to an Achievements section. We built an AI agent.'
+Draft Array (state.drafts['custom']): [
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ]
+  }
+]
+Assistant Message: This custom section was generated based on the user's feedback about their win at the Smart India Hackathon. The bullet point highlights their achievement and relevance to the AI/ML domain.
+
+Does this accurately represent your achievement and would you like to add any other details?
+
+Test 2 Request: 'Now add a Research section. I published an IEEE paper on RAG pipelines.'
+Draft Array (state.drafts['custom']): [
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ]
+  },
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ],
+    "Research": [
+      "Published a paper in IEEE on RAG pipelines, showcasing expertise in AI/ML research and innovation."
+    ]
+  }
+]
+Assistant Message: This section was generated based on the user's feedback about publishing an IEEE paper on RAG pipelines. The bullet point highlights the user's research experience and expertise in AI/ML, which is relevant to the target role of AI Engineer at Mastercard.
+
+Does this meet your expectations, or would you like to add any other research experience?
+
+Test 3 Request: 'Finally add a Co-curricular activities section showing I was the GDSC Lead for my campus.'
+Draft Array (state.drafts['custom']): [
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ]
+  },
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ],
+    "Research": [
+      "Published a paper in IEEE on RAG pipelines, showcasing expertise in AI/ML research and innovation."
+    ]
+  },
+  {
+    "Achievements": [
+      "Won 1st place at the Smart India Hackathon by designing and developing an AI agent, demonstrating expertise in AI/ML and innovative problem-solving skills."
+    ],
+    "Research": [
+      "Published a paper in IEEE on RAG pipelines, showcasing expertise in AI/ML research and innovation."
+    ],
+    "Co-curricular Activities": [
+      "Served as the GDSC Lead for my campus, fostering a community of students interested in Google technologies and developing leadership skills."
+    ]
+  }
+]
+Assistant Message: This section was generated based on the user's feedback to add a Co-curricular activities section, highlighting their experience as a GDSC Lead.
+
+Is this an accurate representation of your experience as a GDSC Lead?

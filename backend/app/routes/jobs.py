@@ -99,8 +99,8 @@
 #             detail=f"Job retrieval failed: {str(e)}"
 #         )
 # 
-# from app.presentation.job_search_response_assembler import JobSearchResponseAssembler
-# from app.presentation.schemas.job_search import JobCardResponse, JobSearchResponse
+# from app.job_search_agent.presentation.job_search_response_assembler import JobSearchResponseAssembler
+# from app.job_search_agent.presentation.schemas.job_search import JobCardResponse, JobSearchResponse
 # 
 # PIPELINE_STAGE_MAP = {
 #     "CREATED": {"step": 0, "label": "Initializing workspace...", "icon": "rocket_launch"},

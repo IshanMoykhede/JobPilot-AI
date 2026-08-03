@@ -1,0 +1,95 @@
+=== SKILLS NODE TESTS ===
+
+Test 1 (Initial Generation):
+Draft Array (state.drafts): [
+  [
+    {
+      "category_name": "Programming Languages",
+      "skills": [
+        "Java",
+        "C++",
+        "JavaScript",
+        "Python"
+      ]
+    },
+    {
+      "category_name": "Frameworks",
+      "skills": [
+        "Node.js",
+        "Express.js",
+        "FastAPI",
+        "React.js"
+      ]
+    },
+    {
+      "category_name": "Databases",
+      "skills": [
+        "SQL",
+        "MongoDB",
+        "MySQL",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "category_name": "Cloud and DevOps",
+      "skills": [
+        "AWS",
+        "Git",
+        "GitHub",
+        "Docker",
+        "Cloudinary"
+      ]
+    },
+    {
+      "category_name": "AI and ML",
+      "skills": [
+        "LangGraph",
+        "RAG Pipelines",
+        "Transformers.js",
+        "WebLLM",
+        "Groq API",
+        "SerpAPI",
+        "OpenAI API"
+      ]
+    },
+    {
+      "category_name": "Security and Encryption",
+      "skills": [
+        "JWT Authentication",
+        "bcrypt",
+        "AES-GCM",
+        "PBKDF2",
+        "BIP39",
+        "OTP",
+        "Web Crypto API"
+      ]
+    },
+    {
+      "category_name": "Development Skills",
+      "skills": [
+        "Backend Development",
+        "Frontend Development",
+        "Full-Stack Development",
+        "REST API Design",
+        "API Design",
+        "Database Design"
+      ]
+    },
+    {
+      "category_name": "Integration and Architecture",
+      "skills": [
+        "Payment Integration",
+        "Notification Pipelines",
+        "System Architecture",
+        "AI API Integration",
+        "Local LLM Inference",
+        "OCR Processing",
+        "Caching"
+      ]
+    }
+  ]
+]
+Assistant Message: The skills have been categorized based on their relevance to the job requirements and the candidate's expertise. The categories include programming languages, frameworks, databases, cloud and DevOps, AI and ML, security and encryption, development skills, and integration and architecture.
+
+Do you approve of this draft or would you like to make any changes?

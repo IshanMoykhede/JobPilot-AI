@@ -7,8 +7,8 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.core.database import Base
 
-from app.resume_tailoring_agent.schemas.messaging import MessageRole, MessageType, MessageSource
-from app.resume_tailoring_agent.schemas.common import ResumeSectionType
+from app.resume_tailoring_agent_v2.schemas.messaging import MessageRole, MessageType, MessageSource
+from app.resume_tailoring_agent_v2.schemas.common import ResumeSectionType
 
 class Resume(Base):
     __tablename__ = "resumes"

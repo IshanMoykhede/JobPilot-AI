@@ -42,8 +42,13 @@ def route_intent(state: ResumeTailoringState) -> str:
         # If intent is anything unknown, we end the graph for now.
         return "end"
 
-def build_graph():
-    """Builds and compiles the Resume Tailoring Agent V2 StateGraph."""
+def build_graph(checkpointer=None):
+    """
+    Builds and compiles the Resume Tailoring Agent V2 StateGraph.
+    Args:
+        checkpointer: A LangGraph checkpointer (e.g., MemorySaver or PostgresSaver). 
+                      If None, the graph runs without state memory across threads.
+    """
     logger.info("[V2 Orchestrator] Building LangGraph Orchestrator")
     
     workflow = StateGraph(ResumeTailoringState)
@@ -90,11 +95,9 @@ def build_graph():
     workflow.add_edge("custom", END)
     workflow.add_edge("general_chat", END)
     
-    # 5. Compile with a Checkpointer (MemorySaver for thread-level state memory)
-    checkpointer = MemorySaver()
-    compiled_graph = workflow.compile(checkpointer=checkpointer)
-    
-    return compiled_graph
+    # 5. Compile with the provided checkpointer
+    app = workflow.compile(checkpointer=checkpointer)
+    return app
 
 # Expose a singleton instance of the compiled graph
 resume_tailoring_app = build_graph()

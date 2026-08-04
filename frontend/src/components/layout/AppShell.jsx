@@ -1,54 +1,36 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
 import TopHeader from "./TopHeader";
-import Breadcrumb from "./Breadcrumb";
 import UserAvatarMenu from "./UserAvatarMenu";
 import { useAuth } from "../../context/AuthContext";
 
 /**
  * Shared layout shell for all authenticated pages.
- * Renders: Sidebar | TopBar + Content
- *
- * Usage:
- *   <AppShell breadcrumbs={[{ label: "Dashboard" }]}>
- *     <DashboardContent />
- *   </AppShell>
+ * Renders: Floating Top NavBar + Full Width Content
  */
-export default function AppShell({ children, breadcrumbs = [], topRight = null }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+export default function AppShell({ children, topRight = null }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user } = useAuth();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-jp-bg-app">
-      <Sidebar
-        collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        mobileOpen={mobileMenuOpen}
-        onMobileClose={() => setMobileMenuOpen(false)}
+    <div className="flex flex-col h-screen overflow-hidden bg-jp-bg-app relative">
+      
+      {/* Floating Top Nav */}
+      <TopHeader
+        onMenuClick={() => setMobileMenuOpen(true)}
+        right={
+          topRight || (
+            <UserAvatarMenu name={user?.name || "User"} />
+          )
+        }
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
-        <TopHeader
-          onMenuClick={() => setMobileMenuOpen(true)}
-          left={
-            breadcrumbs.length > 0 ? (
-              <Breadcrumb items={breadcrumbs} />
-            ) : null
-          }
-          right={
-            topRight || (
-              <UserAvatarMenu name={user?.name || "User"} />
-            )
-          }
-        />
+      {/* Main Content Area */}
+      <main className="flex-1 overflow-y-auto w-full relative z-10 px-4 md:px-8 pb-8">
+        <div className="max-w-7xl mx-auto h-full animate-fade-in">
+          {children}
+        </div>
+      </main>
 
-        <main className="flex-1 overflow-y-auto bg-jp-bg-app text-jp-text-primary rounded-tl-2xl border-t border-l border-jp-border-subtle shadow-2xl relative z-10">
-          <div className="animate-fade-in h-full">
-            {children}
-          </div>
-        </main>
-      </div>
     </div>
   );
 }

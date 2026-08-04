@@ -85,9 +85,14 @@ def intent_router_node(state: ResumeTailoringState) -> ResumeTailoringState:
     
     intent = determine_intent(state)
     
+    # Auto-cleanup pending sections that have already been generated
+    for section in list(state.pending_sections):
+        if section in state.drafts and state.drafts[section]:
+            state.pending_sections.remove(section)
+    
     # Handle state updates based on action
     if intent.action == "approve_and_next":
-        # Remove the current section from pending list
+        # Remove the current section from pending list (if it somehow wasn't caught above)
         if state.current_section in state.pending_sections:
             state.pending_sections.remove(state.current_section)
             

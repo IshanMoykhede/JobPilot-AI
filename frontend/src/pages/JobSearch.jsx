@@ -281,7 +281,7 @@ export default function JobSearch() {
       { label: "Dashboard", href: "/dashboard" },
       { label: "AI Job Search" },
     ]}>
-      <div className="h-full flex overflow-hidden w-full">
+      <div className="h-[calc(100vh-64px)] w-[calc(100%+2rem)] md:w-[calc(100%+4rem)] -mx-4 md:-mx-8 flex overflow-hidden relative">
         
         {/* Sidebar: Search History */}
         <aside className={`${historySidebarCollapsed ? 'w-0 overflow-hidden opacity-0 border-transparent px-0' : 'w-[300px] border-r border-jp-border-subtle/50 opacity-100'} bg-jp-bg-app/40 backdrop-blur-2xl flex-col hidden lg:flex relative z-20 shadow-[1px_0_24px_rgba(0,0,0,0.2)] transition-all duration-300 ease-in-out`}>
@@ -397,8 +397,7 @@ export default function JobSearch() {
         </aside>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col relative">
-
+        <div className="flex-1 flex flex-col relative min-w-0">
           {/* Expand Sidebar Floating Button */}
           {historySidebarCollapsed && (
             <button 
@@ -410,20 +409,14 @@ export default function JobSearch() {
             </button>
           )}
           
-          {/* Header Search Bar (Morphs to Hero when Idle) */}
-          <div className={`shrink-0 z-10 transition-all duration-700 ease-in-out flex flex-col ${
-            mode === "idle" 
-              ? "flex-1 items-center justify-center p-6 lg:p-10 relative" 
-              : "p-6 lg:p-10 border-b border-jp-border-subtle bg-jp-bg-surface/80 backdrop-blur-xl sticky top-0"
-          }`}>
-            
-            {/* Background decorative blob (Idle Only) */}
-            {mode === "idle" && (
+          {/* Hero Content & Search Bar (Only shown in Idle mode) */}
+          {mode === "idle" && (
+            <div className="shrink-0 z-10 transition-all duration-700 ease-in-out flex flex-col flex-1 items-center justify-center p-6 lg:p-10 relative">
+              
+              {/* Background decorative blob (Idle Only) */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-jp-accent/10 blur-[120px] rounded-full pointer-events-none"></div>
-            )}
 
-            {/* Hero Content (Idle Only) */}
-            {mode === "idle" && (
+              {/* Hero Content (Idle Only) */}
               <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto mb-10 animate-fade-in relative w-full z-10">
                 <div className="relative w-28 h-28 mb-8 group">
                   <div className="absolute inset-0 bg-jp-accent/40 rounded-[2rem] blur-2xl group-hover:bg-jp-accent/60 transition-colors animate-pulse-subtle"></div>
@@ -442,37 +435,35 @@ export default function JobSearch() {
                   JobPilot AI will search the web, analyze job descriptions, and semantically match them against your unique candidate profile.
                 </p>
               </div>
-            )}
 
-            <form 
-              onSubmit={(e) => { e.preventDefault(); handleSearch(); }}
-              className={`relative mx-auto group transition-all duration-700 w-full z-10 ${mode === "idle" ? "max-w-2xl" : "max-w-4xl"}`}
-            >
-              {/* Animated glow behind the search bar */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-jp-accent via-jp-info to-jp-accent rounded-[1.25rem] blur opacity-20 group-hover:opacity-40 group-focus-within:opacity-70 group-focus-within:blur-md transition-all duration-500"></div>
-              
-              <div className="relative flex items-center bg-[#0a0a0c]/90 backdrop-blur-2xl border border-white/10 hover:border-white/20 focus-within:border-jp-accent/50 focus-within:ring-4 focus-within:ring-jp-accent/20 transition-all duration-300 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                <Icon name="auto_awesome" className="absolute left-6 text-[22px] text-jp-accent group-focus-within:text-jp-info transition-colors group-focus-within:animate-pulse-subtle" />
-                <input
-                  type="text"
-                  placeholder="What kind of role are you looking for? (e.g. Remote Next.js Developer in Europe)"
-                  className="w-full pl-14 pr-[120px] py-5 lg:py-6 bg-transparent text-[16px] text-jp-text-primary placeholder:text-jp-text-muted focus:outline-none focus:ring-0"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  disabled={mode === "loading" || mode === "failed"}
-                />
-                <button 
-                  type="submit" 
-                  disabled={mode === "loading" || mode === "failed" || !query.trim()}
-                  className="absolute right-2.5 h-[calc(100%-20px)] px-7 rounded-xl bg-gradient-to-r from-jp-accent to-jp-accent-strong text-white font-bold text-[14px] shadow-[0_0_20px_var(--color-jp-accent-glow)] hover:shadow-[0_0_30px_var(--color-jp-accent-glow)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none tracking-wide"
-                >
-                  {mode === "loading" ? "Searching..." : "Search"}
-                </button>
-              </div>
-            </form>
+              <form 
+                onSubmit={(e) => { e.preventDefault(); handleSearch(); }}
+                className="relative mx-auto group transition-all duration-700 w-full z-10 max-w-2xl"
+              >
+                {/* Animated glow behind the search bar */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-jp-accent via-jp-info to-jp-accent rounded-[1.25rem] blur opacity-20 group-hover:opacity-40 group-focus-within:opacity-70 group-focus-within:blur-md transition-all duration-500"></div>
+                
+                <div className="relative flex items-center bg-jp-bg-surface/90 backdrop-blur-2xl border border-white/10 hover:border-white/20 focus-within:border-jp-accent/50 focus-within:ring-4 focus-within:ring-jp-accent/20 transition-all duration-300 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                  <Icon name="auto_awesome" className="absolute left-6 text-[22px] text-jp-accent group-focus-within:text-jp-info transition-colors group-focus-within:animate-pulse-subtle" />
+                  <input
+                    type="text"
+                    placeholder="What kind of role are you looking for? (e.g. Remote Next.js Developer in Europe)"
+                    className="w-full pl-14 pr-[120px] py-5 lg:py-6 bg-transparent text-[16px] text-jp-text-primary placeholder:text-jp-text-muted focus:outline-none focus:ring-0"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    disabled={mode === "loading" || mode === "failed"}
+                  />
+                  <button 
+                    type="submit" 
+                    disabled={!query.trim()}
+                    className="absolute right-2.5 h-[calc(100%-20px)] px-7 rounded-xl bg-gradient-to-r from-jp-accent to-jp-accent-strong text-white font-bold text-[14px] shadow-[0_0_20px_var(--color-jp-accent-glow)] hover:shadow-[0_0_30px_var(--color-jp-accent-glow)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none tracking-wide"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
 
-            {/* Suggestions (Idle Only) */}
-            {mode === "idle" && (
+              {/* Suggestions (Idle Only) */}
               <div className="flex flex-wrap justify-center gap-3 mt-10 animate-fade-in w-full max-w-2xl mx-auto z-10">
                 {["DevOps in Pune", "Remote Frontend Developer", "Cloud Architect"].map(tag => (
                   <button
@@ -484,8 +475,26 @@ export default function JobSearch() {
                   </button>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* Floating New Search Button (When not idle) */}
+          {mode !== "idle" && (
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
+              <button 
+                onClick={() => {
+                  setMode("idle");
+                  setQuery("");
+                  setResults(null);
+                  setActiveThreadId(null);
+                }}
+                className="px-6 py-3 bg-jp-accent hover:bg-jp-accent-hover rounded-full text-white text-[14px] font-bold shadow-[0_8px_32px_rgba(99,102,241,0.4)] transition-all hover:-translate-y-1 flex items-center gap-2"
+              >
+                <Icon name="search" className="text-[20px]" />
+                New Search
+              </button>
+            </div>
+          )}
 
           {/* Dynamic Body (Only visible when not idle) */}
           {mode !== "idle" && (

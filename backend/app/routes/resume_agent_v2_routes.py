@@ -216,15 +216,19 @@ def chat_with_agent(
     db.add(ai_msg)
     db.commit()
     
+    # Filter pending_sections dynamically (remove any that are already in drafts)
+    final_pending = final_state.get("pending_sections", [])
+    filtered_pending = [sec for sec in final_pending if sec not in new_drafts or not new_drafts[sec]]
+    
     # If pending_sections is empty, mark Resume as COMPLETED
-    if not final_state.get("pending_sections"):
+    if not filtered_pending:
         resume.status = "COMPLETED"
         db.commit()
     
     return {
         "reply": ai_response,
         "drafts": new_drafts,
-        "pending_sections": final_state.get("pending_sections", [])
+        "pending_sections": filtered_pending
     }
 
 @router.get("/{resume_id}", summary="Get the complete state, drafts, and chat history of a V2 resume")
@@ -262,12 +266,14 @@ def get_resume(
     
     if checkpoint_tuple and checkpoint_tuple.checkpoint:
         # The state is stored inside the checkpoint dict depending on LangGraph version
-        # It's usually inside 'channel_values' or 'values'
         state_values = checkpoint_tuple.checkpoint.get("channel_values", {})
         if not state_values:
             state_values = checkpoint_tuple.checkpoint.get("values", {})
             
         pending_sections = state_values.get("pending_sections", [])
+        
+    # Filter out generated sections from pending
+    filtered_pending = [sec for sec in pending_sections if sec not in drafts or not drafts[sec]]
         
     return {
         "id": str(resume.id),
@@ -275,7 +281,7 @@ def get_resume(
         "status": resume.status,
         "drafts": drafts,
         "messages": formatted_messages,
-        "pending_sections": pending_sections
+        "pending_sections": filtered_pending
     }
 
 @router.get("/", summary="Get all V2 resumes for the current user")

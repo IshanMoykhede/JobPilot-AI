@@ -679,56 +679,29 @@ function Profile() {
             />
           </div>
         ) : (
-          <div className="flex flex-col lg:flex-row gap-8">
-            <div className="flex-1 max-w-3xl">
-              <div className="mb-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
                 <h2 className="text-2xl font-semibold text-jp-text-primary tracking-tight">Profile Settings</h2>
                 <p className="text-[14px] text-jp-text-secondary mt-1">Manage your career profile and job preferences.</p>
               </div>
-
-              <ProfileEditor
-                profileData={profileData}
-                setProfileData={setProfileData}
-                user={user}
-                editingSection={editingSection}
-                setEditingSection={setEditingSection}
-                handleSaveProfileChanges={handleSaveProfileChanges}
-              />
+              <button
+                onClick={() => toast.info('🚀 Feature coming soon!')}
+                className="px-5 py-2.5 bg-jp-accent hover:bg-jp-accent-hover text-white rounded-xl flex items-center justify-center gap-2 text-[13px] font-bold shadow-lg shadow-jp-accent/20 transition-all"
+              >
+                <Icon name="auto_awesome" className="text-[18px]" />
+                View AI Career Agent
+              </button>
             </div>
 
-            <div className="w-full lg:w-[300px] shrink-0 space-y-6">
-              <div className="p-6 border border-jp-border rounded-2xl bg-jp-bg-surface shadow-sm text-center sticky top-6">
-                <div className="relative w-28 h-28 mx-auto mb-4 flex items-center justify-center">
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle cx="56" cy="56" r="48" className="text-jp-bg-inset" stroke="currentColor" strokeWidth="8" fill="none" />
-                    <circle
-                      cx="56"
-                      cy="56"
-                      r="48"
-                      className="text-jp-accent transition-all duration-700"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="none"
-                      strokeDasharray="301.6"
-                      strokeDashoffset={301.6 - (301.6 * calculateStrength()) / 100}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <div className="absolute flex flex-col items-center">
-                    <span className="text-[20px] font-bold text-jp-text-primary">{Math.round(calculateStrength())}%</span>
-                  </div>
-                </div>
-                <h3 className="text-[15px] font-bold text-jp-text-primary mb-1">Profile Strength</h3>
-                <p className="text-[13px] text-jp-text-tertiary mb-6 px-2 leading-relaxed">Complete your profile to unlock accurate market insights.</p>
-                <button
-                  onClick={() => navigate('/insights')}
-                  className="w-full py-3 bg-jp-accent hover:bg-jp-accent-hover text-white rounded-xl flex items-center justify-center gap-2 text-[13px] font-bold shadow-lg shadow-jp-accent/20 transition-all"
-                >
-                  <Icon name="auto_awesome" className="text-[18px]" />
-                  View AI Career Agent
-                </button>
-              </div>
-            </div>
+            <ProfileEditor
+              profileData={profileData}
+              setProfileData={setProfileData}
+              user={user}
+              editingSection={editingSection}
+              setEditingSection={setEditingSection}
+              handleSaveProfileChanges={handleSaveProfileChanges}
+            />
           </div>
         )}
       </div>

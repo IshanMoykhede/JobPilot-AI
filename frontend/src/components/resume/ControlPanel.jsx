@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Icon from '../common/Icon';
 
-function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSendMessage, onStartGeneration, onRetry, onCancel }) {
+function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSendMessage, onStartGeneration, onRetry, onCancel, onDownloadPdf }) {
   const [inputText, setInputText] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [userQuery, setUserQuery] = useState('');
@@ -50,17 +50,42 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
     }
   };
 
+  const allSectionsDone = resumeState && (!resumeState.pending_sections || resumeState.pending_sections.length === 0);
+
   return (
     <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="p-4 border-b border-jp-border-subtle bg-jp-bg-app">
-        <h2 className="text-[16px] font-semibold text-jp-text-primary flex items-center gap-2">
-          <Icon name="auto_awesome" className="text-jp-accent text-[20px]" />
-          Resume Tailoring AI
-        </h2>
-        <p className="text-[12px] text-jp-text-secondary mt-1">Generating section by section</p>
-      </div>
-      
+      {/* Pending Sections Badges */}
+      {(resumeState || isGenerating) && (
+        <div className="p-5 bg-white/[0.02] border-b border-white/10 backdrop-blur-md shadow-sm z-10 relative shrink-0">
+          <div className="flex items-center gap-2.5 mb-3.5">
+            <Icon name="assignment" className="text-[16px] text-indigo-400" />
+            <h3 className="text-[13px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300 tracking-wider uppercase">Pending Sections</h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {resumeState?.pending_sections?.map((section, idx) => (
+              <span key={idx} className="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-[11px] font-bold tracking-wider uppercase px-2.5 py-1.5 rounded-lg shadow-[0_0_10px_rgba(99,102,241,0.1)] transition-all duration-300 hover:bg-indigo-500/20 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+                {section.replace('_', ' ')}
+              </span>
+            ))}
+            {allSectionsDone && (
+              <span className="text-emerald-400 text-[12px] font-bold tracking-wider uppercase flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-lg shadow-[0_0_15px_rgba(52,211,153,0.1)]">
+                <Icon name="check_circle" className="text-[16px]" /> All Sections Drafted!
+              </span>
+            )}
+          </div>
+          {/* Download PDF Button */}
+          {allSectionsDone && onDownloadPdf && (
+            <button
+              onClick={onDownloadPdf}
+              className="mt-4 w-full py-3 flex items-center justify-center gap-2.5 rounded-2xl text-[13px] font-bold tracking-wide uppercase bg-gradient-to-r from-indigo-500 to-purple-600 text-white border border-white/10 shadow-[0_0_25px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
+            >
+              <Icon name="download" className="text-[18px]" />
+              Download Resume PDF
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Setup View if not started */}
       {!resumeState && !isGenerating && (
         <div className="flex-1 p-5 flex flex-col justify-start overflow-y-auto">
@@ -102,7 +127,7 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
 
       {/* Chat History (Only show once started) */}
       {(resumeState || isGenerating) && (
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 hide-scrollbar relative">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 hide-scrollbar relative">
         {resumeState?.messages?.map((msg, idx) => {
           // Skip system internal workflow messages unless they are human requests or user replies
           if (msg.role === 'SYSTEM' && msg.message_type !== 'HUMAN_INPUT_REQUEST') return null;
@@ -110,11 +135,11 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
           const isUser = msg.role === 'USER' || msg.role === 'user';
           
           return (
-            <div key={idx} className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} group animate-in slide-in-from-bottom-2 duration-300`}>
-              <div className={`max-w-[85%] p-3.5 rounded-2xl text-[13px] shadow-lg ${
+            <div key={idx} className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} group animate-in slide-in-from-bottom-3 duration-500 ease-out`}>
+              <div className={`max-w-[85%] p-4 rounded-[20px] text-[13.5px] font-medium leading-relaxed shadow-xl ${
                 isUser 
-                  ? 'bg-gradient-to-br from-jp-accent to-jp-accent-hover text-white rounded-br-sm shadow-jp-accent/20 border border-jp-accent/50' 
-                  : 'bg-white/5 backdrop-blur-md border border-white/10 text-gray-200 rounded-bl-sm'
+                  ? 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-br-sm shadow-indigo-500/20 border border-white/10' 
+                  : 'bg-white/10 backdrop-blur-xl border border-white/20 text-slate-100 rounded-bl-sm shadow-black/10'
               }`}>
                 {msg.content}
               </div>
@@ -122,12 +147,13 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
           );
         })}
         {isGenerating && !waitingForUser && (
-          <div className="flex items-start animate-in fade-in duration-300">
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl rounded-bl-sm shadow-lg">
+          <div className="flex items-start animate-in fade-in duration-500">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-4.5 rounded-[20px] rounded-bl-sm shadow-xl flex items-center gap-2">
+              <span className="text-[12px] font-semibold text-indigo-300 uppercase tracking-widest mr-1">AI Thinking</span>
               <span className="flex gap-1.5 items-center">
-                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]"></span>
-                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]" style={{ animationDelay: '0.15s' }}></span>
-                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]" style={{ animationDelay: '0.3s' }}></span>
+                <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-[bounce_1s_infinite] shadow-[0_0_8px_rgba(129,140,248,0.6)]"></span>
+                <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-[bounce_1s_infinite] shadow-[0_0_8px_rgba(129,140,248,0.6)]" style={{ animationDelay: '0.15s' }}></span>
+                <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-[bounce_1s_infinite] shadow-[0_0_8px_rgba(129,140,248,0.6)]" style={{ animationDelay: '0.3s' }}></span>
               </span>
             </div>
           </div>
@@ -138,16 +164,16 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
 
       {/* Input Area */}
       {(resumeState || isGenerating || error) && (
-        <div className="p-4 bg-white/[0.02] border-t border-white/5 backdrop-blur-xl flex flex-col gap-3">
+        <div className="p-5 bg-white/[0.03] border-t border-white/10 backdrop-blur-2xl flex flex-col gap-3 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] z-10 relative">
           {error && (
-            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 flex items-start gap-3 shadow-lg shadow-red-500/5">
-              <Icon name="error" className="text-red-400 text-[18px] mt-0.5 animate-pulse" />
+            <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex items-start gap-3 shadow-lg shadow-red-500/5 backdrop-blur-md">
+              <Icon name="error" className="text-red-400 text-[20px] mt-0.5 animate-pulse" />
               <div className="flex-1">
-                <h4 className="text-red-400 text-[13px] font-semibold mb-1">Generation Error</h4>
-                <p className="text-red-300/80 text-[12px] leading-relaxed mb-3">{error}</p>
+                <h4 className="text-red-400 text-[13px] font-bold tracking-wide uppercase mb-1">Generation Error</h4>
+                <p className="text-red-300/90 text-[12.5px] leading-relaxed mb-3 font-medium">{error}</p>
                 <button 
                   onClick={onRetry}
-                  className="bg-red-500 hover:bg-red-600 text-white text-[12px] font-medium py-1.5 px-4 rounded-lg transition-colors flex items-center gap-2 shadow-md shadow-red-500/20"
+                  className="bg-red-500 hover:bg-red-600 text-white text-[12px] font-bold tracking-wide uppercase py-2 px-5 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-[0_0_15px_rgba(239,68,68,0.3)] hover:shadow-[0_0_25px_rgba(239,68,68,0.5)]"
                 >
                   <Icon name="refresh" className="text-[14px]" />
                   Retry Generation
@@ -159,31 +185,31 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
             <button 
               type="button"
               onClick={onCancel}
-              className="w-full bg-red-500/5 hover:bg-red-500/10 text-red-400 border border-red-500/20 text-[12px] font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-[12px] font-bold tracking-wide uppercase py-3 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2"
             >
               <Icon name="stop" className="text-[16px]" />
               Stop Generation
             </button>
           )}
-          <form onSubmit={handleSubmit} className="relative group">
+          <form onSubmit={handleSubmit} className="relative group/input">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               disabled={isGenerating && !waitingForUser}
               placeholder={waitingForUser ? "Reply to the AI..." : (isGenerating ? "Agent is working..." : "Message the AI...")}
-              className={`w-full py-3 pl-4 pr-12 rounded-xl text-[13px] border focus:outline-none transition-all duration-300 shadow-inner ${
+              className={`w-full py-4 pl-5 pr-14 rounded-[20px] text-[13.5px] border-2 focus:outline-none transition-all duration-500 shadow-inner font-medium ${
                 waitingForUser || !isGenerating
-                  ? 'bg-black/20 border-white/10 text-white placeholder-gray-500 focus:border-jp-accent/50 focus:bg-black/40'
-                  : 'bg-black/10 border-transparent text-gray-500 cursor-not-allowed'
+                  ? 'bg-black/40 border-white/10 text-white placeholder-gray-400 focus:border-indigo-500/60 focus:bg-black/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]'
+                  : 'bg-black/20 border-transparent text-gray-600 cursor-not-allowed'
               }`}
             />
             <button 
               type="submit"
               disabled={!inputText.trim() || (isGenerating && !waitingForUser)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg bg-jp-accent text-white disabled:opacity-50 hover:bg-jp-accent-hover transition-all shadow-md shadow-jp-accent/20 group-focus-within:scale-105"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-[14px] bg-gradient-to-br from-indigo-500 to-purple-600 text-white disabled:opacity-40 disabled:grayscale transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0.4)] hover:shadow-[0_0_25px_rgba(99,102,241,0.7)] hover:scale-105 active:scale-95"
             >
-              <Icon name="send" className="text-[14px] ml-0.5" />
+              <Icon name="send" className="text-[16px] ml-1" />
             </button>
           </form>
         </div>

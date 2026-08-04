@@ -84,7 +84,7 @@ def summary_section_node(state: ResumeTailoringState) -> ResumeTailoringState:
         # 1. Append the new draft content (the raw string) to the section's version history
         if "summary" not in state.drafts:
             state.drafts["summary"] = []
-        state.drafts["summary"].append([result.content])
+        state.drafts["summary"].append(result.content)
         
         # 2. Construct the conversational assistant reply
         reply_parts = [result.explanation, result.question]

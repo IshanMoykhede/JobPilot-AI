@@ -8,17 +8,17 @@
 
 /* ── Tailwind v4 Theme ─────────────────────────────────────── */
 @theme {
-  /* Colors - Backgrounds (Obsidian/Deep Dark) */
-  --color-jp-bg-app: #030305;
-  --color-jp-bg-surface: #0a0a0c;
-  --color-jp-bg-raised: #121214;
-  --color-jp-bg-overlay: #1a1a1e;
-  --color-jp-bg-inset: #000000;
+  /* Colors - Backgrounds (Vibrant Navy Dark) */
+  --color-jp-bg-app: #0f111a;
+  --color-jp-bg-surface: #161925;
+  --color-jp-bg-raised: #1e2233;
+  --color-jp-bg-overlay: #262b3d;
+  --color-jp-bg-inset: #08090e;
 
   /* Colors - Borders */
-  --color-jp-border: rgba(255, 255, 255, 0.08);
-  --color-jp-border-subtle: rgba(255, 255, 255, 0.04);
-  --color-jp-border-active: rgba(255, 255, 255, 0.15);
+  --color-jp-border: rgba(255, 255, 255, 0.12);
+  --color-jp-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-jp-border-active: rgba(255, 255, 255, 0.25);
 
   /* Colors - Text */
   --color-jp-text-primary: #ffffff;
@@ -489,4 +489,78 @@ textarea:focus-visible {
 /* ── Page transition ───────────────────────────────────────── */
 .jp-page-enter {
   animation: fade-in 0.15s ease forwards;
+}
+
+/* ── Print Styles (Resume PDF) ─────────────────────────────── */
+@media print {
+  /* Reset the page to white with NO margins to remove browser headers/footers */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* Hide everything except the resume preview */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* The printRef wrapper and its children become visible */
+  [data-print-target],
+  [data-print-target] * {
+    visibility: visible !important;
+  }
+
+  [data-print-target] {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    /* Add the margin back as padding so content doesn't hit the paper edge */
+    padding: 0.4in !important; 
+    margin: 0 !important;
+    /* Scale down the entire resume to help it fit on a single page */
+    zoom: 0.75 !important;
+  }
+
+  /* Strip decorative styles from the paper */
+  [data-print-target] > div {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    ring: none !important;
+    outline: none !important;
+    border: none !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Hide version switchers, edit buttons, and decorative gradients during print */
+  .group\/header button,
+  .group\/header .version-switcher,
+  .group\/paper > div:first-child {
+    display: none !important;
+  }
+
+  /* Ensure text is black for maximum readability */
+  [data-print-target] h1,
+  [data-print-target] h2,
+  [data-print-target] h3,
+  [data-print-target] p,
+  [data-print-target] li,
+  [data-print-target] span,
+  [data-print-target] a,
+  [data-print-target] div {
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Keep section header borders */
+  .group\/header {
+    border-bottom-color: #1e293b !important;
+  }
+
+  /* Force links to show as text, not colored */
+  [data-print-target] a {
+    text-decoration: none !important;
+  }
 }

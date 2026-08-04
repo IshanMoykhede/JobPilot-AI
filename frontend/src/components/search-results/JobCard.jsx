@@ -5,7 +5,7 @@ import CircularProgress from "../common/CircularProgress";
 import { Card } from "../ui/Card";
 import Button from "../ui/Button";
 
-export default function JobCard({ job, onGenerateResume }) {
+export default function JobCard({ job, onGenerateResume, isGenerating = false }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const score = Math.round(job.final_score || 0);
   const isHighlyRecommended = job.rank <= 3;
@@ -116,9 +116,15 @@ export default function JobCard({ job, onGenerateResume }) {
             </Button>
 
             {/* Tailor Resume */}
-            <Button variant="primary" size="sm" onClick={onGenerateResume} className="w-full md:w-auto h-9 px-5 shadow-[0_0_12px_var(--color-jp-accent-glow)] whitespace-nowrap">
-              <Icon name="bolt" className="text-[16px] mr-1.5" />
-              Tailor Resume
+            <Button 
+              variant="primary" 
+              size="sm" 
+              onClick={onGenerateResume} 
+              disabled={isGenerating}
+              className="w-full md:w-auto h-9 px-5 shadow-[0_0_12px_var(--color-jp-accent-glow)] whitespace-nowrap"
+            >
+              <Icon name={isGenerating ? "autorenew" : "bolt"} className={`text-[16px] mr-1.5 ${isGenerating ? 'animate-spin' : ''}`} />
+              {isGenerating ? "Generating..." : "Tailor Resume"}
             </Button>
             
           </div>

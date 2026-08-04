@@ -215,6 +215,7 @@ def get_search_results(thread_id: str, db: Session = Depends(get_db), current_us
             knowledge = score.job_knowledge
             results.append({
                 "job_match_score_id": str(score.id),
+                "job_id": str(knowledge.id),
                 "title": knowledge.title,
                 "company": knowledge.company,
                 "location": knowledge.location,

@@ -1,11 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import Icon from '../components/common/Icon';
 import CircularProgress from '../components/common/CircularProgress';
 import SkillTag from '../components/common/SkillTag';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 function JobDetail() {
+  const navigate = useNavigate();
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleGenerateResume = async () => {
+    setIsGenerating(true);
+    try {
+      // In a real app, this job_id comes from the route params or location state.
+      // We pass a null job_id here to trigger the fallback logic in backend, 
+      // but the flow remains identical.
+      const startRes = await fetch(`${API_BASE_URL}/api/v2/resume/start`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          title: "Senior DevOps Architect - CloudStream",
+          job_id: null 
+        })
+      });
+
+      if (!startRes.ok) throw new Error("Failed to initialize resume session.");
+      const { resume_id } = await startRes.json();
+
+      // Navigate to the editor
+      navigate(`/resumes/edit/${resume_id}`);
+    } catch (err) {
+      console.error(err);
+      alert("Error generating resume");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <AppShell breadcrumbs={[
       { label: "Dashboard", href: "/dashboard" },
@@ -30,9 +66,13 @@ function JobDetail() {
           <div className="flex items-center gap-5 shrink-0">
             <CircularProgress percentage={89} size={56} strokeWidth={4} label="Match" />
             <div className="flex flex-col gap-2">
-              <button className="jp-btn jp-btn-primary">
-                <Icon name="bolt" className="text-[16px]" />
-                Generate Resume
+              <button 
+                className="jp-btn jp-btn-primary" 
+                onClick={handleGenerateResume}
+                disabled={isGenerating}
+              >
+                {isGenerating ? <Icon name="autorenew" className="text-[16px] animate-spin" /> : <Icon name="bolt" className="text-[16px]" />}
+                {isGenerating ? "Generating..." : "Generate Resume"}
               </button>
               <button className="jp-btn jp-btn-secondary">
                 Apply Now
@@ -199,9 +239,13 @@ function JobDetail() {
                     <option>Leadership & Strategy</option>
                   </select>
                 </div>
-                <button className="jp-btn jp-btn-primary w-full">
-                  <Icon name="bolt" className="text-[18px]" />
-                  Generate Tailored Resume
+                <button 
+                  className="jp-btn jp-btn-primary w-full"
+                  onClick={handleGenerateResume}
+                  disabled={isGenerating}
+                >
+                  {isGenerating ? <Icon name="autorenew" className="text-[18px] animate-spin" /> : <Icon name="bolt" className="text-[18px]" />}
+                  {isGenerating ? "Waking up AI Agent..." : "Generate Tailored Resume"}
                 </button>
                 <p className="text-[11px] text-center text-jp-text-muted">Takes ~15 seconds to rebuild with AI</p>
               </div>

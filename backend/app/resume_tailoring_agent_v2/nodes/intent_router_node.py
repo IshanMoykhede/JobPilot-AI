@@ -10,19 +10,15 @@ logger = logging.getLogger(__name__)
 
 # 1. Output Schema
 class RouterOutput(BaseModel):
-    action: Literal["start_section", "revise_section", "approve_and_next", "finish"] = Field(
+    action: Literal["start_section", "revise_section", "approve_and_next", "finish", "general_chat"] = Field(
         description="The action to take next."
     )
-    section: Optional[Literal[
-        "basic_info", "summary", "experience", "education", 
-        "skills", "projects", "certifications", "publications", 
-        "awards", "volunteer"
-    ]] = Field(default=None, description="The target section, if applicable.")
+    section: Optional[str] = Field(default=None, description="The target section (e.g., 'summary', 'projects', 'custom:co_curricular', 'general')")
 
 
 # 2. Router Prompt
 ROUTER_PROMPT = ChatPromptTemplate.from_messages([
-    ("system", """You are an Intent Router for a Resume Tailoring Agent. Determine the next action and target section based on the user's input.
+    ("system", """You are an Intent Router for an AI Resume Tailoring Agent. Determine the next action and target section based on the user's input.
 
 Inputs provided to you:
 - pending_sections: {pending_sections}
@@ -30,10 +26,16 @@ Inputs provided to you:
 - conversation_history (last 5 messages): {chat_history}
 
 Action Rules:
-- "start_section": User wants to begin a new section.
-- "revise_section": User requests edits or gives feedback on the current draft.
+- "start_section": User wants to begin a NEW section. If they ask for a section not in pending_sections (e.g. Co-Curricular, Achievements), output the section name with a 'custom:' prefix (e.g., 'custom:co_curricular').
+- "revise_section": User requests edits or gives feedback on the CURRENT draft. (Do not use this if they are trying to add a brand new custom section).
 - "approve_and_next": User approves the current draft and is ready to move on.
-- "finish": User explicitly stops the process, or approves when pending_sections is empty."""),
+- "general_chat": User asks a general question (e.g. "Who are you?", "What should I do?") that is NOT about drafting or revising a resume section.
+- "finish": User explicitly stops the process, or approves when pending_sections is empty.
+
+Target Section Rules:
+- If action is general_chat, section should be "general".
+- Core sections are: 'summary', 'experience', 'education', 'skills', 'projects', 'certifications'.
+- Any other section requested by the user MUST be prefixed with 'custom:' (e.g., 'custom:awards', 'custom:research')."""),
     ("user", "{latest_message}")
 ])
 
@@ -94,11 +96,16 @@ def intent_router_node(state: ResumeTailoringState) -> ResumeTailoringState:
         if not intent.section or intent.section not in state.pending_sections:
             intent.section = state.pending_sections[0] if state.pending_sections else None
             
-    # Simple routing logic for now: Just set active_section to whatever the user requested
-    if intent.section:
+    # Simple routing logic
+    if intent.action == "general_chat":
+        state.active_section = "general"
+        intent.section = "general"
+    elif intent.section:
         if intent.section not in ["summary", "projects", "skills", "experience", "education", "certifications", "general"]:
-            # If it's something like "awards", map it to "custom:awards"
-            state.active_section = f"custom:{intent.section}"
+            if not intent.section.startswith("custom:"):
+                state.active_section = f"custom:{intent.section}"
+            else:
+                state.active_section = intent.section
         else:
             state.active_section = intent.section
     else:

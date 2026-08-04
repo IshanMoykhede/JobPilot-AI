@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import AppShell from "../components/layout/AppShell";
 import Icon from "../components/common/Icon";
 import SkillTag from "../components/common/SkillTag";
@@ -35,6 +35,8 @@ export default function JobSearch() {
   const [editingId, setEditingId] = useState(null);
   const [editName, setEditName] = useState("");
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const navigate = useNavigate();
+  const [generatingJobId, setGeneratingJobId] = useState(null);
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -177,6 +179,42 @@ export default function JobSearch() {
       toast.error(e.message || "An error occurred");
       setSteps(prev => prev.map(s => s.status === 'active' ? { ...s, status: 'failed' } : s));
       setMode("failed");
+    }
+  };
+
+  const handleGenerateResume = async (jobId, jobTitle) => {
+    if (!jobId) {
+      toast.error("Job details missing, cannot generate resume.");
+      return;
+    }
+
+    setGeneratingJobId(jobId);
+    try {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      // 1. Start Session
+      const startRes = await fetch(`${API_BASE_URL}/api/v2/resume/start`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          title: `Tailored Resume for ${jobTitle}`,
+          job_id: jobId
+        })
+      });
+
+      if (!startRes.ok) throw new Error("Failed to initialize resume session.");
+      const { resume_id } = await startRes.json();
+
+      // 3. Navigate
+      navigate(`/resumes/edit/${resume_id}`);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message || "Error generating resume");
+    } finally {
+      setGeneratingJobId(null);
     }
   };
 
@@ -554,7 +592,12 @@ export default function JobSearch() {
 
                 <div id="results-container" className="max-w-5xl space-y-5 pb-8 pt-4">
                   {currentJobs.map((job) => (
-                    <JobCard key={job.job_match_score_id} job={job} onGenerateResume={() => {}} />
+                    <JobCard 
+                      key={job.job_match_score_id} 
+                      job={job} 
+                      onGenerateResume={() => handleGenerateResume(job.job_id, job.title)}
+                      isGenerating={generatingJobId === job.job_id}
+                    />
                   ))}
                 </div>
 

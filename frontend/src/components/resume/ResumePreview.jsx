@@ -18,37 +18,40 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
   const renderSectionHeader = (title, sectionType) => {
     const isEditing = editingSection === sectionType;
     return (
-      <div className="group relative border-b-2 border-gray-800 pb-1 mb-3 mt-6">
-        <h2 className="text-[14px] font-bold uppercase tracking-wider text-gray-900">{title}</h2>
+      <div className="group relative border-b border-gray-300 pb-1.5 mb-4 mt-8 transition-colors hover:border-gray-400">
+        <h2 className="text-[13px] font-bold uppercase tracking-widest text-gray-900">{title}</h2>
         <button 
           onClick={() => setEditingSection(isEditing ? null : sectionType)}
-          className="absolute right-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-medium text-jp-accent flex items-center gap-1 bg-jp-accent/10 px-2 py-0.5 rounded"
+          className={`absolute right-0 top-0 text-[11px] font-semibold text-jp-accent flex items-center gap-1.5 bg-jp-accent/5 hover:bg-jp-accent/10 px-2.5 py-1 rounded-md transition-all duration-300 ${isEditing ? 'opacity-100 scale-100' : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'}`}
         >
-          <Icon name="edit" className="text-[12px]" />
-          Edit
+          <Icon name="edit" className="text-[14px]" />
+          {isEditing ? 'Cancel' : 'Edit'}
         </button>
         
         {isEditing && (
           <form 
             onSubmit={(e) => handleEditSubmit(e, sectionType)}
-            className="absolute top-full left-0 right-0 mt-2 z-10 bg-white shadow-xl border border-jp-border rounded-lg p-3"
+            className="absolute top-full right-0 mt-2 z-50 bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-black/5 rounded-xl p-4 w-[320px] origin-top-right animate-in fade-in zoom-in-95 duration-200"
           >
-            <p className="text-[11px] text-gray-500 mb-2 font-normal normal-case">What would you like to change about this section?</p>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2 mb-3">
+              <Icon name="auto_awesome" className="text-jp-accent text-[16px]" />
+              <p className="text-[12px] text-gray-700 font-medium">How should the AI rewrite this?</p>
+            </div>
+            <div className="flex flex-col gap-2.5">
               <input 
                 type="text" 
                 value={editPrompt}
                 onChange={e => setEditPrompt(e.target.value)}
                 autoFocus
                 placeholder="e.g. Make it sound more senior..."
-                className="flex-1 border border-jp-border-subtle rounded px-2 py-1.5 text-[12px] focus:border-jp-accent focus:outline-none"
+                className="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-[13px] focus:border-jp-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-jp-accent/20 transition-all"
               />
               <button 
                 type="submit"
-                disabled={isGenerating}
-                className="bg-jp-accent text-white px-3 py-1.5 rounded text-[12px] font-medium hover:bg-jp-accent-hover disabled:opacity-50"
+                disabled={isGenerating || !editPrompt.trim()}
+                className="w-full bg-jp-accent text-white px-4 py-2 rounded-lg text-[13px] font-semibold shadow-md shadow-jp-accent/20 hover:bg-jp-accent-hover hover:shadow-lg disabled:opacity-50 transition-all flex justify-center items-center gap-2"
               >
-                Update
+                Apply Changes
               </button>
             </div>
           </form>
@@ -173,7 +176,7 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
   );
 
   return (
-    <div className="bg-white shadow-sm border border-gray-200 min-h-[1056px] w-full p-10 font-sans">
+    <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.2)] ring-1 ring-black/5 min-h-[1056px] w-full p-12 font-sans rounded-sm transition-all duration-500 relative group/paper">
       {/* Header Data from Personal Information section */}
       {(() => {
         const personalInfoSection = sections.find(s => s.section_type === 'PERSONAL_INFORMATION');
@@ -228,9 +231,38 @@ function ResumePreview({ resumeContent, onEditRequest, isGenerating }) {
       })()}
 
       {sections.length === 0 && !isGenerating && (
-        <div className="flex flex-col items-center justify-center h-[400px] text-gray-400 space-y-4">
-          <Icon name="article" className="text-[48px] opacity-20" />
-          <p className="text-[14px]">Click Generate to build your resume.</p>
+        <div className="flex flex-col items-center justify-center h-[600px] text-gray-400 space-y-6">
+          <div className="relative">
+            <div className="absolute inset-0 bg-jp-accent/20 blur-xl rounded-full"></div>
+            <Icon name="article" className="text-[64px] text-jp-accent/50 relative z-10" />
+          </div>
+          <div className="text-center">
+            <h3 className="text-[18px] font-medium text-gray-800 mb-2">Ready to craft your resume</h3>
+            <p className="text-[14px] text-gray-500">Share your target job description with the AI to get started.</p>
+          </div>
+        </div>
+      )}
+
+      {sections.length === 0 && isGenerating && (
+        <div className="flex flex-col items-center justify-center h-[600px] space-y-8 animate-in fade-in duration-700">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-32 h-32 border-4 border-jp-accent/20 rounded-full animate-[spin_3s_linear_infinite]"></div>
+            <div className="absolute w-24 h-24 border-4 border-t-jp-accent border-r-transparent border-b-transparent border-l-transparent rounded-full animate-[spin_1.5s_linear_infinite]"></div>
+            <Icon name="auto_awesome" className="text-[32px] text-jp-accent animate-pulse relative z-10" />
+          </div>
+          <div className="text-center space-y-3">
+            <h3 className="text-[18px] font-medium text-gray-800 flex items-center justify-center gap-2">
+              AI is drafting your resume
+              <span className="flex gap-0.5">
+                <span className="animate-bounce">.</span><span className="animate-bounce" style={{ animationDelay: '0.1s' }}>.</span><span className="animate-bounce" style={{ animationDelay: '0.2s' }}>.</span>
+              </span>
+            </h3>
+            <div className="w-[300px] space-y-2 opacity-50">
+              <div className="h-2 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-2 bg-gray-200 rounded animate-pulse w-5/6 mx-auto"></div>
+              <div className="h-2 bg-gray-200 rounded animate-pulse w-4/6 mx-auto"></div>
+            </div>
+          </div>
         </div>
       )}
 

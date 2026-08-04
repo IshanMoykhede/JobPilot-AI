@@ -98,41 +98,23 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
         </div>
       )}
 
-      {/* Progress Tracker (Only show once started) */}
-      {(resumeState || isGenerating) && (
-        <div className="p-4 border-b border-jp-border-subtle bg-jp-bg-raised">
-          <h3 className="text-[12px] font-medium text-jp-text-secondary uppercase tracking-wider mb-3">Generation Progress</h3>
-          <div className="space-y-2">
-            {SECTIONS.map(section => {
-              const status = getSectionStatus(section.id);
-              return (
-                <div key={section.id} className="flex items-center gap-3">
-                  {renderStatusIcon(status)}
-                  <span className={`text-[13px] ${status === 'completed' ? 'text-jp-text-primary' : 'text-jp-text-muted'}`}>
-                    {section.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+
 
       {/* Chat History (Only show once started) */}
       {(resumeState || isGenerating) && (
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-5 space-y-5 hide-scrollbar relative">
         {resumeState?.messages?.map((msg, idx) => {
           // Skip system internal workflow messages unless they are human requests or user replies
           if (msg.role === 'SYSTEM' && msg.message_type !== 'HUMAN_INPUT_REQUEST') return null;
           
-          const isUser = msg.role === 'USER';
+          const isUser = msg.role === 'USER' || msg.role === 'user';
           
           return (
-            <div key={idx} className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
-              <div className={`max-w-[85%] p-3 rounded-xl text-[13px] ${
+            <div key={idx} className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} group animate-in slide-in-from-bottom-2 duration-300`}>
+              <div className={`max-w-[85%] p-3.5 rounded-2xl text-[13px] shadow-lg ${
                 isUser 
-                  ? 'bg-jp-accent text-white rounded-br-sm' 
-                  : 'bg-jp-bg-app border border-jp-border text-jp-text-primary rounded-bl-sm'
+                  ? 'bg-gradient-to-br from-jp-accent to-jp-accent-hover text-white rounded-br-sm shadow-jp-accent/20 border border-jp-accent/50' 
+                  : 'bg-white/5 backdrop-blur-md border border-white/10 text-gray-200 rounded-bl-sm'
               }`}>
                 {msg.content}
               </div>
@@ -140,12 +122,12 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
           );
         })}
         {isGenerating && !waitingForUser && (
-          <div className="flex items-start">
-            <div className="bg-jp-bg-app border border-jp-border p-3 rounded-xl rounded-bl-sm">
-              <span className="flex gap-1">
-                <span className="w-1.5 h-1.5 bg-jp-accent rounded-full animate-bounce"></span>
-                <span className="w-1.5 h-1.5 bg-jp-accent rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
-                <span className="w-1.5 h-1.5 bg-jp-accent rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+          <div className="flex items-start animate-in fade-in duration-300">
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl rounded-bl-sm shadow-lg">
+              <span className="flex gap-1.5 items-center">
+                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]"></span>
+                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]" style={{ animationDelay: '0.15s' }}></span>
+                <span className="w-2 h-2 bg-jp-accent rounded-full animate-bounce shadow-[0_0_5px_var(--color-jp-accent)]" style={{ animationDelay: '0.3s' }}></span>
               </span>
             </div>
           </div>
@@ -156,16 +138,16 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
 
       {/* Input Area */}
       {(resumeState || isGenerating || error) && (
-        <div className="p-4 border-t border-jp-border-subtle bg-jp-bg-app flex flex-col gap-3">
+        <div className="p-4 bg-white/[0.02] border-t border-white/5 backdrop-blur-xl flex flex-col gap-3">
           {error && (
-            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 flex items-start gap-3">
-              <Icon name="error" className="text-red-500 text-[18px] mt-0.5" />
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 flex items-start gap-3 shadow-lg shadow-red-500/5">
+              <Icon name="error" className="text-red-400 text-[18px] mt-0.5 animate-pulse" />
               <div className="flex-1">
-                <h4 className="text-red-500 text-[13px] font-medium mb-1">Generation Error</h4>
-                <p className="text-red-400 text-[12px] leading-relaxed mb-3">{error}</p>
+                <h4 className="text-red-400 text-[13px] font-semibold mb-1">Generation Error</h4>
+                <p className="text-red-300/80 text-[12px] leading-relaxed mb-3">{error}</p>
                 <button 
                   onClick={onRetry}
-                  className="bg-red-500 hover:bg-red-600 text-white text-[12px] font-medium py-1.5 px-4 rounded transition-colors flex items-center gap-2"
+                  className="bg-red-500 hover:bg-red-600 text-white text-[12px] font-medium py-1.5 px-4 rounded-lg transition-colors flex items-center gap-2 shadow-md shadow-red-500/20"
                 >
                   <Icon name="refresh" className="text-[14px]" />
                   Retry Generation
@@ -177,31 +159,31 @@ function ControlPanel({ resumeState, isGenerating, waitingForUser, error, onSend
             <button 
               type="button"
               onClick={onCancel}
-              className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 text-[12px] font-medium py-2 rounded transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-red-500/5 hover:bg-red-500/10 text-red-400 border border-red-500/20 text-[12px] font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               <Icon name="stop" className="text-[16px]" />
               Stop Generation
             </button>
           )}
-          <form onSubmit={handleSubmit} className="relative">
+          <form onSubmit={handleSubmit} className="relative group">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               disabled={isGenerating && !waitingForUser}
               placeholder={waitingForUser ? "Reply to the AI..." : (isGenerating ? "Agent is working..." : "Message the AI...")}
-              className={`w-full py-2.5 pl-4 pr-12 rounded-lg text-[13px] border focus:outline-none transition-colors ${
+              className={`w-full py-3 pl-4 pr-12 rounded-xl text-[13px] border focus:outline-none transition-all duration-300 shadow-inner ${
                 waitingForUser || !isGenerating
-                  ? 'bg-jp-bg-raised border-jp-accent/50 text-jp-text-primary placeholder-jp-text-secondary'
-                  : 'bg-jp-bg-app border-jp-border-subtle text-jp-text-muted cursor-not-allowed'
+                  ? 'bg-black/20 border-white/10 text-white placeholder-gray-500 focus:border-jp-accent/50 focus:bg-black/40'
+                  : 'bg-black/10 border-transparent text-gray-500 cursor-not-allowed'
               }`}
             />
             <button 
               type="submit"
               disabled={!inputText.trim() || (isGenerating && !waitingForUser)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-md bg-jp-accent text-white disabled:opacity-50 hover:bg-jp-accent-hover transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg bg-jp-accent text-white disabled:opacity-50 hover:bg-jp-accent-hover transition-all shadow-md shadow-jp-accent/20 group-focus-within:scale-105"
             >
-              <Icon name="send" className="text-[16px]" />
+              <Icon name="send" className="text-[14px] ml-0.5" />
             </button>
           </form>
         </div>

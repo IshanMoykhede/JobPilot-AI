@@ -1,0 +1,28 @@
+{
+    "resume_id": "b6b059cd-a36c-45d1-b753-160969dc6264",
+    "drafts": {
+        "custom": [
+            {
+                "Introduction": []
+            }
+        ]
+    },
+    "messages": [
+        {
+            "role": "USER",
+            "content": "generate my resume"
+        },
+        {
+            "role": "ASSISTANT",
+            "content": "The user has requested to generate their resume, but no specific details were provided. To create a custom section, more information is needed.\n\nCan you please provide more details about what you would like to include in your resume, such as specific skills, experiences, or achievements?"
+        }
+    ],
+    "pending_sections": [
+        "summary",
+        "experience",
+        "education",
+        "skills",
+        "projects",
+        "certifications"
+    ]
+}

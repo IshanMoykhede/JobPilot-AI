@@ -66,28 +66,38 @@ client = TestClient(app)
 
 # 5. Run Tests
 print("\n--- TEST 1: POST /api/v2/resume/start ---")
-start_response = client.post("/api/v2/resume/start", json={"title": "My V2 Backend Test Resume"})
+start_payload = {
+    "title": "My V2 Backend Test Resume",
+    "message": "Draft my resume based on this job description."
+}
+start_response = client.post("/api/v2/resume/start", json=start_payload)
 print(f"Status Code: {start_response.status_code}")
 if start_response.status_code != 200:
     print(f"Error: {start_response.text}")
     sys.exit(1)
     
-resume_id = start_response.json()["resume_id"]
+data = start_response.json()
+resume_id = data["resume_id"]
 print(f"Successfully started session! Resume ID: {resume_id}")
+print(f"Initial AI Reply: {data.get('messages', [{}])[-1].get('content')}")
+print(f"Initial Draft Keys Generated: {list(data.get('drafts', {}).keys())}")
+print(f"Pending Sections Remaining: {data.get('pending_sections')}")
 
-print(f"\n--- TEST 2: POST /api/v2/resume/{resume_id}/chat (Turn 1) ---")
-chat_payload = {"message": "Let's start drafting!"}
-print(f"Sending message: '{chat_payload['message']}'...")
-chat_response = client.post(f"/api/v2/resume/{resume_id}/chat", json=chat_payload)
-print(f"Status Code: {chat_response.status_code}")
-if chat_response.status_code == 200:
-    data = chat_response.json()
-    print(f"AI Reply: {data.get('reply')}")
-    print(f"Pending Sections Remaining: {data.get('pending_sections')}")
-    print(f"Draft Keys Generated: {list(data.get('drafts', {}).keys())}")
-else:
-    print(f"Error: {chat_response.text}")
-    sys.exit(1)
+print("\n--- TEST 2: Simulate User sending 'next' 3 times to generate more sections ---")
+for i in range(3):
+    print(f"\n--- Turn {i+1} ---")
+    chat_payload = {"message": "Looks good! Next."}
+    print(f"Sending message: '{chat_payload['message']}'...")
+    chat_response = client.post(f"/api/v2/resume/{resume_id}/chat", json=chat_payload)
+    
+    if chat_response.status_code == 200:
+        data = chat_response.json()
+        print(f"AI Reply: {data.get('reply')}")
+        print(f"Draft Keys Generated So Far: {list(data.get('drafts', {}).keys())}")
+        print(f"Pending Sections Remaining: {data.get('pending_sections')}")
+    else:
+        print(f"Error: {chat_response.text}")
+        sys.exit(1)
 
 print(f"\n--- TEST 3: GET /api/v2/resume/{resume_id} ---")
 get_response = client.get(f"/api/v2/resume/{resume_id}")
@@ -97,7 +107,7 @@ if get_response.status_code == 200:
     print(f"Resume Title: {data['title']}")
     print(f"Resume Status: {data['status']}")
     print(f"Total Chat Messages: {len(data['messages'])}")
-    print(f"Draft Sections: {list(data['drafts'].keys())}")
+    print(f"All Draft Sections: {list(data['drafts'].keys())}")
 else:
     print(f"Error: {get_response.text}")
 

@@ -23,14 +23,18 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v2/resume", tags=["Resume Agent V2"])
 
+import uuid
+from app.job_search_agent.models.job_knowledge import JobKnowledge
+
 class StartTailoringRequest(BaseModel):
     title: Optional[str] = "Tailored Resume"
-    target_job_description: Optional[str] = None
+    job_id: Optional[uuid.UUID] = None
+    message: Optional[str] = "Draft my resume based on this job description."
 
 class ChatRequest(BaseModel):
     message: str
 
-@router.post("/start", summary="Initialize a new V2 Resume Tailoring Session")
+@router.post("/start", summary="Initialize a new V2 Resume Tailoring Session and generate first section")
 def start_session(
     req: StartTailoringRequest,
     db: Session = Depends(get_db),
@@ -54,18 +58,28 @@ def start_session(
     db.commit()
     
     # 2. Setup Initial LangGraph State
-    # Fetch Candidate Insights
     profile_id = current_user.candidate_profile.id if current_user.candidate_profile else None
     insights = None
     if profile_id:
         insights = db.query(CandidateInsights).filter(CandidateInsights.candidate_profile_id == profile_id).first()
     user_knowledge = insights.artifact_json if insights and insights.artifact_json else {}
     
-    # Construct JobKnowledge from the provided description
-    job_knowledge = {
-        "title": "Target Role",
-        "description": req.target_job_description or "General Software Engineering Role"
-    }
+    job_knowledge = {}
+    if req.job_id:
+        job = db.query(JobKnowledge).filter(JobKnowledge.id == req.job_id).first()
+        if job and job.raw_knowledge:
+            job_knowledge = job.raw_knowledge
+        elif job:
+            job_knowledge = {
+                "title": job.title,
+                "description": job.capabilities if job.capabilities else ""
+            }
+    
+    if not job_knowledge:
+        job_knowledge = {
+            "title": "Target Role",
+            "description": "General Software Engineering Role"
+        }
     
     initial_state = ResumeTailoringState(
         session_id=str(new_resume.id),
@@ -76,13 +90,67 @@ def start_session(
         drafts={}
     )
     
-    # 3. Save initial state to Checkpointer (so it's ready for the first chat)
+    # 3. Setup Checkpointer and Graph
     checkpointer = get_checkpointer()
     agent_app = build_graph(checkpointer=checkpointer)
     config = {"configurable": {"thread_id": str(new_resume.id)}}
+    
+    # Initialize state in checkpointer
     agent_app.update_state(config, initial_state.model_dump())
     
-    return {"resume_id": str(new_resume.id)}
+    # 4. Save Dummy User Message to DB
+    user_msg = ResumeMessageModel(
+        id=str(uuid.uuid4()),
+        resume_id=new_resume.id,
+        role=MessageRole.USER,
+        message_type=MessageType.USER_QUERY,
+        from_node=MessageSource.USER,
+        to_node=MessageSource.SYSTEM,
+        content=req.message
+    )
+    db.add(user_msg)
+    db.commit()
+
+    # 5. Invoke Graph with the Dummy Message
+    logger.info(f"Invoking V2 Graph (Initial Run) for resume {new_resume.id}...")
+    input_state = {"messages": [{"role": "user", "content": req.message}]}
+    final_state = agent_app.invoke(input_state, config)
+    
+    # 6. Sync outputs back to business DB
+    new_drafts = final_state.get("drafts", {})
+    messages = final_state.get("messages", [])
+    
+    new_content.data = new_drafts
+    db.commit()
+        
+    ai_response = "I have started drafting your resume."
+    if messages and messages[-1].get("role") == "assistant":
+        ai_response = messages[-1].get("content")
+        
+    ai_msg = ResumeMessageModel(
+        id=str(uuid.uuid4()),
+        resume_id=new_resume.id,
+        role=MessageRole.ASSISTANT,
+        message_type=MessageType.WORKFLOW_RESPONSE,
+        from_node=MessageSource.SYSTEM,
+        to_node=MessageSource.USER,
+        content=ai_response
+    )
+    db.add(ai_msg)
+    db.commit()
+    
+    # Format messages for frontend
+    formatted_messages = [
+        {"role": "USER", "content": req.message},
+        {"role": "ASSISTANT", "content": ai_response}
+    ]
+    
+    return {
+        "resume_id": str(new_resume.id),
+        "drafts": new_drafts,
+        "messages": formatted_messages,
+        "pending_sections": final_state.get("pending_sections", [])
+    }
 
 @router.post("/{resume_id}/chat", summary="Send a message to the V2 Agent")
 def chat_with_agent(
@@ -209,3 +277,36 @@ def get_resume(
         "messages": formatted_messages,
         "pending_sections": pending_sections
     }
+
+@router.get("/", summary="Get all V2 resumes for the current user")
+def get_all_resumes(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    resumes = db.query(Resume).filter(Resume.user_id == current_user.id).order_by(Resume.created_at.desc()).all()
+    
+    result = []
+    for r in resumes:
+        result.append({
+            "id": str(r.id),
+            "title": r.title,
+            "status": r.status,
+            "created_at": r.created_at
+        })
+        
+    return result
+
+@router.delete("/{resume_id}", summary="Delete a V2 resume and all its data")
+def delete_resume(
+    resume_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    resume = db.query(Resume).filter(Resume.id == resume_id, Resume.user_id == current_user.id).first()
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found")
+        
+    db.delete(resume)
+    db.commit()
+    
+    return {"message": "Resume deleted successfully"}

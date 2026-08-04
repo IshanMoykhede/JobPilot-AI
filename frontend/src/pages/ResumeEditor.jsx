@@ -26,7 +26,7 @@ function ResumeEditor() {
       const fetchResumeState = async () => {
         setIsFetchingState(true);
         try {
-          const response = await fetch(`${API_BASE_URL}/api/resume/${id}`, {
+          const response = await fetch(`${API_BASE_URL}/api/v2/resume/${id}`, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -95,11 +95,23 @@ function ResumeEditor() {
     setWaitingForUser(false);
     setError(null);
     
+    // Optimistically add user message
+    const newUserMsg = { 
+      id: Date.now().toString(), 
+      role: 'user', 
+      content: message,
+      created_at: new Date().toISOString()
+    };
+    
+    setResumeState(prev => ({
+      ...prev,
+      messages: [...(prev.messages || []), newUserMsg]
+    }));
+    
     try {
-      // The resume state ID is used to continue the graph
-      const resumeId = resumeState.resume_id;
+      const targetId = resumeState.id || resumeState.resume_id || id;
       
-      const response = await fetch(`${API_BASE_URL}/api/resume/${resumeId}/continue/stream`, {
+      const response = await fetch(`${API_BASE_URL}/api/v2/resume/${targetId}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,10 +126,26 @@ function ResumeEditor() {
         throw new Error('Failed to send message');
       }
 
-      await readStream(response.body.getReader());
+      const data = await response.json();
+      
+      const newAiMsg = {
+        id: Date.now().toString() + 'ai',
+        role: 'assistant',
+        content: data.reply,
+        created_at: new Date().toISOString()
+      };
+      
+      setResumeState(prev => ({
+        ...prev,
+        drafts: data.drafts,
+        pending_sections: data.pending_sections,
+        messages: [...(prev.messages || []), newAiMsg]
+      }));
+
     } catch (err) {
       console.error(err);
       setError(err.message || "An error occurred");
+    } finally {
       setIsGenerating(false);
     }
   };
@@ -240,15 +268,87 @@ function ResumeEditor() {
     }
   };
 
+  const mapDraftsToResumeContent = (drafts) => {
+    if (!drafts) return null;
+    const sections = [];
+    
+    // Helper to safely get the latest version from a draft array
+    const getLatest = (draftArray) => {
+      if (!draftArray || !Array.isArray(draftArray) || draftArray.length === 0) return null;
+      return draftArray[draftArray.length - 1];
+    };
+
+    // Helper to map V2 keys to V1 keys for ResumePreview
+    const mapItems = (items, type) => {
+      if (!items || !Array.isArray(items)) return items;
+      return items.map(item => {
+        const mapped = { ...item };
+        // Map tech_stack to technologies
+        if (mapped.tech_stack) {
+          mapped.technologies = mapped.tech_stack;
+        }
+        // Map bullet_points to highlights
+        if (mapped.bullet_points) {
+          mapped.highlights = mapped.bullet_points;
+        }
+        return mapped;
+      });
+    };
+
+    const basicInfo = getLatest(drafts.basic_info);
+    if (basicInfo) sections.push({ section_type: 'PERSONAL_INFORMATION', content: basicInfo });
+
+    const summary = getLatest(drafts.summary);
+    if (summary) sections.push({ section_type: 'SUMMARY', content: summary });
+
+    const experience = getLatest(drafts.experience);
+    if (experience) sections.push({ section_type: 'EXPERIENCE', content: mapItems(experience, 'experience') });
+
+    const projects = getLatest(drafts.projects);
+    if (projects) sections.push({ section_type: 'PROJECTS', content: mapItems(projects, 'projects') });
+
+    const skills = getLatest(drafts.skills);
+    if (skills) sections.push({ section_type: 'SKILLS', content: skills });
+
+    const education = getLatest(drafts.education);
+    if (education) sections.push({ section_type: 'EDUCATION', content: education });
+
+    const certifications = getLatest(drafts.certifications);
+    if (certifications) sections.push({ section_type: 'CERTIFICATIONS', content: certifications });
+
+    // Handle Custom Sections (which is a dictionary in the latest version of drafts.custom)
+    const customSectionsDict = getLatest(drafts.custom);
+    if (customSectionsDict && typeof customSectionsDict === 'object') {
+      Object.keys(customSectionsDict).forEach(key => {
+        if (key && customSectionsDict[key] && customSectionsDict[key].length > 0) {
+          // You can map to CO_CURRICULAR or just CUSTOM depending on your UI support.
+          // ResumePreview might just need section_type and section_name
+          sections.push({ 
+            section_type: 'CUSTOM', 
+            section_name: key, // Pass the dynamic name down
+            content: mapItems(customSectionsDict[key], 'custom') 
+          });
+        }
+      });
+    }
+
+    return { sections };
+  };
+
+  const previewContent = resumeState?.resume_content || mapDraftsToResumeContent(resumeState?.drafts);
+
   return (
     <AppShell breadcrumbs={[
       { label: "Dashboard", href: "/dashboard" },
       { label: "Resumes", href: "/resumes" },
       { label: isNew ? "New Resume" : "Edit Resume" },
     ]}>
-      <div className="h-[calc(100vh-64px)] w-full flex overflow-hidden bg-jp-bg-app">
+      <div className="h-[calc(100vh-64px)] w-full flex overflow-hidden bg-jp-bg-app relative">
+        {/* Subtle dynamic background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-jp-accent/5 via-jp-bg-app to-jp-bg-app pointer-events-none" />
+        
         {/* Left Panel: Controls */}
-        <div className="w-[400px] border-r border-jp-border-subtle bg-jp-bg-raised flex flex-col relative">
+        <div className="w-[400px] border-r border-jp-border-subtle bg-jp-bg-raised/80 backdrop-blur-md flex flex-col relative z-10 shadow-[4px_0_24px_rgba(0,0,0,0.2)]">
           {isFetchingState && (
             <div className="absolute inset-0 bg-jp-bg-raised/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
               <Icon name="autorenew" className="animate-spin text-jp-accent text-3xl mb-2" />
@@ -268,10 +368,10 @@ function ResumeEditor() {
         </div>
         
         {/* Right Panel: Live Preview */}
-        <div className="flex-1 overflow-y-auto bg-jp-bg-app p-8 flex justify-center">
+        <div className="flex-1 overflow-y-auto p-12 flex justify-center relative z-0 hide-scrollbar">
           <div className="w-full max-w-4xl">
              <ResumePreview 
-               resumeContent={resumeState?.resume_content} 
+               resumeContent={previewContent} 
                onEditRequest={(section, prompt) => sendMessage(prompt, section)} 
                isGenerating={isGenerating}
              />

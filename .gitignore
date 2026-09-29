@@ -34,9 +34,20 @@ frontend/node_modules/
 .DS_Store
 Thumbs.db
 
-# Temp/test scripts
+# Temp/test scripts and redundant folders
 backend/check_imports.py
 backend/test_imports.py
 backend/drop_enums.py
 backend/e2e_validation_direct.py
 Pipeline_Validation_Report_Part_3.md
+
+# Unnecessary project files
+backend/alembic/
+backend/alembic.ini
+backend/.kiro/
+backend/test_outputs/
+backend/tests/
+backend/archive/
+backend/test_*.py
+backend/*_test_results.txt
+backend/*.json

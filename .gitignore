@@ -51,3 +51,4 @@ backend/archive/
 backend/test_*.py
 backend/*_test_results.txt
 backend/*.json
+backend/scripts/
